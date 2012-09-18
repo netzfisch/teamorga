@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kategorie:</b>
+  <%= @recurrence.event.category %>
+</p>
+
+<p>
+  <b>Datum:</b>
+  <%= @recurrence.scheduled_to.strftime("%d. %b. %y") %>
+</p>
+
+<p>
+  <b>Spieler:</b>
+  <ul>
+    <% @recurrence.users.each do |user| %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+</p>
+
+<p>
+  <b>Ort:</b>
+  <%= @recurrence.event.place %>
+</p>
+
+<p>
+  <b>Bemerkung:</b>
+  <%= @recurrence.event.remark %>
+</p>
+
+<%= link_to 'Destroy', @recurrence, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Edit', edit_event_recurrence_path(@recurrence) %> |
+<%= link_to 'Back', recurrences_path %>

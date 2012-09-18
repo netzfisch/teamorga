@@ -1,0 +1,27 @@
+<%= form_for(@recurrence) do |f| %>
+  <% if @recurrence.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recurrence.errors.count, "error") %> prohibited this recurrence from being saved:</h2>
+      
+      <ul>
+      <% @recurrence.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="checkbox">  
+    <%= f.label :Teilnahmer %><br /> 
+      <% for user in User.find(:all) %>  
+        <div>
+          <%= check_box_tag "recurrence[user_ids][]", user.id, @recurrence.users.include?(user) %>
+          <%= user.name %>
+        </div>
+      <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

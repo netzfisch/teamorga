@@ -1,0 +1,33 @@
+<h1>Listing events</h1>
+
+<table>
+  <tr>
+    <th>Kategorie</th>
+    <th>Datum</th>
+    <th>Uhrzeit</th>
+    <th>Wiederholung</th>
+    <th>Ort</th>
+    <th>Bemerkung</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= link_to event.category, event %></td>    
+    <td><%= event.base_date.strftime("%a. %d.%b.%Y") %></td>
+    <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
+    <td><%= event.interval(event.base_date, event.end_date) %></td> 
+    <td><%= event.place %></td>
+    <td><%= event.remark %></td>
+    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
+    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_event_path %>

@@ -1,0 +1,42 @@
+<h1>Listing recurrences</h1>
+ 
+<table>
+  <tr>
+    <th>Kategorie</th>
+    <th>Datum</th>
+    <th>Uhrzeit</th>
+    <th>Anzahl</th>
+      <% for user in User.find(:all) %>
+        <th>
+          <%= link_to_if current_user.name == user.name, user.name, edit_participation_path(user) %>
+        </th> 
+      <% end %>
+    <th>Ort</th>
+    <th>Bemerkung</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @recurrences.each do |recurrence| %>
+    <tr>
+      <td><%= link_to recurrence.event.category, recurrence.event %></td>    
+      <td><%= link_to recurrence.scheduled_to.strftime("%a. %d.%b.%Y"), recurrence %></td>
+      <td><%= recurrence.event.base_time.strftime("%H:%M Uhr") %></td>
+      <td><%= link_to recurrence.users.count, edit_recurrence_path(recurrence) %></td>   
+      <% for user in User.find(:all) %>
+        <td>
+          <%= check_box_tag "recurrence[user_id][]", user.id, recurrence.users.include?(user), :disabled => true %>
+        </td>
+      <% end %>
+      <td><%= recurrence.event.place %></td>
+      <td><%= recurrence.event.remark %></td>
+      <td><%= link_to 'Show', recurrence %></td>
+      <td><%= link_to 'Edit', edit_recurrence_path(recurrence) %></td>
+      <td><%= link_to 'Destroy', recurrence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New event', new_event_path %>

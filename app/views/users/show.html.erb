@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Trikotnummer:</b>
+  <%= @user.shirt_number %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Telefon:</b>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <b>Teilnahmen:</b>
+  <ul>
+    <% @user.recurrences.each do |user| %>
+      <li><%= user.scheduled_to.strftime("%d.%b.%Y") %> <%= user.event.category %></li>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

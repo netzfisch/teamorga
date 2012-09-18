@@ -1,0 +1,3 @@
+[1m[37m      invoke[0m  active_record
+[1m[32m      remove[0m    db/migrate/20120830201044_events_users.rb
+[1m[32m      create[0m    db/migrate/20120830201257_events_users.rb

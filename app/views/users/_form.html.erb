@@ -1,0 +1,44 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :Trikotnummer %><br />
+    <%= f.number_field :shirt_number %>
+  </div>
+  <div class="field">
+    <%= f.label :Email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :Telefon %><br />
+    <%= f.text_field :phone %>
+  </div>
+  
+  <div class="checkbox">  
+    <%= f.label :Teilnahmen %><br />  
+    <% for recurrence in Recurrence.find(:all) %>  
+      <div>
+        <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>
+        <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> 
+        <%= recurrence.event.category %>
+      </div>
+    <% end %>
+  </div> 
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
