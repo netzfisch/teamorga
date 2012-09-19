@@ -20,8 +20,8 @@
   <% @recurrences.each do |recurrence| %>
     <tr>
       <td><%= link_to recurrence.event.category, recurrence.event %></td>    
-      <td><%= link_to recurrence.scheduled_to.strftime("%a. %d.%b.%Y"), recurrence %></td>
-      <td><%= recurrence.event.base_time.strftime("%H:%M Uhr") %></td>
+      <td><%= link_to recurrence.scheduled_to.strftime("%a. %d.%m.%y"), recurrence %></td>
+      <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
       <td><%= link_to recurrence.users.count, edit_recurrence_path(recurrence) %></td>   
       <% for user in User.find(:all) %>
         <td>
@@ -30,8 +30,6 @@
       <% end %>
       <td><%= recurrence.event.place %></td>
       <td><%= recurrence.event.remark %></td>
-      <td><%= link_to 'Show', recurrence %></td>
-      <td><%= link_to 'Edit', edit_recurrence_path(recurrence) %></td>
       <td><%= link_to 'Destroy', recurrence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
