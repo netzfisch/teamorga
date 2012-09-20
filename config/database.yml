@@ -21,7 +21,7 @@ test:
 production:
   adapter: pg
   encoding: unicode
-  database: development
+  database: production
   pool: 5
 
 #production:
