@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
+  before_filter :correct_user, :except => [:index, :show, :new, :create]
+  
   # GET /users
   # GET /users.json
   def index
@@ -43,16 +45,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
 
-    #@event = Event.find(params[:event_id])
-    #@user = @event.users.create(params[:user])
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created / Signed up!' }
-        format.json { render json: @user, status: :created, location: @user }
+        session[:user_id] = @user.id
+        format.html { redirect_to edit_user_path(@user), notice: 'User was successfully created / Signed up!' }
       else
         format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -9,6 +9,25 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  
+  <style type="text/css">
+    .vertical {
+
+      line-height: 20px;
+      padding: 2px;
+      text-align: left;
+      vertical-align: top;
+      max-width:5px;
+      overflow:hidden;
+
+      -moz-transform:rotate(-90deg); 
+      -webkit-transform:rotate(-90deg);
+      -o-transform:rotate(-90deg);
+      -ms-transform:rotate(-90deg);
+      margin: 0px 0px 0px 0px; 
+    }
+  </style>
+  
 </head>
 
 <body>
@@ -16,41 +35,41 @@
   <div class="navbar navbar-fixed-top">  
     <div class="navbar-inner">  
       <div class="container">  
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".collapse">  
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">  
           <span class="icon-bar"></span>  
           <span class="icon-bar"></span>  
           <span class="icon-bar"></span>  
-        </a>  
-        <a class="brand" href="#">ATSV</a>  
-        <div class="nav-collapse">  
+        </a>
+        <%= link_to "ATSV", root_path, class: "brand" %>        
+        <div class="nav-collapse">
           <ul class="nav">
-            <li class="divider-vertical"></li>       
-            <li><%= link_to "Termine", recurrences_path %></li>  
             <li class="divider-vertical"></li>
-            <li><%= link_to "Kontakte", users_path %></li>
+            <li><%= link_to "Kontaktliste", users_path %></li>
             <li class="divider-vertical" ></li>           
-            <li><%= link_to "HVbV", "http://hvbv.de/neue_HP/index.php?id=285&tx_wfqbe_pi1[uid]=45",  :target => "_blank" %></li>             
+            <li><%= link_to "Tabelle", "http://hvbv.de/neue_HP/index.php?id=285&tx_wfqbe_pi1[uid]=45",  :target => "_blank" %></li>             
             <li class="divider-vertical"></li>
             <form class="navbar-search pull-left">
               <input type="text" class="search-query" placeholder="funktioniert noch nicht!">
             </form>
           </ul>
-          <ul class="nav pull-right">                 
-            <li><%= link_to_if(@current_user.nil?, "Login", login_path) do link_to(@current_user.name, user_path(@current_user)) end %></li>
-            <li class="divider-vertical"></li>
-            <ul class="nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Admin
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                <%= link_to "Benutzer", users_path %>
-                <%= link_to "Termine", events_path %>
-                <%= link_to_if(@current_user.nil?, "Sign up", signup_path) do link_to("Logout", logout_path) end %>
-                </ul>
-               </li>
+          <ul class="nav pull-right">
+          <% if current_user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= current_user.name %><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_user %></li>
+              <li><%= link_to "Settings", edit_user_path(current_user)%></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Logout", logout_path, method: :delete %>
+              </li>
             </ul>
+          </li>
+          <% else %>           
+            <li><%= link_to "Login", login_path %></li>
+          <% end %>          
           </ul>
         </div>  
       </div>  
@@ -58,14 +77,22 @@
   </div>
 
   <div class="container">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <% end %>
  
     <div class="row">
-      <div class="span9"><%= yield %></div>
+    
+      <div class="span9">
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <a class="close" data-dismiss="alert" href="#">x</a>
+            <%= msg %>
+          </div>
+        <% end %>
+                  
+        <%= yield %>
+      </div>
+      
       <div class="span3">
-        <h2>Kommentare</h2>
+        <h1>Kommentare</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	
       </div>
     </div>

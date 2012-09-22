@@ -1,4 +1,5 @@
 class ParticipationsController < ApplicationController
+  before_filter :correct_user, :except => [:index, :show]
   # GET /participations
   # GET /participations.json
   def index

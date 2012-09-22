@@ -5,10 +5,11 @@ Teamorga::Application.routes.draw do
   resources :sessions
   
   # event-resource route with sub-resources recurrences:
-     resources :events do
-       resources :recurrences
-         resource :participations
-     end
+  resources :events do
+   resources :recurrences
+     resource :participations
+  end
+  
   resources :participations
   resources :recurrences
   resources :users

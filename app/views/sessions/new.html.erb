@@ -1,6 +1,7 @@
 <h1>Log in</h1>
 
 <%= form_tag sessions_path do %>
+  <p>Hier <%= link_to("registrieren", signup_path) %> sofern noch keine Accountdaten vorhanden!</p>
   <div class="field">
     <%= label_tag :email %><br />
     <%= text_field_tag :email, params[:email] %>

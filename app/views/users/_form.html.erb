@@ -1,4 +1,5 @@
-<%= form_for(@user) do |f| %>
+<%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -10,35 +11,63 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :Trikotnummer %><br />
-    <%= f.number_field :shirt_number %>
+  <div class="control-group">
+    <%= f.label :shirt_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :shirt_number, :class => 'number_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :Email %><br />
-    <%= f.text_field :email %>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :Telefon %><br />
-    <%= f.text_field :phone %>
+  <div class="control-group">
+    <%= f.label :phone, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :birthday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :birthday, :class => 'date-select' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :Teilnahmen, :class => 'control-label' %>
+    <div class="controls">
+      <% for recurrence in Recurrence.find(:all) %>  
+        <div>
+          <label class="checkbox">       
+          <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>       
+          <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> 
+          <%= recurrence.event.category %>
+          </label> 
+        </div>
+      <% end %>      
+    </div>
   </div>
   
-  <div class="checkbox">  
-    <%= f.label :Teilnahmen %><br />  
-    <% for recurrence in Recurrence.find(:all) %>  
-      <div>
-        <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>
-        <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> 
-        <%= recurrence.event.category %>
-      </div>
-    <% end %>
-  </div> 
-   
-  <div class="actions">
-    <%= f.submit %>
+</label>
+</div>
+</div>  
+
+
+
+
+  <div class="form-actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', users_path, :class => 'btn' %>
   </div>
 <% end %>

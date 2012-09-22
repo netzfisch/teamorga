@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   has_secure_password
   validates_presence_of :password, :on => :create
   
-#  validates :name, :email, :uniqueness => { :case_sensitive => false }
-#  validates :shirt_number, :uniqueness #, :on => :edit
+  #validates :name, :uniqueness => { :case_sensitive => false }, :on => :update
+  #validates :shirt_number, :uniqueness, :on => :update
   validates :shirt_number, :length => { :maximum => 2 }
   
-  attr_accessible :name, :shirt_number, :email, :phone, :password, :password_confirmation, :recurrence_ids
+  attr_accessible :name, :shirt_number, :birthday, :email, :phone, :password, :password_confirmation, :recurrence_ids
 end
