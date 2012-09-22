@@ -1,4 +1,4 @@
-<h1>Participations#edit</h1>
+<h3>Teilnahmen</h3>
 
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
@@ -12,8 +12,11 @@
     </div>
   <% end %>
 
+  <%= @user.name %>
+
+
   <div class="checkbox">  
-    <%= f.label :Teilnahmen %><br />  
+    <%= f.label :Teilnahme %><br />  
     <% for recurrence in Recurrence.find(:all) %>  
       <div>
         <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>
