@@ -5,10 +5,9 @@
     <tr>
       <th>Name</th>
       <th>Trikot</th>
-      <th>Geburtstag</th>
-      <th>Email</th>
       <th>Telefon</th>
-      <th>Adresse</th>
+      <th>Email</th>
+      <th>Geburtstag</th>
       <th></th>
       <th></th>
     </tr>
@@ -19,12 +18,11 @@
       <tr>
         <td><%= link_to user.name, user_path(user) %></td>
         <td><%= user.shirt_number %></td>
-        <td><%= user.birthday %></td>
-        <td><%= user.email %></td>
         <td><%= user.phone %></td>
-        <td>adresse</td>
-        <td><%= link_to_if(current_user.name == user.name, 'Edit', edit_user_path(user), :class => 'btn btn-mini') do end %></td>
-        <td><%= link_to_if(current_user.name == user.name, 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger') do end %></td>
+        <td><%= user.email %></td>
+        <td><%= user.birthday %></td>
+        <td><%= link_to_if(current_user.id == user.id, 'Edit', edit_user_path(user), :class => 'btn btn-mini') do end %></td>
+        <td><%= link_to_if(current_user.id == user.id, 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger') do end %></td>
       </tr>
     <% end %>
   <tbody> 

@@ -75,11 +75,21 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    #@user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
+      if @user.destroy
+        session[:user_id] = nil
+        format.html { redirect_to root_url, notice: 'User was successfully deleted / Signed out!' }
+      else
+        format.html { render action: "new" }
+      end
     end
   end
+
+  #  respond_to do |format|
+  #    format.html { redirect_to users_url }
+  #    format.json { head :no_content }
+  #  end
+  #end
 end

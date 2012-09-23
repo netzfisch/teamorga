@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-
-
   <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
@@ -39,20 +37,19 @@
   </div>
   <div class="control-group">
     <%= f.label :birthday, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.date_select :birthday, :class => 'date-select' %>
+    <div class="span1">
+      <%= f.date_select :birthday, :class => 'date_select', :start_year => 1950 %>
     </div>
   </div>
-
+  
   <div class="control-group">
-    <%= f.label :Teilnahmen, :class => 'control-label' %>
+    <%= f.label :scheduled_to, :class => 'control-label' %>
     <div class="controls">
-      <% for recurrence in Recurrence.find(:all) %>  
+      <% for recurrence in Recurrence.find(:all,:order => :scheduled_to) %>  
         <div>
           <label class="checkbox">       
           <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>       
-          <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> 
-          <%= recurrence.event.category %>
+          <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> - <%= recurrence.event.category %>
           </label> 
         </div>
       <% end %>      
