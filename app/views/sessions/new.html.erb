@@ -2,7 +2,7 @@
   <h3>Log in</h3>
 </div>
 
-<%= form_tag sessions_path do %>
+<%= form_tag sessions_path, :html => { :class => 'form-horizontal' } do %>
   <p>Hier <%= link_to("registrieren", signup_path) %> sofern noch keine Accountdaten vorhanden!</p>
   <div class="field">
     <%= label_tag :email %><br />
@@ -16,4 +16,3 @@
     <%= submit_tag "Log in" %>
   </div>
 <% end %>
-

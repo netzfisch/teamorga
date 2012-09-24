@@ -5,3 +5,25 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Event.create(category: '3.Spieltag', remark: 'SCN/AlTSV/GWE', base_date: '27.10.2012', base_time: '14:30', end_date: '27.10.2012', place: 'Pellwormstrasse 35, Norderstedt')
+
+playday_list = [
+  [ '3.Spieltag','SCN/AlTSV/GWE','27.10.2012','14:30','27.10.2012','20:00','Pellwormstrasse 35, Norderstedt' ],
+  [ '4.Spieltag','AlTSV/NTSV/Halst','04.11.2012','14:30','04.11.2012','20:00','Thadenstrasse 147' ],
+  [ '5.Spieltag','Halst/NTSV/AlTSV','17.11.2012','14:30','17.11.2012','20:00','Feldstrasse 26, Halstenbek' ],
+  [ '6.Spieltag','Blank/AlTSV/NTSV','25.11.2012','14:30','25.11.2012','20:00','Karstenstr. 22, Hamburg' ],
+  [ '7.Spieltag','AlTSV/AFC/SCN','08.12.2012','14:30','08.12.2012','20:00','Thadenstrasse 147, Hamburg' ],
+  [ '8.Spieltag','FSVH/NTSV/AlTSV','12.01.2013','14:30','12.01.2013','20:00','Baererstrasse 45, Harburg' ],
+  [ '9.Spieltag','AlTSV/Blank/GWE','26.01.2013','14:30','26.01.2013','20:00','Thadenstrasse 147 Hamburg' ],
+  [ '10.Spieltag','AlTSV/VGE/FSVH','02.02.2013','14:30','02.02.2013','20:00','Thadenstrasse 147, Hamburg' ],
+  [ '11.Spieltag','VGE/AlTSV/Halst','10.02.2013','14:30','10.02.2013','20:00','Astrid-Lindgren-Schule, Koellner Chaussee 10b, Elmshorn' ],
+  [ '12.Spieltag','NTSV/AlTSV/AFC','24.02.2013','14:30','24.02.2013','20:00','Moorflagen 35, Hamburg' ],
+]
+
+playday_list.each do |playday|
+  @event = Event.create( category: playday[0], remark: playday[1], base_date: playday[2], base_time: playday[3], end_date: playday[4], place: playday[6] )
+  if @event.save
+    Recurrence.create(:event_id => @event.id, :scheduled_to => @event.base_date)
+  end
+end

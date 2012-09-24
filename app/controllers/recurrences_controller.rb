@@ -4,7 +4,7 @@ class RecurrencesController < ApplicationController
   def index
     @recurrences = Recurrence.all(
       :order => :scheduled_to, 
-      :conditions => { :scheduled_to => (Date.today - 1.week)..(Date.today + 5.weeks) }
+      :conditions => { :scheduled_to => (Date.today)..(Date.today + 6.weeks) }
       )
     
     respond_to do |format|
