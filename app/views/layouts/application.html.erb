@@ -36,15 +36,22 @@
         </a>
         <%= link_to "ATSV", root_path, class: "brand" %>        
         <div class="nav-collapse">
-          <ul class="nav">
-            <li class="divider-vertical"></li>
-            <li><%= link_to "Präsenz", recurrences_path %></li>
+          <ul class="nav">                     
             <li class="divider-vertical"></li>
             <li><%= link_to "Kontakte", users_path %></li>
-            <li class="divider-vertical" ></li>   
-            <li><%= link_to "Termine", events_path %></li>
             <li class="divider-vertical"></li>        
-            <li><%= link_to "Tabelle", "http://hvbv.de/neue_HP/index.php?id=285&tx_wfqbe_pi1[uid]=45",  :target => "_blank" %></li>             
+            <li><%= link_to "Tabelle", "http://hvbv.de/neue_HP/index.php?id=285&tx_wfqbe_pi1[uid]=45", :target => "_blank" %></li>            
+            <li class="divider-vertical"></li>     
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Termine <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">   
+                <li><%= link_to "Anwesenheit", recurrences_path %></li>     
+                <li><%= link_to "Alle Termine", events_path %></li>                                 
+                <li><%= link_to "Neuer Termin", new_event_path %></li>                    
+              </ul>
+            </li>             
             <li class="divider-vertical"></li>
             <form class="navbar-search">
               <input type="text" class="search-query" placeholder="SUCHE - funktioniert noch nicht!">
@@ -52,17 +59,18 @@
           </ul>
           <ul class="nav pull-right">
           <% if current_user %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= current_user.name %><b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">         
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user)%></li>
-              <li class="divider"></li>
-              <li><%= link_to "Logout", logout_path, method: :delete %></li>
-            </ul>
-          </li>
+          
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.name %> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">         
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Settings", edit_user_path(current_user)%></li>
+                <li class="divider"></li>
+                <li><%= link_to "Logout", logout_path, method: :delete %></li>
+              </ul>
+            </li>         
           <% else %>           
             <li><%= link_to "Login", login_path %></li>
           <% end %>          
