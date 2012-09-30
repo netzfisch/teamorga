@@ -1,0 +1,6 @@
+<%= form_for([@recurrence, @recurrence.comments.build]) do |f| %>  
+  <%= f.text_area :body, :rows => 3, :class => 'text_field' %>
+  <div class="actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+  </div> 
+<% end %>
