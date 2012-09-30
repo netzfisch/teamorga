@@ -1,25 +1,5 @@
 class ParticipationsController < ApplicationController
-  before_filter :correct_user, :except => [:index, :show]
-  # GET /participations
-  # GET /participations.json
-  def index
-    @participations = Participation.all
-    #(
-     # :order => :scheduled_to, 
-      #:conditions => { :scheduled_to => (Date.today - 1.week)..(Date.today + 5.weeks) }
-      #)
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @participation }
-    end
-  end
-
-  def new
-  end
-
-  def show
-  end
+  before_filter :correct_user
 
   # GET /participation/1/edit
   def edit

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916170843) do
+ActiveRecord::Schema.define(:version => 20120927191529) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "recurrence_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "comments", ["recurrence_id"], :name => "index_comments_on_recurrence_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "events", :force => true do |t|
     t.string   "category"

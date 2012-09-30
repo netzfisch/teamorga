@@ -7,7 +7,7 @@
       <th>Zeit</th>
       <th>Art</th>
       <th>#</th>
-      <% for user in User.find(:all) %>
+      <% for user in User.find(:all, :order => :name) %>
         <th>      
           <span class="vertical">
             <%= link_to_if current_user.name == user.name, user.name, edit_participation_path(user) %>
@@ -26,20 +26,22 @@
       <tr>
         <td><%= link_to recurrence.scheduled_to.strftime("%d.%m."), recurrence %></td>
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
-        <td><%= link_to recurrence.event.category, recurrence.event %></td>    
-        <td><%= link_to recurrence.users.count, edit_recurrence_path(recurrence) %></td>   
+        <td><%= recurrence.event.category %></td>    
+        <td><%= recurrence.users.count %></td>   
         <% for user in User.find(:all) %>
           <td>
             <%= check_box_tag "recurrence[user_id][]", user.id, recurrence.users.include?(user), :disabled => true %>
           </td>
         <% end %>
-        <td><%= recurrence.event.place %></td>
+        <td><%= link_to recurrence.event.place,
+    ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>
         <td><%= recurrence.event.remark %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to('Neu', new_event_path, :class => 'btn btn-primary') %>
-
-<%= link_to('Alle', events_path, :class => 'btn') %>
+<div class="form-actions">
+  <%= link_to('Alle', events_path, :class => 'btn') %>
+  <%= link_to('Neu', new_event_path, :class => 'btn btn-primary') %>
+</div>

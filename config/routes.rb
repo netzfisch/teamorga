@@ -7,7 +7,11 @@ Teamorga::Application.routes.draw do
   # event-resource route with sub-resources recurrences:
   resources :events do
    resources :recurrences
-     resource :participations
+     resource :participations, :comments
+  end
+  
+  resources :recurrences do
+    resources :comments
   end
   
   resources :participations

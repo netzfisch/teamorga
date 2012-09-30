@@ -1,11 +1,14 @@
 class RecurrencesController < ApplicationController
+  layout 'with_sidebar', :only => :index 
+
   # GET /recurrences
   # GET /recurrences.json
   def index
     @recurrences = Recurrence.all(
       :order => :scheduled_to, 
-      :conditions => { :scheduled_to => (Date.today)..(Date.today + 6.weeks) }
+      :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) }
       )
+    @comments = Comment.find(:all, :order => 'created_at DESC', :limit => 10)  
     
     respond_to do |format|
       format.html # index.html.erb

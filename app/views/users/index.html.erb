@@ -4,10 +4,10 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Trikot</th>
       <th>Telefon</th>
       <th>Email</th>
       <th>Geburtstag</th>
+      <th>Trikot</th>      
       <th></th>
       <th></th>
     </tr>
@@ -17,10 +17,10 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= user.shirt_number %></td>
         <td><%= user.phone %></td>
         <td><%= user.email %></td>
         <td><%= user.birthday %></td>
+        <td><%= user.shirt_number %></td>        
         <td><%= link_to_if(current_user.id == user.id, 'Edit', edit_user_path(user), :class => 'btn btn-mini') do end %></td>
         <td><%= link_to_if(current_user.id == user.id, 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger') do end %></td>
       </tr>
@@ -28,5 +28,3 @@
   <tbody> 
     
 </table>
-
-<%= link_to 'New User', new_user_path, :class => 'btn btn-primary' %>

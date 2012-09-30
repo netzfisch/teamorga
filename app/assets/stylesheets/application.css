@@ -10,4 +10,15 @@
  *
  *= require_self
  *= require_tree .
- */
+ */ 
+/* <style type="text/css"> */
+.vertical {     
+  display: block;
+  width: 10px;
+  -moz-transform: rotate(-90deg); 
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -ie-transform: rotate(-90deg);
+}
+/* </style> */
