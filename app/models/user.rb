@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :participations, :include => :recurrence, :dependent => :delete_all
+  has_many :participations, :dependent => :delete_all
   has_many :recurrences, :through => :participations
   has_many :comments, :dependent => :delete_all
   
