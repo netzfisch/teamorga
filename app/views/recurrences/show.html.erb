@@ -1,14 +1,34 @@
 <div class="page-header">
-  <h3><%= @recurrence.event.category %> am <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %></h3>
-   
+
+  <h3>
+    <%= @recurrence.event.category %> am <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:<br />
+    <%= @recurrence.event.remark %>
+  </h3>
+ 
+  <p>
+    <strong>Zusagen:</strong>
+    <% @recurrence.users.each do |user| %>
+      <i class="icon-user"></i> <%= user.name %>
+    <% end %>     
+    
+    <br />
+    
+    <strong>Ort: </strong>
+    <%= link_to @recurrence.event.place,
+    ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
+    oder via <%= link_to 'OSM',
+    ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
+  </p>
+     
   <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
+  
 </div>
 
 <dl class="dl-horizontal" >
-  <dt><strong>Spielerzusagen:</strong></dt>
+  <dt><strong>Zusagen:</strong></dt>
   <dd>
     <% @recurrence.users.each do |user| %>
-     <i class="icon-user"></i> <%= user.name %>
+      <i class="icon-user"></i> <%= user.name %>
     <% end %>
   </dd>
   
@@ -16,7 +36,7 @@
   <dd>
     <%= link_to @recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
-    oder via <%= link_to 'OpenStreetMap',
+    oder via <%= link_to 'OSM',
     ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
   </dd> 
 

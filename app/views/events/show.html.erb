@@ -1,36 +1,39 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Event -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Kategorie:</b>
-  <%= @event.category %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
+  <dd><%= @event.category %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:base_date) %>:</strong></dt>
+  <dd><%= @event.base_date.strftime("%a. %d.%b.%Y") %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:base_time) %>:</strong></dt>
+  <dd><%= @event.base_time.strftime("%H:%M Uhr") %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:recurrences) %>:</strong></dt>
+  <dd>
+    <ul>
+      <% @event.recurrences.each do |recurrence| %>
+        <li><%= link_to recurrence.scheduled_to.strftime("%a. %d. %b. %Y"), event_recurrence_path(@event, recurrence) %></li>
+      <% end %>
+    </ul>
+  </dd>
+  <dt><strong><%= model_class.human_attribute_name(:end_date) %>:</strong></dt>
+  <dd><%= @event.end_date.strftime("%a. %d.%b.%Y") %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:place) %>:</strong></dt>
+  <dd><%= @event.place %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remark) %>:</strong></dt>
+  <dd><%= @event.remark %></dd>
+</dl>
 
-<p>
-  <b>Datum:</b>
-  <%= @event.base_date.strftime("%d. %b. %y") %>
-</p>
-
-<p>
-  <b>Wiederholung:</b>
-  <ul>
-    <% @event.recurrences.each do |recurrence| %>
-      <li><%= link_to recurrence.scheduled_to.strftime("%a. %d. %b. %Y"), event_recurrence_path(@event, recurrence) %></li>
-    <% end %>
-  </ul>
-</p>
-  
-</p>
-
-<p>
-  <b>Ort:</b>
-  <%= @event.place %>
-</p>
-
-<p>
-  <b>Bemerkung:</b>
-  <%= @event.remark %>
-</p>
-
-<%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              events_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_event_path(@event), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              event_path(@event),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

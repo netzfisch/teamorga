@@ -1,44 +1,47 @@
-<%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :category, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :category, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :base_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :base_date, :class => 'date_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :base_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.time_select :base_time, :class => 'time_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :end_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :end_date, :class => 'date_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :place, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :place, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :remark, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :remark, :class => 'text_area', :rows => "3" %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :Kategorie %><br />
-    <%= f.text_field :category %>
-  </div>
-  <div class="field">
-    <%= f.label :Datum %><br />
-    <%= f.date_select :base_date %>
-  </div>
-    <div class="field">
-    <%= f.label :Zeit %><br />
-    <%= f.time_select :base_time %>
-  </div>
-  <div class="field">
-    <%= f.label :Enddatum%><br />
-    <%= f.date_select :end_date %>
-  </div>  
-  <div class="field">
-    <%= f.label :Ort %><br />
-    <%= f.text_field :place %>
-  </div>
-  <div class="field">
-    <%= f.label :Bemerkung %><br />
-    <%= f.text_area :remark, :rows => "2" %>
-  </div>
-  
   <div class="form-actions">
-    <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', events_path, :class => 'btn' %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                events_path, :class => 'btn' %>
   </div>
-  
 <% end %>
+
+
+

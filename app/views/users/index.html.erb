@@ -8,8 +8,6 @@
       <th>Email</th>
       <th>Geburtstag</th>
       <th>Trikot</th>      
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   
@@ -21,8 +19,6 @@
         <td><%= user.email %></td>
         <td><%= user.birthday %></td>
         <td><%= user.shirt_number %></td>        
-        <td><%= link_to_if(current_user.id == user.id, 'Edit', edit_user_path(user), :class => 'btn btn-mini') do end %></td>
-        <td><%= link_to_if(current_user.id == user.id, 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger') do end %></td>
       </tr>
     <% end %>
   <tbody> 

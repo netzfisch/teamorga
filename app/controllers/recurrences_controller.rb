@@ -4,10 +4,11 @@ class RecurrencesController < ApplicationController
   # GET /recurrences
   # GET /recurrences.json
   def index
+    @user = User.all(:order => :name)
     @recurrences = Recurrence.all(
       :order => :scheduled_to, 
-      :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) }
-      )
+      :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) } )
+  
     @comments = Comment.find(:all, :order => 'created_at DESC', :limit => 10)  
     
     respond_to do |format|
