@@ -41,11 +41,11 @@
       <%= f.number_field :shirt_number, :class => 'number_field' %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <%= f.label :scheduled_to, :class => 'control-label' %>
-    <div class="controls">
-      <% for recurrence in Recurrence.find(:all,:order => :scheduled_to) %>  
+    <div class="controls"> 
+      <% @recurrences.each do |recurrence| %>
         <div>
           <label class="checkbox">       
           <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>       

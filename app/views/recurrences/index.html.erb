@@ -1,4 +1,4 @@
-<h2>Termine</h2>
+<h3>Termine</h3>
 
 <table class="table table-striped">
   <thead>
@@ -7,7 +7,7 @@
       <th>Zeit</th>
       <th>Art</th>
       <th>#</th>
-      <% @user.each do |user| %>
+      <% @users.each do |user| %>
         <th>      
           <span class="vertical">
             <%= link_to_if current_user.name == user.name, user.name, edit_participation_path(user) %>
@@ -28,9 +28,9 @@
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
         <td><%= recurrence.event.category %></td>    
         <td><%= recurrence.users.count %></td>   
-        <% @user.each do |user| %>
+        <% @users.each do |user| %>
           <td>
-            <%= check_box_tag "recurrence[user_id][]", user.id, recurrence.users.include?(user), :disabled => true %>
+            <%= check_box_tag "recurrence[user_ids][]", user.id, recurrence.users.include?(user), :disabled => true %>
           </td>
         <% end %>
         <td><%= link_to recurrence.event.place,

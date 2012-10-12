@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :participations, :dependent => :delete_all
   has_many :recurrences, :through => :participations
   has_many :comments, :dependent => :delete_all
+
+  accepts_nested_attributes_for :participations #, :allow_destroy => true
   
   has_secure_password
   validates_presence_of :password, :on => :create

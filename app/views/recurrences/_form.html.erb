@@ -1,8 +1,8 @@
 <%= form_for(@recurrence) do |f| %>
+
   <% if @recurrence.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recurrence.errors.count, "error") %> prohibited this recurrence from being saved:</h2>
-      
       <ul>
       <% @recurrence.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -24,4 +24,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+  
 <% end %>

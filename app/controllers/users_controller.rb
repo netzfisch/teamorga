@@ -37,7 +37,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:id])  
+    @recurrences = Recurrence.all(:order => :scheduled_to)
   end
 
   # POST /users

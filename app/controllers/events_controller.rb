@@ -55,7 +55,7 @@ class EventsController < ApplicationController
           r.event_id = @event.id #unspecific, but too unspecific: r.event = @event
           r.scheduled_to = i
           r.save
-          puts "*****************DBUGGING*****************", r.inspect
+          # puts "*****************DBUGGING*****************", r.inspect
         end
 # shorter, but needs to set in recurrence-model: 
 #

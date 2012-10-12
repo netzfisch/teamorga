@@ -13,10 +13,9 @@ Teamorga::Application.routes.draw do
   resources :recurrences do
     resources :comments
   end
-  
-  #resources :comments
+
   resources :participations
-  resources :recurrences
+  resources :comments
   resources :users
 
   # The priority is based upon order of creation:

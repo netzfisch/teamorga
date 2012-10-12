@@ -7,13 +7,50 @@
  
   <p>
     <strong>Zusagen:</strong>
-    <% @recurrence.users.each do |user| %>
-      <i class="icon-user"></i> <%= user.name %>
-    <% end %>     
+    <%= render :partial => "participations/participation", :collection => @recurrence.users, 
+         :spacer_template => "participations/divider" %>
+
+    <% if @recurrence.users.exists?(current_user) %>              
+      <%= button_to "Absagen", {:controller => :recurrences, :action => 'destroy', :id =>
+      @recurrence }, :method => :delete, :class => 'btn btn-mini btn-danger' %>
+    <% else %>    
+      <%= button_to "Zusagen", {:action => "create", :id => @recurrence}, :class => 'btn btn-mini
+      btn-success' %>     
+    <% end %>  
     
+    <strong>Status: </strong>
+    <--%= render :partial => "participations/form" %><br />
+
+-----------------------------------hier testen einschicken!
+
+<%= form_for(@recurrence) do %>
+  <%= check_box_tag "recurrence[user_ids][]", current_user.id, @recurrence.users.include?(current_user) %>
+  <%= current_user.name %> 
+  <%= submit_tag "Update" %>
+<% end %>
+
+<br />
+-----------------------------------
+
+<%= form_for @recurrence do |f| %>
+  <div class="checkbox">  
+      <% for user in User.find(:all) %>  
+        <div>
+          <%= check_box_tag "recurrence[user_ids][]", user.id, @recurrence.users.include?(user) %>  
+          <%= user.name %>
+        </div>
+      <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update", :class => 'btn btn-mini btn-primary'  %>
+  </div>  
+<% end %>
+
     <br />
     
-    <strong>Ort: </strong>
+    <--geht irgendwie%= render :partial => "recurrences/form", :collection => @recurrence.users, 
+        :as => 'user', :spacer_template => "recurrences/divider" %><br />
+    
     <%= link_to @recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
     oder via <%= link_to 'OSM',
@@ -21,7 +58,7 @@
   </p>
      
   <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
-  
+
 </div>
 
 <dl class="dl-horizontal" >

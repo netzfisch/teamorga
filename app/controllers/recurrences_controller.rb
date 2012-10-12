@@ -4,7 +4,7 @@ class RecurrencesController < ApplicationController
   # GET /recurrences
   # GET /recurrences.json
   def index
-    @user = User.all(:order => :name)
+    @users = User.all(:order => :name)
     @recurrences = Recurrence.all(
       :order => :scheduled_to, 
       :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) } )
@@ -21,7 +21,9 @@ class RecurrencesController < ApplicationController
   # GET /recurrences/1.json
   def show
     @recurrence = Recurrence.find(params[:id])
-
+      #  @users = User.all
+    #@user = User.find(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @recurrence }
@@ -46,7 +48,7 @@ class RecurrencesController < ApplicationController
 
   # POST /recurrences
   # POST /recurrences.json
-  def create
+  def createorg
     @recurrence = Recurrence.new(params[:recurrence])
 
     respond_to do |format|
@@ -78,7 +80,7 @@ class RecurrencesController < ApplicationController
 
   # DELETE /recurrences/1
   # DELETE /recurrences/1.json
-  def destroy
+  def destroyorg
     @recurrence = Recurrence.find(params[:id])
     @recurrence.destroy
 
@@ -86,6 +88,21 @@ class RecurrencesController < ApplicationController
       format.html { redirect_to recurrences_url }
       format.json { head :no_content }
     end
+  end
+  
+  # custom confirm action
+  def create
+    recurrence = Recurrence.find(params[:id])
+    current_user.recurrences << recurrence
+    redirect_to :action => "show", :id => recurrence
+  end
+  
+  # custom deny action
+  def destroy    
+    recurrence = Recurrence.find(params[:id])
+    recurrence.users.destroy(current_user)
+    #current_user.recurrences.delete(recurrence)
+    redirect_to :action => "show", :id => recurrence
   end
   
 end
