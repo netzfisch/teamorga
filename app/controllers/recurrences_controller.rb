@@ -11,7 +11,7 @@ class RecurrencesController < ApplicationController
     # @recurrences = Recurrence.all(:order => :scheduled_to, 
     # :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) } )
   
-    @comments = Comment.find(:all, :order => 'created_at DESC', :limit => 10)  
+    @comments = Comment.all(:order => 'created_at DESC', :limit => 10)  
     
     respond_to do |format|
       format.html # index.html.erb

@@ -1,26 +1,22 @@
-<div class="page-header">
+<h3>
+  <%= @recurrence.event.category %> am <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:
+  <br />
+  <%= @recurrence.event.remark %>
+  <small>
+    <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
+      <%= link_to 'Ergebniseingabe', 'http://hvbv.de/neue_HP/index.php?id=296', :target => "_blank" %>
+    <% end %>
+  </small>
+</h3>
 
-  <h3>
-    <%= @recurrence.event.category %> am <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:
-    <br />
-    <%= @recurrence.event.remark %>
-    <small>
-      <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
-        <%= link_to 'Ergebniseingabe', 'http://hvbv.de/neue_HP/index.php?id=296', :target => "_blank" %>
-      <% end %>
-    </small>
-  </h3>
-
-  <p>  
-    <%= link_to @recurrence.event.place,
-    ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
-    oder via <%= link_to 'OSM',
-    ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
-  </p>
-     
-  <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
-
-</div>
+<p>  
+  <%= link_to @recurrence.event.place,
+  ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
+  oder via <%= link_to 'OSM',
+  ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
+</p>
+   
+<%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
 
 <dl class="dl-horizontal" >
   <dt><strong><%= @recurrence.participations.size %> Teilnehmer:</strong></dt>
