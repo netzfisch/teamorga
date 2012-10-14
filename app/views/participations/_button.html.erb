@@ -1,0 +1,8 @@
+<% if @recurrence.users.exists?(current_user) %>              
+  <%= button_to "Absagen", participation_path(@recurrence), :method => :delete, :class => 'btn btn-mini btn-danger' %>
+  <!-- <%= button_to "Absagen", { :controller => :participations, :action => 'destroy', 
+  :id => @recurrence }, :method => :delete, :class => 'btn btn-mini btn-danger' %> -->
+<% else %>    
+  <%= button_to "Zusagen", { :controller => :participations, :action => 'create',
+  :id => @recurrence }, :class => 'btn btn-mini btn-success' %>
+<% end %>

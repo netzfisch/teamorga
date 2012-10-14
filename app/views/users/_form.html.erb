@@ -26,7 +26,7 @@
   <div class="control-group">
     <%= f.label :phone, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :phone, :class => 'text_field' %>
+      <%= f.phone_field :phone, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
@@ -42,19 +42,7 @@
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :scheduled_to, :class => 'control-label' %>
-    <div class="controls"> 
-      <% @recurrences.each do |recurrence| %>
-        <div>
-          <label class="checkbox">       
-          <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>       
-          <%= recurrence.scheduled_to.strftime("%d.%b.%Y") %> - <%= recurrence.event.category %>
-          </label> 
-        </div>
-      <% end %>      
-    </div>
-  </div>
+  <%= render "participations/form", :f => f %>
 
   <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>

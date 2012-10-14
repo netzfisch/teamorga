@@ -1,20 +1,13 @@
-<%= form_for @participation, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :recurrence_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :recurrence_id, :class => 'number_field' %>
+    <%= f.label :scheduled_to, :class => 'control-label' %>
+    <div class="controls"> 
+      <% @recurrences.each do |recurrence| %>
+        <div>
+          <label class="checkbox">       
+          <%= check_box_tag "user[recurrence_ids][]", recurrence.id, @user.recurrences.include?(recurrence) %>       
+          <%= recurrence.scheduled_to.strftime("%d. %b. %Y") %> - <%= recurrence.event.category %>
+          </label> 
+        </div>
+      <% end %>      
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :user_id, :class => 'number_field' %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                participations_path, :class => 'btn' %>
-  </div>
-<% end %>

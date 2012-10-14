@@ -18,8 +18,8 @@
   <dt>Teilnahmen:</dt>
   <dd>
     <ul>
-      <% @user.recurrences.each do |user| %>
-        <li><%= user.scheduled_to.strftime("%d.%b.%Y") %> <%= user.event.category %></li>
+      <% @user.recurrences.order('scheduled_to').each do |recurrence| %>
+        <li><%= recurrence.scheduled_to.strftime("%d. %b. %Y") %> - <%= recurrence.event.category %></li>
       <% end %>
     </ul>
   </dd>

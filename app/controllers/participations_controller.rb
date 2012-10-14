@@ -1,87 +1,47 @@
 class ParticipationsController < ApplicationController
-  layout 'with_sidebar', :only => :index 
+  layout 'with_sidebar', :only => :index
 
-  # GET /participations
-  # GET /participations.json
-  def index
-    @participations = Participation.all
-    @comments = Comment.find(:all, :order => 'created_at DESC', :limit => 10)  
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @participations }
-    end
-  end
-
-  # GET /participations/1
-  # GET /participations/1.json
-  def show
-    @participation = Participation.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @participation }
-    end
-  end
-
-  # GET /participations/new
-  # GET /participations/new.json
-  def new
-    @participation = Participation.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @participation }
-    end
-  end
-
-  # GET /participations/1/edit
+  # GET /participation/1/edit
   def edit
-    @participation = Participation.find(params[:id])
-  end
-
-  # POST /participations
-  # POST /participations.json
-  def create
-    @participation = Participation.new(params[:participation])
-
-    respond_to do |format|
-      if @participation.save
-        format.html { redirect_to @participation, notice: 'participation was successfully created.' }
-        format.json { render json: @participation, status: :created, location: @participation }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @participation.errors, status: :unprocessable_entity }
-      end
-    end
+    @user = User.find(params[:id])    
+    @recurrences = Recurrence.all(:order => :scheduled_to,
+      :conditions => { :scheduled_to => (Date.today)..(Date.today + 1.year) } )
   end
 
   # PUT /participations/1
   # PUT /participations/1.json
   def update
-    @participation = Participation.find(params[:id])
+    @user = User.find(params[:id])
 
     respond_to do |format|
-      if @participation.update_attributes(params[:participation])
-        format.html { redirect_to @participation, notice: 'participation was successfully updated.' }
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to recurrences_path, notice: 'participation was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @participation.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /participations/1
-  # DELETE /participations/1.json
-  def destroy
-    @participation = Participation.find(params[:id])
-    @participation.destroy
-
-    respond_to do |format|
-      format.html { redirect_to participations_url }
-      format.json { head :no_content }
-    end
+  # POST /participations
+  # custom confirm action for participation
+  def create
+    recurrence = Recurrence.find(params[:id])
+    current_user.recurrences << recurrence
+    redirect_to recurrence
   end
   
+  # DELETE /participations/1   
+  # custom deny action for participation
+  def destroy    
+    recurrence = Recurrence.find(params[:id])
+    recurrence.users.destroy(current_user)
+    # or, other way around - ONLY delete:
+    # current_user.recurrences.delete(recurrence)
+    redirect_to recurrence
+    # or, long version:
+    # redirect_to :controller => "recurrences", :action => "show", :id => recurrence
+  end
+
 end
