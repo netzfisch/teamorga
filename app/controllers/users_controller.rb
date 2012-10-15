@@ -38,7 +38,8 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])  
-    @recurrences = Recurrence.all(:order => :scheduled_to)
+    @recurrences = Recurrence.all(:order => :scheduled_to,
+      :conditions => { :scheduled_to => (Date.today)..(Date.today + 1.year) })
   end
 
   # POST /users

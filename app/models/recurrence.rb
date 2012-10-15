@@ -1,6 +1,6 @@
 class Recurrence < ActiveRecord::Base
   belongs_to :event
-  has_many :participations, :dependent => :delete_all, :include => :user
+  has_many :participations, :include => :user, :dependent => :delete_all
   has_many :users, :through => :participations #, :include => :user
   has_many :comments, :dependent => :delete_all
   

