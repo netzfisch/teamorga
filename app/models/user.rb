@@ -5,12 +5,13 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
   
+  validates_presence_of :email, :password, :on => :create
+  validates_uniqueness_of :email, :case_sensitive => false
   has_secure_password
-  validates_presence_of :password, :on => :create
   
-  #validates :name, :uniqueness => { :case_sensitive => false }, :on => :update
-  #validates :shirt_number, :uniqueness, :on => :update
+  validates_presence_of :name, :phone, :on => :update  
+  validates_uniqueness_of :name, :phone, :shirt_number #, :on => :update 
   validates :shirt_number, :length => { :maximum => 2 }
 
-attr_accessible :name, :shirt_number, :birthday, :email, :phone, :password, :password_confirmation, :recurrence_ids
+  attr_accessible :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 end
