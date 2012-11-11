@@ -18,8 +18,6 @@ class RecurrencesController < ApplicationController
   # GET /recurrences/1.json
   def show
     @recurrence = Recurrence.find(params[:id])
-      #  @users = User.all
-    #@user = User.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
