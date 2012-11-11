@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   validates :shirt_number, :length => { :maximum => 2 }
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
-    attr_accessible :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
+    attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 end
 

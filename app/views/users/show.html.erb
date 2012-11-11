@@ -15,6 +15,11 @@
   <dt><strong>Trikotnummer:</strong></dt>
   <dd><%= @user.shirt_number %></dd>
 
+  <% if current_user.admin? %>
+    <dt><strong>Administrator:</strong></dt>
+    <dd><%= check_box_tag "user_id", @user.id, @user.admin, :disabled => true %></dd>
+  <% end %>
+
   <dt>Teilnahmen:</dt>
   <dd>
     <ul>
@@ -27,7 +32,7 @@
 
 <div class="form-actions">
   <%= link_to 'Back', users_path, :class => 'btn'  %>
-  <%= link_to_if(current_user.id == @user.id || current_user.name == 'iceglad', 'Edit', edit_user_path(@user), :class => 'btn') do end %>
-  <%= link_to_if(current_user && current_user.admin? || current_user == @user || current_user.name == 'iceglad', 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger') do end %>
+  <%= link_to_if(current_user && current_user.admin? || current_user == @user, 'Edit', edit_user_path(@user), :class => 'btn') do end %>
+  <%= link_to_if(current_user && current_user.admin? || current_user == @user, 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger') do end %>
 </div>
 
