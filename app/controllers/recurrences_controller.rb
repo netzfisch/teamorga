@@ -4,14 +4,9 @@ class RecurrencesController < ApplicationController
   # GET /recurrences
   # GET /recurrences.json
   def index
-    @users = User.all(:order => :name)
-    @recurrences = Recurrence.paginate(page: params[:page], per_page: 5, :order => :scheduled_to,
-      :conditions => { :scheduled_to => (Date.today)..(Date.today + 1.year) } )
-    # before
-    # @recurrences = Recurrence.all(:order => :scheduled_to,
-    # :conditions => { :scheduled_to => (Date.today)..(Date.today + 5.weeks) } )
-
-    @comments = Comment.all(:order => 'comment.base_date DESC', :limit => 5)
+    @users = User.order("name")
+    @recurrences = Recurrence.visible.paginate(page: params[:page], per_page: 5)
+    @comments = Comment.order("created_at DESC").limit(5)
 
     respond_to do |format|
       format.html # index.html.erb

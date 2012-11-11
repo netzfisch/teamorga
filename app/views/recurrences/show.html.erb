@@ -1,6 +1,6 @@
 <h3>
-  <%= @recurrence.event.category %> am <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:
-  <br />
+  <%= @recurrence.event.category %>,
+  <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:
   <%= @recurrence.event.remark %>
   <small>
     <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
@@ -9,13 +9,13 @@
   </small>
 </h3>
 
-<p>  
+<p>
   <%= link_to @recurrence.event.place,
   ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
   oder via <%= link_to 'OSM',
   ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
 </p>
-   
+
 <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
 
 <dl class="dl-horizontal" >
@@ -29,7 +29,8 @@
 
   <dt><strong>Kommentare</strong></dt>
   <dd><%= render :partial => @recurrence.comments, :spacer_template => "comments/divider" %></dd>
-  
+
   <dt><strong>Hinzufügen:</strong></dt>
   <dd><%= render "comments/form" %></dd>
-</dl> 
+</dl>
+

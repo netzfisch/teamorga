@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927191529) do
+ActiveRecord::Schema.define(:version => 20121028180204) do
 
   create_table "comments", :force => true do |t|
     t.integer  "recurrence_id"
@@ -61,9 +61,10 @@ ActiveRecord::Schema.define(:version => 20120927191529) do
     t.string   "email"
     t.string   "phone"
     t.date     "birthday"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "password_digest"
+    t.boolean  "admin",           :default => false
   end
 
 end

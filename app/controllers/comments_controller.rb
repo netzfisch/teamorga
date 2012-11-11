@@ -1,27 +1,27 @@
 class CommentsController < ApplicationController
 
   # GET /comments
-  # GET /comments.json 
+  # GET /comments.json
   def index
-    @comments = Comment.find(:all, :order => 'created_at DESC', :limit => 10)
-    
+    @comments = Comment.order("created_at DESC").limit(10)
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @comments }    
+      format.json { render json: @comments }
     end
   end
 
   # POST /comments
-  # POST /comments.json 
+  # POST /comments.json
   def create
     @recurrence = Recurrence.find(params[:recurrence_id])
     @comment = @recurrence.comments.build(params[:comment])
     @comment.user = @current_user
-    @comment.save    
-    
+    @comment.save
+
     redirect_to recurrence_path(@recurrence)
-  end  
-  
+  end
+
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
@@ -35,3 +35,4 @@ class CommentsController < ApplicationController
   end
 
 end
+

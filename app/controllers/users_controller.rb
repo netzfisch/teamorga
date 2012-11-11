@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   before_filter :correct_user, :except => [:index, :show, :new, :create]
-  
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all(:order => :name)
+    @users = User.order("name")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])  
+    @user = User.find(params[:id])
     @recurrences = Recurrence.all(:order => :scheduled_to,
       :conditions => { :scheduled_to => (Date.today)..(Date.today + 1.year) })
   end
@@ -77,7 +77,6 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    #@user.destroy
 
     respond_to do |format|
       if @user.destroy
@@ -89,9 +88,5 @@ class UsersController < ApplicationController
     end
   end
 
-  #  respond_to do |format|
-  #    format.html { redirect_to users_url }
-  #    format.json { head :no_content }
-  #  end
-  #end
 end
+

@@ -44,26 +44,26 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-      
+
       # create and save associated data to recurrences table
         # first create an array of single reoccurence dates
         interval = (@event.base_date..@event.end_date).step(7).to_a
 
         # than save reoccurence dates as scheduled_to in recurrences table
         for i in interval
-          r = Recurrence.new(params[:recurrence])       
+          r = Recurrence.new(params[:recurrence])
           r.event_id = @event.id #unspecific, but too unspecific: r.event = @event
           r.scheduled_to = i
           r.save
           # puts "*****************DBUGGING*****************", r.inspect
         end
-# shorter, but needs to set in recurrence-model: 
+# shorter, but needs to set in recurrence-model:
 #
 #   attr_accessible :event_id
 #
 #   interval.each {|i| Recurrence.create(:event_id => @event.id, :scheduled_to => i) }
 #
-# alternatively merge params hash: p = params[:recurrence].merge(@event.id, i)          
+# alternatively merge params hash: p = params[:recurrence].merge(@event.id, i)
 
         # redirect and notice about sucessfull creation
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -102,5 +102,6 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
 end
+

@@ -3,9 +3,8 @@ class ParticipationsController < ApplicationController
 
   # GET /participation/1/edit
   def edit
-    @user = User.find(params[:id])    
-    @recurrences = Recurrence.all(:order => :scheduled_to,
-      :conditions => { :scheduled_to => (Date.today)..(Date.today + 1.year) } )
+    @user = User.find(params[:id])
+    @recurrences = Recurrence.visible
   end
 
   # PUT /participations/1
@@ -31,10 +30,10 @@ class ParticipationsController < ApplicationController
     current_user.recurrences << recurrence
     redirect_to recurrence
   end
-  
-  # DELETE /participations/1   
+
+  # DELETE /participations/1
   # custom deny action for participation
-  def destroy    
+  def destroy
     recurrence = Recurrence.find(params[:id])
     recurrence.users.destroy(current_user)
     # or, other way around - ONLY delete:
@@ -45,3 +44,4 @@ class ParticipationsController < ApplicationController
   end
 
 end
+
