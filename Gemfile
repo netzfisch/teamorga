@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'cucumber-rails' # user story framework
+  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
+  gem 'database_cleaner' # to clear Cucumber's test database between runs
+  gem 'capybara' # lets Cucumber pretend to be a web browser
+  gem 'launchy' # a useful debugging aid for user stories
 end
 
 group :production do
@@ -46,3 +50,4 @@ gem 'bootstrap-will_paginate'
 
 # To use debugger
 # gem 'debugger'
+
