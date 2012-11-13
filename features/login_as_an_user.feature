@@ -22,7 +22,7 @@ Scenario: create user (happy path)
   And I fill in "user_password" with "new_password"
   And I fill in "user_password_confirmation" with "new_password"
   When I press "Create User"
-  Then I should be on the edit user page
+  Then I should be on the edit page
 
 Scenario: create user (sad path)
   Given I am on the signup page
