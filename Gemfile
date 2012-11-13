@@ -6,11 +6,15 @@ gem 'rails', '3.2.8'
 
 group :development, :test do
   gem 'sqlite3'
+end
+
+group :test do
   gem 'cucumber-rails' # user story framework
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara' # lets Cucumber pretend to be a web browser
   gem 'launchy' # a useful debugging aid for user stories
+  gem 'rspec-rails' # specification driven framework
 end
 
 group :production do

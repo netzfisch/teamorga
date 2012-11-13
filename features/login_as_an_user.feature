@@ -39,6 +39,7 @@ Scenario: login to the application (happy path)
   And I fill in "Password" with "test"
   When I press "Log in"
   Then I should be on the home page
+  And I should see "Logged in!"
 
 Scenario: login to the application (sad path)
   Given I am on the login page
