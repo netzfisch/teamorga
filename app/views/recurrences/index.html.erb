@@ -7,11 +7,11 @@
       <th>Art</th>
       <th>#</th>
       <% @users.each do |user| %>
-        <th>      
+        <th>
           <span class="vertical">
             <%= link_to_if current_user == user, user.name, edit_participation_path(user) %>
           </span>
-        </th> 
+        </th>
       <% end %>
       <th>Ort</th>
       <th>Bemerkung</th>
@@ -25,8 +25,8 @@
       <tr>
         <td><%= link_to recurrence.scheduled_to.strftime("%d.%m."), recurrence %></td>
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
-        <td><%= recurrence.event.category %></td>    
-        <td><%= recurrence.users.count %></td>   
+        <td><%= recurrence.event.category %></td>
+        <td><%= recurrence.users.count %></td>
         <% @users.each do |user| %>
           <td>
             <%= check_box_tag "recurrence[user_ids][]", user.id, recurrence.users.include?(user), :disabled => true %>
@@ -40,3 +40,4 @@
   </tbody>
 </table>
 <%= will_paginate %>
+

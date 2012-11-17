@@ -48,9 +48,10 @@ class EventsController < ApplicationController
       # create and save associated data to recurrences table
         # first create an array of single reoccurence dates
         interval = (@event.base_date..@event.end_date).step(7).to_a
+        # better move to model
 
         # than save reoccurence dates as scheduled_to in recurrences table
-        for i in interval
+        for i in interval # modell call with parameters (@event.base_date, @event.end_date)
           r = Recurrence.new(params[:recurrence])
           r.event_id = @event.id #unspecific, but too unspecific: r.event = @event
           r.scheduled_to = i
