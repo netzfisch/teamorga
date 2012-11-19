@@ -1,8 +1,8 @@
 Feature: login as an user
 
   As an user
-  So that I can find and confirm participation at playdates
-  I want to registrate and login
+  In order to participate at our team site
+  I want to be able to registrate and login
 
 Background: users in database
 
