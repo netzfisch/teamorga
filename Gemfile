@@ -22,6 +22,7 @@ group :test do
   gem 'capybara' # lets Cucumber pretend to be a web browser
   gem 'launchy' # a useful debugging aid for user stories
   #gem 'rspec-rails' # specification driven framework
+  gem 'factory_girl' #instead of fixtures
 end
 
 group :production do

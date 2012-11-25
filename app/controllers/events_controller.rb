@@ -46,25 +46,21 @@ class EventsController < ApplicationController
       if @event.save
 
       # create and save associated data to recurrences table
-        # first create an array of single reoccurence dates
-        interval = (@event.base_date..@event.end_date).step(7).to_a
-        # better move to model
-
-        # than save reoccurence dates as scheduled_to in recurrences table
-        for i in interval # modell call with parameters (@event.base_date, @event.end_date)
-          r = Recurrence.new(params[:recurrence])
-          r.event_id = @event.id #unspecific, but too unspecific: r.event = @event
-          r.scheduled_to = i
-          r.save
-          # puts "*****************DBUGGING*****************", r.inspect
-        end
+      # first create an array of single reoccurence dates
+      # than save reoccurence dates as scheduled_to in recurrences table
+      for date in Event.dates_between(@event.base_date, @event.end_date)
+        r = Recurrence.new       # before called with (params[:recurrence]), häh?
+        r.event_id = @event.id   # specific, not unspecific like: r.event = @event
+        r.scheduled_to = date
+        r.save
+      end
 # shorter, but needs to set in recurrence-model:
-#
 #   attr_accessible :event_id
 #
 #   interval.each {|i| Recurrence.create(:event_id => @event.id, :scheduled_to => i) }
+#   puts "*****************DBUGGING*****************", r.inspect
 #
-# alternatively merge params hash: p = params[:recurrence].merge(@event.id, i)
+# alternatively merge params hash: p = params[:recurrence].merge(@event.id, date)
 
         # redirect and notice about sucessfull creation
         format.html { redirect_to @event, notice: 'Event was successfully created.' }

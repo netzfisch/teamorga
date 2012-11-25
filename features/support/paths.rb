@@ -15,6 +15,15 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+    when /^the user page$/
+      '/user'
+
+    when /^the (.*) page for "(.*)"$/
+      if $1 == 'edit'
+        edit_user(User.find_by_email($2))
+      else $1 == 'details'
+        user_path(User.find_by_title($2))
+    end
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
@@ -36,3 +45,4 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
+

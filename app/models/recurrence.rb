@@ -11,8 +11,8 @@ class Recurrence < ActiveRecord::Base
   scope :visible, current.order("scheduled_to")
 
   # TODO combinig visible with scope
-  def self.visible_paginate(page = 1)
-    self.visible.paginate(:page => page, :per_page => "5")
+  def self.visible_paginate(page, per_page)
+    recurrences = visible.paginate(page, per_page)
   end
 end
 
