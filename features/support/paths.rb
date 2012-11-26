@@ -20,7 +20,7 @@ module NavigationHelpers
 
     when /^the (.*) page for "(.*)"$/
       if $1 == 'edit'
-        edit_user(User.find_by_email($2))
+        edit_user_path(User.find_by_email($2))
       else $1 == 'details'
         user_path(User.find_by_title($2))
     end
