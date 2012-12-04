@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   has_secure_password
 
   validates_presence_of :name, :phone, :on => :update
-  validates_uniqueness_of :name, :phone, :on => :update
-  validates :shirt_number, :length => { :maximum => 2 }
+  validates_uniqueness_of :name, :phone, :case_sensitive => false, :on => :update
+  validates_length_of :shirt_number, :maximum => 2
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
     attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids

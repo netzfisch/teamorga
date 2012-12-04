@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-  <div class="checkbox">  
-    <%= f.label :Teilnahmer %><br /> 
-      <% for user in User.find(:all) %>  
+  <div class="checkbox">
+    <%= f.label :Teilnahmer %><br />
+      <% for user in User.find(:all) %>
         <div>
           <%= check_box_tag "recurrence[user_ids][]", user.id, @recurrence.users.include?(user) %>
           <%= user.name %>
@@ -24,5 +24,6 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  
+
 <% end %>
+

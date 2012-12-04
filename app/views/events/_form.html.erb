@@ -1,4 +1,16 @@
 <%= form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="control-group">
     <%= f.label :category, :class => 'control-label' %>
     <div class="controls">
@@ -42,6 +54,4 @@
                 events_path, :class => 'btn' %>
   </div>
 <% end %>
-
-
 

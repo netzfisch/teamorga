@@ -6,9 +6,9 @@ describe RecurrencesController, "GET index" do
 
     let(:recurrence) { [mock_model(Recurrence)] }
 
-    before :each do
+    before(:each) do
       user = User.create!(:email => "jdoe", :password => "secret", :name => "jdoe")
-      request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id
+      request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id""
       #@recurrence = mock_model(Recurrence)
 
       Recurrence.stub_chain(:visible, :paginate).and_return([@recurrence])

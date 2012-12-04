@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "home page" do
 
-  it "show home page after successful login" do
+  it "after successful login show home page" do
     user = User.create!(:name => "jdoe", :email => "jdoe", :password => "secret")
     # why should I change to factory_girl:
     # user = FactoryGirl.create(:user, :name => "jdoe", :username => "jdoe", :password => "secret")

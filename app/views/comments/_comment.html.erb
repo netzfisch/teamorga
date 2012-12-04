@@ -1,7 +1,9 @@
-<%= comment.recurrence.event.category %>,
-<%= link_to comment.recurrence.scheduled_to.strftime("%d.%m.") , { :controller => :recurrences, :action => 'show', :id => comment.recurrence } %>,
+<%= link_to(:controller => :recurrences, :action => 'show', :id => comment.recurrence) do %>
+  <%= comment.recurrence.event.category %>,
+  <%= comment.recurrence.scheduled_to.strftime("%d.%m.") %>
+<% end %>
 <em>
-  <%= comment.user.name %>
+  , <%= comment.user.name %>
 </em>:
 <br />
 <%= comment.body %>

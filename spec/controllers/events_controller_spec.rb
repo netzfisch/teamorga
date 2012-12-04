@@ -1,31 +1,69 @@
 require 'spec_helper'
 
 describe EventsController do
+  describe "POST create" do
+    let(:event) { mock_model(Event).as_null_object }
 
-  describe 'generate recurrences from event data' do
-    before :each do
-      @fake_results = [mock('recurrence1'), mock('recurrence2')]
+    before(:each) do
+      user = User.create!(:email => "jdoe", :password => "secret", :name => "jdoe")
+      request.session = { :user_id => user.id }
+      Event.stub(:new).and_return(event)
     end
 
-    it 'should call the model method that generates recurrence dates ' do
-      Event.should_receive(:dates_between).with(base_date, end_date).
-        and_return(@fake_results)
-      post :dates_between, {:dates_between => (base_date, end_date)}
-    end
 
-    describe 'after valid recurrence generation' do
-      before :each do
-        Recurrence.stub(:dates_between).and_return(@fake_results)
-        post :dates_between, {:dates_between => (base_date, end_date)}
-      end
-      it 'should select the event results template for rendering' do
-        response.should render_template('index')
-      end
-      it 'should make the created results available to that template' do
-        assigns(:recurrences).should == @fake_results
+      input_dates = ["2012-12-01 18:25:25","2012-12-15 18:25:25"]
+      output_dates = ["2012-12-01 18:25:25", "2012-12-08 18:25:25", "2012-12-15 18:25:25"]
+
+      it 'should find and return the RIGHT recurrences dates' do
+        event.should_receive(:dates_between).with(input_dates).and_return(output_dates)
+        expect(event.dates_between(input_dates)).to eq(output_dates)
       end
 
+
+    it "creates a new event" do
+      Event.should_receive(:new).with("category" => "Training").and_return(event)
+      post :create, :event => { "category" => "Training" }
     end
+
+    it 'should call the model method that finds recurrences dates of the event' do
+      fake_results = ["2012-12-01 18:25:25", "2012-12-08 18:25:25", "2012-12-15 18:25:25"]
+	    Event.should_receive(:dates_between).with("2012-12-01 18:25:25", "2012-12-15 18:25:25").and_return(fake_results)
+    end
+
+    context "when the event saves successfully" do
+      before do
+        event.stub(:save).and_return(true)
+      end
+
+      it "sets a flash[:notice] event" do
+        post :create
+        flash[:notice].should eq("Event was successfully created.")
+        # change to new syntax: expect(flash[:notice]).to
+      end
+
+      it "redirects to the Events index" do
+        post :create
+        response.should redirect_to(event) # oder :action => "index" ?
+      end
+    end
+
+    context "when the event fails to save" do
+      before do
+        event.stub(:save).and_return(false)
+      end
+
+      it "assigns @event" do
+        post :create
+        assigns[:event].should eq(event)
+      end
+
+      it "renders the new template" do
+        post :create
+        response.should render_template("new")
+      end
+    end
+
   end
+
 end
 

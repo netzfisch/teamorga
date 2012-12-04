@@ -7,22 +7,17 @@ gem 'rails', '3.2.8'
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19', :require => 'ruby-debug'
-  #gem 'cucumber-rails', :require => false # user story framework
-  #gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
-  #gem 'database_cleaner' # to clear Cucumber's test database between runs
-  #gem 'capybara' # lets Cucumber pretend to be a web browser
-  #gem 'launchy' # a useful debugging aid for user stories
-  gem 'rspec-rails' # specification driven framework
-end
-
-group :test do
   gem 'cucumber-rails', :require => false # user story framework
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'database_cleaner' # to clear Cucumber's test database between runs
   gem 'capybara' # lets Cucumber pretend to be a web browser
   gem 'launchy' # a useful debugging aid for user stories
-  #gem 'rspec-rails' # specification driven framework
-  gem 'factory_girl' #instead of fixtures
+  gem 'rspec-rails' # specification driven framework
+  gem 'factory_girl_rails' #instead of fixtures
+#TODO try following gems
+#  gem 'railroady' # creates an UML diagramm
+#  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
+#  gem 'metric_fu'' # invoke bei '$ rake metrics' instead of simple '$ rake stats'
 end
 
 group :production do
@@ -34,10 +29,8 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails'
 end

@@ -8,9 +8,9 @@ class Recurrence < ActiveRecord::Base
   attr_accessible :scheduled_to, :event_id, :user_id, :user_ids
 
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.now ) }
-  scope :visible, current.order("scheduled_to")
+  scope :visible, current.order("scheduled_to") # move to schema! standard sort!
 
-  # TODO combinig visible with scope
+  # TODO combinig visible & paginate with scope
   def self.visible_paginate(page, per_page)
     recurrences = visible.paginate(page, per_page)
   end
