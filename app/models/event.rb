@@ -6,11 +6,11 @@ class Event < ActiveRecord::Base
   validates :category, :base_date, :place, :presence => true
 
   # Retrieves a list of all recurrence dates for the named period
-  def dates_between(start_date, end_date)
+  def self.dates_between(start_date, end_date)
      dates = (start_date..end_date).step(7).to_a
   end
 
-  # Example from IceCube gem to retrieves a list of all dates for a period
+  # Example from IceCube gem to retrieve a list of all dates for a period
   def self.dates_betweenIceCube(start_date, end_date)
     # Filtering EventRecurrence on the period using a between named scope
     recurrences = EventRecurrence.between(start_date, end_date)

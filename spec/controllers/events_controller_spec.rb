@@ -10,16 +10,6 @@ describe EventsController do
       Event.stub(:new).and_return(event)
     end
 
-
-      input_dates = ["2012-12-01 18:25:25","2012-12-15 18:25:25"]
-      output_dates = ["2012-12-01 18:25:25", "2012-12-08 18:25:25", "2012-12-15 18:25:25"]
-
-      it 'should find and return the RIGHT recurrences dates' do
-        event.should_receive(:dates_between).with(input_dates).and_return(output_dates)
-        expect(event.dates_between(input_dates)).to eq(output_dates)
-      end
-
-
     it "creates a new event" do
       Event.should_receive(:new).with("category" => "Training").and_return(event)
       post :create, :event => { "category" => "Training" }
