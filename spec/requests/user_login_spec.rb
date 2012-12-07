@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "home page" do
+describe "login to the home page" do
 
   it "after successful login show home page" do
     user = User.create!(:name => "jdoe", :email => "jdoe", :password => "secret")

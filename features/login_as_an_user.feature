@@ -1,6 +1,6 @@
 Feature: login as an user
 
-  As an user
+  As a registered user
   In order to participate at our team site
   I want to be able to registrate and login
 

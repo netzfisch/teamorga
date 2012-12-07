@@ -16,8 +16,8 @@ describe EventsController do
     end
 
     it 'should call the model method that finds recurrences dates of the event' do
-      fake_results = ["2012-12-01 18:25:25", "2012-12-08 18:25:25", "2012-12-15 18:25:25"]
-	    Event.should_receive(:dates_between).with("2012-12-01 18:25:25", "2012-12-15 18:25:25").and_return(fake_results)
+      fake_results = ["2012-12-01", "2012-12-08", "2012-12-15"]
+	    event.should_receive(:dates_between).with("2012-12-01", "2012-12-15").and_return(fake_results)
     end
 
     context "when the event saves successfully" do

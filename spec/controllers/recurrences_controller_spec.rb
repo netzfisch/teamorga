@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe RecurrencesController, "GET index" do
+describe RecurrencesController do
+  describe "GET index" do
 
 # REFACTOR, beautyfy and maybe change to shoulda gem, see http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
 
@@ -46,5 +47,6 @@ describe RecurrencesController, "GET index" do
       get :index, 'page' => '3'
     end
 
+  end
 end
 
