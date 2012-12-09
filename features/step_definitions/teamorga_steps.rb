@@ -8,3 +8,8 @@ Given /the following users exist/ do |users_table|
   end
 end
 
+Given /I am logged in/ do
+  user = User.create!(:name => "jdoe", :email => "jdoe", :password => "foobar", :password_confirmation => "foobar")
+  request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id""
+end
+

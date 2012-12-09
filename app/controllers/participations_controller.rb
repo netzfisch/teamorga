@@ -1,6 +1,15 @@
 class ParticipationsController < ApplicationController
   layout 'with_sidebar', :only => :index
 
+  # GET /participation/index
+  def index
+    @participations = Participation.find(:all)
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
   # GET /participation/1/edit
   def edit
     @user = User.find(params[:id])

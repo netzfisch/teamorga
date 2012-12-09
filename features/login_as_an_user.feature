@@ -33,7 +33,7 @@ Scenario: create user (sad path)
   Then I should be on the user page
   And I should see "Password doesn't match confirmation"
 
-Scenario: login to the application (happy path)
+oScenario: login to the application (happy path)
   Given I am on the login page
   And I fill in "Email" with "hb@test.de"
   And I fill in "Password" with "test"

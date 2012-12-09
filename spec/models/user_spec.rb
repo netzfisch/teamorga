@@ -35,7 +35,7 @@ describe User do
   end
 
   it "is not valid without an email" do
-    @user.email = ""
+    @user.email = nil
     @user.should_not be_valid
   end
 

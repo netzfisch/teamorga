@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   end
 
   # Example from IceCube gem to retrieve a list of all dates for a period
-  def self.dates_betweenIceCube(start_date, end_date)
+  def self.IceCube_dates_between(start_date, end_date)
     # Filtering EventRecurrence on the period using a between named scope
     recurrences = EventRecurrence.between(start_date, end_date)
 

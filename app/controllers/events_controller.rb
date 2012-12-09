@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,6 +48,7 @@ class EventsController < ApplicationController
       # create and save associated data to recurrences table
       # first create an array of single reoccurence dates
       # than save reoccurence dates as scheduled_to in recurrences table
+# better redirect to recurrence controller????
       for date in Event.dates_between(@event.base_date, @event.end_date)
         r = Recurrence.new       # before called with (params[:recurrence]), häh?
         r.event_id = @event.id   # specific, not unspecific like: r.event = @event

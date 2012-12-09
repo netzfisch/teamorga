@@ -10,16 +10,9 @@ describe RecurrencesController do
     before(:each) do
       user = User.create!(:email => "jdoe", :password => "secret", :name => "jdoe")
       request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id""
+
       #@recurrence = mock_model(Recurrence)
-
       Recurrence.stub_chain(:visible, :paginate).and_return([@recurrence])
-      # with "find.all": Recurrence.stub!(:find).with(:all).and_return([@recurrence])
-    end
-
-    it "should assign an array of recurrences" do
-      get :index
-      assigns[:recurrences].should be_instance_of(Array)
-      expect(assigns(:recurrences)).to eq([@recurrence])
     end
 
     it "should be successfull" do
@@ -27,14 +20,20 @@ describe RecurrencesController do
       response.should be_success
     end
 
-    it "should render the index template" do
+    it "should assign an array of recurrences" do
       get :index
-      expect(response).to render_template("index")
+      assigns[:recurrences].should be_instance_of(Array)
+      expect(assigns(:recurrences)).to be_instance_of(Array)
     end
 
     it "should call the paginate method of the recurrence class" do
-      Recurrence.visible.should_receive(:paginate).and_return(@recurrence)
+      Recurrence.visible.should_receive(:paginate).and_return([@recurrence])
       get :index
+    end
+
+    it "should render the index template" do
+      get :index
+      expect(response).to render_template("index")
     end
 
     it "should defaults showing 5 results per page" do
