@@ -44,7 +44,7 @@ describe Recurrence do
       recurrence_next = FactoryGirl.create(:recurrence, scheduled_to: Date.tomorrow)
       recurrence.update_attributes(scheduled_to: Date.today)
 
-      expect(Recurrence.current.second).to eq(recurrence_next)
+      expect(Recurrence.current.last).to eq(recurrence_next)
     end
   end
 
