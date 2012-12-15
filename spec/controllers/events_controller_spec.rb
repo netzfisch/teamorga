@@ -22,12 +22,12 @@ describe EventsController do
       expect(response).to be_success
     end
 
-    it "should assign participations" do
+    it "should assign events" do
       get :index
       expect(assigns[:events]).to be_instance_of(Array)
     end
 
-    it "should call the find method of the participation class" do
+    it "should call the find method of the event class" do
       Event.should_receive(:find).with(:all).and_return([event])
       get :index
     end
