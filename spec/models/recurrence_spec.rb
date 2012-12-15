@@ -17,7 +17,7 @@ describe Recurrence do
     recurrence.errors[:scheduled_to].should include("can't be blank")
   end
 
-  it 'orders recurrences by the date' do
+  it 'orders recurrences ascending by date' do
     recurrence_next = FactoryGirl.create(:recurrence, scheduled_to: Date.tomorrow)
     recurrence.update_attributes(scheduled_to: Date.today)
 
@@ -40,7 +40,7 @@ describe Recurrence do
       expect(Recurrence.current).to eq([recurrence])
     end
 
-    it 'includes recurrences ordered by date' do
+    it 'includes recurrences ordered ascending by date' do
       recurrence_next = FactoryGirl.create(:recurrence, scheduled_to: Date.tomorrow)
       recurrence.update_attributes(scheduled_to: Date.today)
 
