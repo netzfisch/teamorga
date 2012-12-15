@@ -13,5 +13,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
     attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
+
+  default_scope order("name")
 end
 
