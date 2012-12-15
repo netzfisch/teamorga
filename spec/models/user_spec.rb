@@ -30,8 +30,8 @@ describe User do
   end
 
   it "is not valid without an email" do
-    @user.email = nil
-    @user.should_not be_valid
+    invalid_user = FactoryGirl.build(:user, email: nil)
+    invalid_user.should_not be_valid
   end
 
   it "is not valid without a password" do
@@ -63,9 +63,9 @@ describe User do
     expect(User.last).to eq(user_last)
   end
 
-  context ".admins" do
+  context ".admin" do
     it "excludes users without admin flag" do
-      non_admin = @user.update_attributes! :admin => false
+      non_admin = @user.update_attributes!(admin: false)
       @user.admin.should_not be(non_admin)
     end
 
