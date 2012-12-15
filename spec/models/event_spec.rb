@@ -35,9 +35,9 @@ describe Event do
 
   describe '#dates_between' do
     context 'finds recurrences dates of a event' do
-      start_date = "2012-12-01"
-      end_date = "2012-12-15"
-      output_dates = ["2012-12-01", "2012-12-08", "2012-12-15"]
+      start_date = Date.today
+      end_date = Date.today + 2.weeks
+      output_dates = [Date.today, Date.today + 1.weeks, Date.today + 2.weeks]
 
       it 'should call dates_between with two arguments' do
         event.should_receive(:dates_between).with(start_date, end_date).and_return(output_dates)
