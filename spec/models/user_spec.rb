@@ -21,11 +21,6 @@ describe User do
     @user.should be_valid
   end
 
-  it "is valid with admin attribute set to 'true'" do
-    @user.toggle!(:admin)
-    @user.should be_admin
-  end
-
 #TODO: validate uniqueness_of name/email/phone and differentiating ":on => create/update"
   it "is not valid without a name" do
     @user = User.update(1, :name => nil)
@@ -60,6 +55,18 @@ describe User do
     @user.should_not be_valid
   end
 #TODO: why are rspec-core one-liner not working: it { should ensure_length_of(:shirt_number).is_maximum(2) }
+
+  context ".admins" do
+    it "excludes users without admin flag" do
+      non_admin = @user.update_attributes! :admin => false
+      @user.admin.should_not be(non_admin)
+    end
+
+    it "includes users with admin flag" do
+      @user.toggle!(:admin)
+      @user.should be_admin
+    end
+  end
 
 end
 
