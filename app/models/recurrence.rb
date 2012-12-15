@@ -7,7 +7,7 @@ class Recurrence < ActiveRecord::Base
   accepts_nested_attributes_for :participations #, :allow_destroy => true
   attr_accessible :scheduled_to, :event_id, :user_id, :user_ids
 
-  scope :current, lambda { where("scheduled_to >= ?", Time.zone.now ) }
+  scope :current, lambda { (where("scheduled_to >= ?", Time.zone.now)).order("scheduled_to") }
   scope :visible, current.order("scheduled_to") # move to schema! standard sort!
 
   # TODO combinig visible & paginate with scope

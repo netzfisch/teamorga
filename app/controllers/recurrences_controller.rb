@@ -5,7 +5,7 @@ class RecurrencesController < ApplicationController
   # GET /recurrences.json
   def index
     @users = User.order("name")
-    @recurrences = Recurrence.visible.paginate(page: params[:page], per_page: 5)
+    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
     @comments = Comment.order("created_at DESC").limit(5)
 
     respond_to do |format|
