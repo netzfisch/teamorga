@@ -33,7 +33,7 @@ describe Event do
     event.should_not be_valid
   end
 
-  describe '#dates_between' do
+  describe '.dates_between' do
     context 'finds recurrences dates of a event' do
       start_date = Date.today
       end_date = Date.today + 2.weeks
