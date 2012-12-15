@@ -56,6 +56,13 @@ describe User do
   end
 #TODO: why are rspec-core one-liner not working: it { should ensure_length_of(:shirt_number).is_maximum(2) }
 
+  it 'orders users alphabetical by the name' do
+    user_last = FactoryGirl.create(:user, name: "Wilm")
+    @user.update_attributes(name: "John")
+
+    expect(User.last).to eq(user_last)
+  end
+
   context ".admins" do
     it "excludes users without admin flag" do
       non_admin = @user.update_attributes! :admin => false
