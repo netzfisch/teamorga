@@ -2,10 +2,14 @@ FactoryGirl.define do
 
   factory :event do
     category "Training"
-    base_date "2012-12-01 18:25:25"
-    base_time "18:25:25"
-    end_date "2012-12-22 18:25:25"
+    base_date Date.today
+    base_time Time.now
+    end_date Date.today
     place "Halle"
+  end
+
+  factory :recurrence do
+    scheduled_to Date.today
   end
 
   factory :user do
