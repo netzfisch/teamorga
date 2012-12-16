@@ -1,2 +1,31 @@
-Zusagen | Absagen | Keine Rueckmeldung
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Zeit</th>
+      <th>Art</th>
+      <th>Zusagen</th>
+      <th>Absagen</th>
+      <th>Offen</th>
+      <th>Ort</th>
+      <th>Bemerkung</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @participations.each do |participation| %>
+      <tr>
+        <td><%= link_to participation.recurrence.scheduled_to.strftime("%d.%m."), participation %></td>
+        <td><%= participation.recurrence.event.base_time.strftime("%H:%M") %></td>
+        <td><%= participation.recurrence.event.category %></td>
+        <td><%= participation.user.name %></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to participation.recurrence.event.place,
+    ("http://maps.google.de/maps?f=q&hl=de&q="+participation.recurrence.event.place), :target => "_blank" %></td>
+        <td><%= participation.recurrence.event.remark %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 

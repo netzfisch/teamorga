@@ -1,14 +1,22 @@
+<br />
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Datum</th>
       <th>Zeit</th>
       <th>Art</th>
-      <th>Zusagen</th>
-      <th>Absagen</th>
-      <th>Offen</th>
+      <th>#</th>
+      <% @users.each do |user| %>
+        <th>
+          <span class="vertical">
+            <%= link_to_if current_user == user, user.name, edit_participation_path(user) %>
+          </span>
+        </th>
+      <% end %>
       <th>Ort</th>
       <th>Bemerkung</th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -19,8 +27,11 @@
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
         <td><%= recurrence.event.category %></td>
         <td><%= recurrence.users.count %></td>
-        <td></td>
-        <td></td>
+        <% @users.each do |user| %>
+          <td>
+            <%= check_box_tag "recurrence[user_ids][]", user.id, recurrence.users.include?(user), :disabled => true %>
+          </td>
+        <% end %>
         <td><%= link_to recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>
         <td><%= recurrence.event.remark %></td>

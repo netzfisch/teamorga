@@ -3,17 +3,13 @@ class ParticipationsController < ApplicationController
 
   # GET /participation/index
   def index
-    @participations = Participation.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
+    @participations = Participation.all
   end
 
   # GET /participation/1/edit
   def edit
     @user = User.find(params[:id])
-    @recurrences = Recurrence.visible
+    @recurrences = Recurrence.current
   end
 
   # PUT /participations/1

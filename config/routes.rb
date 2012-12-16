@@ -3,16 +3,18 @@ Teamorga::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
   resources :sessions
-  
+
   # event-resource route with sub-resources recurrences:
   resources :events do
    resources :recurrences
      resource :participations, :comments
   end
-  
+
+get 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old # delet later!
   resources :recurrences do
     resources :comments
   end
+
 
   resources :participations
   resources :comments
@@ -75,3 +77,4 @@ root :to => "recurrences#index"
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+

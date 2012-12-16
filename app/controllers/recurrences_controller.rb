@@ -7,11 +7,12 @@ class RecurrencesController < ApplicationController
     @users = User.all
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
     @comments = Comment.order("created_at DESC").limit(5)
+  end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @recurrences }
-    end
+  def index_old
+    @users = User.all
+    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
+    @comments = Comment.order("created_at DESC").limit(5)
   end
 
   # GET /recurrences/1
