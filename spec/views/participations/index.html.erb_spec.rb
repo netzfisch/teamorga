@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "participations/index" do
 
-
+view.stub(:will_paginate)
 
   it "should render successfully" do
     render
