@@ -10,6 +10,7 @@ FactoryGirl.define do
 
   factory :recurrence do
     scheduled_to Date.today
+    association :event
   end
 
   factory :user do

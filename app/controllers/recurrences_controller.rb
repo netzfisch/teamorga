@@ -1,8 +1,7 @@
 class RecurrencesController < ApplicationController
-  layout 'with_sidebar', :only => :index
+  layout 'with_sidebar', :only => [:index, :index_old]
 
   # GET /recurrences
-  # GET /recurrences.json
   def index
     @users = User.all
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)

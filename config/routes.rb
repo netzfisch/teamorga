@@ -10,7 +10,7 @@ Teamorga::Application.routes.draw do
      resource :participations, :comments
   end
 
-get 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old # delet later!
+match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old # delete later!
   resources :recurrences do
     resources :comments
   end
