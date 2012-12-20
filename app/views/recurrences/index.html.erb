@@ -15,7 +15,7 @@
   <tbody>
     <% @recurrences.each do |recurrence| %>
       <tr>
-        <td><%= link_to recurrence.scheduled_to, recurrence %></td>
+        <td><%= link_to recurrence.scheduled_to.strftime("%d.%m."), recurrence %></td>
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
         <td><%= recurrence.event.category %></td>
         <td><%= recurrence.users.count %></td>
@@ -29,5 +29,6 @@
   </tbody>
 </table>
 
+<%= will_paginate %>
 <%= link_to 'New', new_event_path, :class => 'btn btn-primary' %>
 

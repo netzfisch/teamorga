@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
 
   factory :recurrence do
-    scheduled_to Date.today
+    scheduled_to '2012-12-12'
     association :event
   end
 
