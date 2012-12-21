@@ -13,6 +13,11 @@ FactoryGirl.define do
     association :event
   end
 
+  factory :participation do
+    association :recurrence
+    association :user
+  end
+
   factory :user do
     sequence(:name)  { |n| "John #{n}" }
     sequence(:email) { |n| "john_#{n}@doe.com" }

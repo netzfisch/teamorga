@@ -6,7 +6,7 @@ describe "recurrences/index" do
     assign(:recurrences, [
       FactoryGirl.build(Recurrence, scheduled_to: "2012-07-12"),
       FactoryGirl.build(Recurrence, scheduled_to: "2012-12-18") ])
-    view.stub(:will_paginate).and_return(paginate: 1)
+    view.stub(:will_paginate).and_return(page: 1)
     render
   end
 
@@ -33,11 +33,11 @@ describe "recurrences/index" do
   end
 
   it "should have a pagination link" do
-    should have_selector("div.pagination")
+    expect(rendered).to have_selector("div.pagination")
   end
 
   it "should have a NEW link" do
-    expect(rendered).to have_selector('a', :href => new_event_path, :content => 'New')
+    expect(rendered).to have_selector("a", :href => new_event_path, :content => "New")
   end
 
 end

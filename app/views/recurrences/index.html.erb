@@ -20,7 +20,7 @@
         <td><%= recurrence.event.category %></td>
         <td><%= recurrence.users.count %></td>
         <td></td>
-        <td></td>
+        <td><%= @users.count(:recurrence) %></td>
         <td><%= link_to recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>
         <td><%= recurrence.event.remark %></td>
