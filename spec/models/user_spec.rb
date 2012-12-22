@@ -82,7 +82,7 @@ describe User do
     let(:user) { FactoryGirl.create(:user) }
     let(:recurrence) { FactoryGirl.create(:recurrence) }
 
-    it "answers to participates?" do
+    it "participates?" do
       user.participates?(recurrence).should be(false)
       user.participations.create(recurrence: recurrence, user: user)
       user.participates?(recurrence).should be(true)
