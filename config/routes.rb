@@ -4,21 +4,25 @@ Teamorga::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   resources :sessions
 
+  resources :users
+  resources :comments
+
   # event-resource route with sub-resources recurrences:
   resources :events do
    resources :recurrences
-     resource :participations, :comments
+     resources :participations, :comments
   end
 
-match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old # delete later!
+# TODO: remove later, just to verify functionalality
+match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
+
   resources :recurrences do
+    post 'add_user', on: :member
+    delete 'remove_user', on: :member
     resources :comments
   end
 
-
   resources :participations
-  resources :comments
-  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

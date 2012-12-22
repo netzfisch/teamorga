@@ -41,6 +41,8 @@ class RecurrencesController < ApplicationController
     @recurrence = Recurrence.find(params[:id])
   end
 
+  def add_user; end
+
   # POST /recurrences
   # POST /recurrences.json
   def create
@@ -72,6 +74,8 @@ class RecurrencesController < ApplicationController
       end
     end
   end
+
+  def remove_user; end
 
   # DELETE /recurrences/1
   # DELETE /recurrences/1.json

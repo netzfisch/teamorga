@@ -27,7 +27,6 @@
     <%= render :partial => "participations/participation", :collection => @recurrence.users.order("name"),
     :spacer_template => "participations/divider" %>
     <%= render "participations/button" %>
-    <%= participation_link(recurrence) %>
   </dd>
 
   <dt><strong>Kommentare</strong></dt>

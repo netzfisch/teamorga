@@ -15,5 +15,10 @@ class User < ActiveRecord::Base
     attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 
   default_scope order("name")
+
+  def participates?(recurrence)
+    participations.any? { | participation | participation.recurrence_id == recurrence.id }
+  end
+
 end
 
