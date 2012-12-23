@@ -19,7 +19,7 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
   resources :recurrences do
     member do
       post   'add_user'
-      put     'update_user'
+      put    'update_user'
       delete 'remove_user'
     end
     resources :comments

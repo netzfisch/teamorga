@@ -6,7 +6,7 @@ module RecurrencesHelper
       if current_user.responded_at(recurrence).status == true
         button_to "doch noch Absagen", update_user_recurrence_path(recurrence)
         #use participation.status.toggle
-      else
+      elsif current_user.responded_at(recurrence).status == false
         button_to "doch noch Zusagen", update_user_recurrence_path(recurrence)
       end
 

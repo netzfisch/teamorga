@@ -10,7 +10,7 @@
 
 
 ============= NEU ==============
-<% if current_user.participations.exists?(@recurrence) %>
+<% if current_user.responded?(@recurrence) %>
   <%= participation_link(@recurrence) %>
 <% else %>
   <%= participation_link(@recurrence, 'accept') %>
