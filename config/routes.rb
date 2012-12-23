@@ -17,8 +17,11 @@ Teamorga::Application.routes.draw do
 match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
 
   resources :recurrences do
-    post 'add_user', on: :member
-    delete 'remove_user', on: :member
+    member do
+      post   'add_user'
+      put     'update_user'
+      delete 'remove_user'
+    end
     resources :comments
   end
 
