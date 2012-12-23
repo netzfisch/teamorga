@@ -15,7 +15,7 @@ describe RecurrencesHelper do
   #let(:participation_event) { create(:event, participants: [participant]) }
 
   describe "#participation_link" do
-    context "for fresh recurrence (no entry)" do
+    context "for not yet responded recurrence" do
       it "should render accept button" do
         helper.participation_link(recurrence, 'accept').should match("Zusagen")
       end
@@ -25,7 +25,7 @@ describe RecurrencesHelper do
       end
     end
 
-    context "for accepted recurrence" do
+    context "for initially accepted recurrence" do
       let(:participation) { FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true) }
 
       it "should render refuse button" do
@@ -33,7 +33,7 @@ describe RecurrencesHelper do
       end
     end
 
-    context "for refused recurrence" do
+    context "for initially refused recurrence" do
       let(:participation) { FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: nil) }
 
       it "should render accept button" do

@@ -78,14 +78,14 @@ describe User do
     end
   end
 
-  context "should find" do
+  context "finder" do
     let(:user) { FactoryGirl.create(:user) }
     let(:recurrence) { FactoryGirl.create(:recurrence) }
 
-    it "participates?" do
-      user.participates?(recurrence).should be(false)
+    it "#responded?" do
+      user.responded?(recurrence).should be(false)
       user.participations.create(recurrence: recurrence, user: user)
-      user.participates?(recurrence).should be(true)
+      user.responded?(recurrence).should be(true)
     end
   end
 

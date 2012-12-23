@@ -1,7 +1,7 @@
 module RecurrencesHelper
   def participation_link(recurrence, overrule = nil)
 
-    if current_user.participates?(recurrence)
+    if current_user.responded?(recurrence)
 
       if current_user.participations.status == true
         button_to "doch noch Absagen", update_user_recurrence_path(recurrence)

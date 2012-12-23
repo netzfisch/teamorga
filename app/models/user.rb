@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   default_scope order("name")
 
-  def participates?(recurrence)
+  def responded?(recurrence)
     #participations.exists?(recurrence)
     participations.any? { | participation | participation.recurrence_id == recurrence.id }
   end
