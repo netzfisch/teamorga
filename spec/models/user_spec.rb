@@ -87,6 +87,11 @@ describe User do
       user.participations.create(recurrence: recurrence, user: user)
       user.responded?(recurrence).should be(true)
     end
+
+    it "#responded_at" do
+      participation = user.participations.create(recurrence: recurrence, user: user)
+      user.responded_at(recurrence).should eq(participation)
+    end
   end
 
 end

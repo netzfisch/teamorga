@@ -21,5 +21,8 @@ class User < ActiveRecord::Base
     participations.any? { | participation | participation.recurrence_id == recurrence.id }
   end
 
+  def responded_at(recurrence)
+    participations.find(:first, conditions: ["recurrence_id = ?", recurrence.id] )
+  end
 end
 
