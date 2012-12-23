@@ -17,27 +17,27 @@ describe RecurrencesHelper do
   describe "#participation_link" do
     context "for not yet responded recurrence" do
       it "should render accept button" do
+        helper.participation_link(recurrence, 'refuse').should_not match("doch noch")
         helper.participation_link(recurrence, 'accept').should match("Zusagen")
       end
 
       it "should render refuse button" do
+        helper.participation_link(recurrence, 'refuse').should_not match("doch noch")
         helper.participation_link(recurrence, 'refuse').should match("Absagen")
       end
     end
 
     context "for initially accepted recurrence" do
-      let(:participation) { FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true) }
-
-      it "should render refuse button" do
-        helper.participation_link(recurrence).should match("Absagen")
+      it "should render just refuse button" do
+        FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true)
+        helper.participation_link(recurrence).should match("doch noch Absagen")
       end
     end
 
     context "for initially refused recurrence" do
-      let(:participation) { FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: nil) }
-
-      it "should render accept button" do
-        helper.participation_link(recurrence).should match("Zusagen")
+      it "should render just accept button" do
+        FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: false)
+        helper.participation_link(recurrence).should match("doch noch Zusagen")
       end
     end
   end

@@ -5,7 +5,7 @@ class Participation < ActiveRecord::Base
   belongs_to :recurrence, :include => :event
   belongs_to :user
 
-  attr_accessible :recurrence, :user
+  attr_accessible :recurrence, :user, :status
 
 end
 
