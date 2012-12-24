@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :delete_all
 
   validates_presence_of :email, :password, :on => :create
-  validates_uniqueness_of :email, :case_sensitive => false
+  #validates_uniqueness_of :email, :case_sensitive => false
   has_secure_password
 
   validates_presence_of :name, :phone, :on => :update

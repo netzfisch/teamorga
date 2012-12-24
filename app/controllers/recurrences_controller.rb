@@ -41,7 +41,11 @@ class RecurrencesController < ApplicationController
     @recurrence = Recurrence.find(params[:id])
   end
 
-  def add_user; end
+  def add_user
+    recurrence = Recurrence.find(params[:id])
+    recurrence.participations.create!(user: current_user, status: params[:status])
+    redirect_to recurrence, notice: 'participation was successfully changed.'
+  end
 
   # POST /recurrences
   # POST /recurrences.json
@@ -59,6 +63,16 @@ class RecurrencesController < ApplicationController
     end
   end
 
+  def change_user
+    recurrence = Recurrence.find(params[:id])
+    recurrence.participations(current_user).toggle!(:status)
+
+    #participation = Participation.where("recurrence_id = ? AND user_id = ?", params[:id], current_user)
+    #recurrence.participation.toggle(:status)
+
+    redirect_to recurrence, notice: 'participation was successfully changed.'
+  end
+
   # PUT /recurrences/1
   # PUT /recurrences/1.json
   def update
@@ -74,8 +88,6 @@ class RecurrencesController < ApplicationController
       end
     end
   end
-
-  def remove_user; end
 
   # DELETE /recurrences/1
   # DELETE /recurrences/1.json
