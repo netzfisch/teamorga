@@ -65,7 +65,7 @@ class RecurrencesController < ApplicationController
 
   def change_user
     recurrence = Recurrence.find(params[:id])
-    recurrence.participations(current_user).toggle!(:status)
+    recurrence.participations(current_user).toggle(status)
 
     #participation = Participation.where("recurrence_id = ? AND user_id = ?", params[:id], current_user)
     #recurrence.participation.toggle(:status)

@@ -12,9 +12,20 @@ class ParticipationsController < ApplicationController
     @recurrences = Recurrence.current
   end
 
+  def change_user
+    participation = Participation.find(params[:id])
+    participation.toggle!(:status)
+    #update_attributes(status: false)
+
+    #participation = Participation.where("recurrence_id = ? AND user_id = ?", params[:id], current_user)
+    #recurrence.participation.toggle(:status)
+    recurrence = Recurrence.find(params[:recurrence_id])
+    redirect_to recurrence, notice: 'participation was successfully changed.'
+  end
+
   # PUT /participations/1
   # PUT /participations/1.json
-  def update
+  def update_attributes
     @user = User.find(params[:id])
 
     respond_to do |format|

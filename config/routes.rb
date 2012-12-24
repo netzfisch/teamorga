@@ -7,12 +7,6 @@ Teamorga::Application.routes.draw do
   resources :users
   resources :comments
 
-  # event-resource route with sub-resources recurrences:
-  resources :events do
-   resources :recurrences
-     resources :participations, :comments
-  end
-
 # TODO: remove later, just to verify functionalality
 match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
 
@@ -21,7 +15,19 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
       post 'add_user'
       post 'change_user'
     end
+    resources :participations do
+      member do
+        post 'add_user'
+        post 'change_user'
+      end
+    end
     resources :comments
+  end
+
+  # event-resource route with sub-resources recurrences:
+  resources :events do
+   resources :recurrences
+     resources :participations, :comments
   end
 
   resources :participations

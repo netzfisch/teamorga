@@ -4,9 +4,10 @@ module RecurrencesHelper
     if current_user.responded?(recurrence)
 
       if current_user.responded_at(recurrence).status == true
-        button_to "doch noch Absagen", change_user_recurrence_path(recurrence)
+        button_to "doch noch Absagen", change_user_recurrence_participation_path(recurrence, current_user.responded_at(recurrence))
       elsif current_user.responded_at(recurrence).status == false
-        button_to "doch noch Zusagen", change_user_recurrence_path(recurrence)
+        button_to "doch noch Zusagen", change_user_recurrence_participation_path(recurrence, current_user.responded_at(recurrence))
+        #change_user_recurrence_path(recurrence)
       end
 
     elsif overrule == 'accept'
