@@ -42,8 +42,9 @@ class ParticipationsController < ApplicationController
     end
   end
 
-  # PUT /participations/1
+  # POST /participations/1#update_status
   # custom update action for participation
+  # TODO: change to PUT
   def update_status
     participation = Participation.find(params[:id])
     participation.toggle!(:status)
@@ -59,5 +60,6 @@ class ParticipationsController < ApplicationController
 
     redirect_to :back
   end
+
 end
 
