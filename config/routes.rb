@@ -30,7 +30,12 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
      resources :participations, :comments
   end
 
-  resources :participations
+  resources :participations do
+          member do
+        post 'create_status'
+        post 'update_status'
+      end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -12,20 +12,20 @@ class ParticipationsController < ApplicationController
     @recurrences = Recurrence.current
   end
 
-  def change_user
+  def update_status
     participation = Participation.find(params[:id])
     participation.toggle!(:status)
     #update_attributes(status: false)
 
     #participation = Participation.where("recurrence_id = ? AND user_id = ?", params[:id], current_user)
     #recurrence.participation.toggle(:status)
-    recurrence = Recurrence.find(params[:recurrence_id])
-    redirect_to recurrence, notice: 'participation was successfully changed.'
+    #recurrence = Recurrence.find(params[:recurrence_id])
+    redirect_to :back, notice: 'participation was successfully changed.'
   end
 
   # PUT /participations/1
   # PUT /participations/1.json
-  def update_attributes
+  def update
     @user = User.find(params[:id])
 
     respond_to do |format|
@@ -37,6 +37,14 @@ class ParticipationsController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /participations#create_status
+  # custom confirm action for participation
+  def create_status
+    recurrence = Recurrence.find(params[:id])
+    recurrence.participations.create!(user: current_user, status: params[:status])
+    redirect_to :back, notice: 'participation was successfully changed.'
   end
 
   # POST /participations
