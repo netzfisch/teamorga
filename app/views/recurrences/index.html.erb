@@ -9,7 +9,6 @@
       <th>Offen</th>
       <th>Ort</th>
       <th>Bemerkung</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -18,9 +17,9 @@
         <td><%= link_to recurrence.scheduled_to.strftime("%d.%m."), recurrence %></td>
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
         <td><%= recurrence.event.category %></td>
-        <td><%= recurrence.users.count %></td>
-        <td></td>
-        <td><%= @users.count(:recurrence) %></td>
+        <td><%= recurrence.participations.where(:status == true).count %></td>
+        <td><%= recurrence.participations.where(:status == false).count %></td>
+        <td><%= @users.count - recurrence.participations.where(:status).count %></td>
         <td><%= link_to recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>
         <td><%= recurrence.event.remark %></td>
