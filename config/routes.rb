@@ -20,7 +20,7 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
   resources :participations do
     member do
       post 'create_status'
-      post 'update_status'
+      put 'toggle_status'
     end
   end
 

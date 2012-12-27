@@ -47,38 +47,5 @@ describe RecurrencesController do
     end
   end
 
-  describe "POST #add_user" do
-    let(:user) { FactoryGirl.create(:user, email: "asdf") }
-    let(:recurrence) { FactoryGirl.create(:recurrence) }
-    let(:participation) { FactoryGirl.create(:participation, status: false) }
-
-    before(:each) do
-      controller.stub(current_user: user)
-      post :add_user, id: recurrence.id
-    end
-
-    it "should add participation feedback" do
-      expect { post :add_user, id: recurrence.id }.to change { Participation.count }.by(1)
-    end
-
-    it "should accept participation for the recurrence" do
-      post :add_user, id: recurrence.id, status: true
-      expect(participation.status).to eq(true)
-    end
-
-    it "should refuse participation for the recurrence" do
-      post :add_user, id: recurrence.id, status: false
-      expect(participation.status).to eq(false)
-    end
-
-    it "should redirect to the recurrence" do
-      expect(response).to redirect_to(recurrence)
-    end
-
-    it "should set a flash[:notice]" do
-      expect(flash[:notice]).not_to be(nil)
-    end
-  end
-
 end
 

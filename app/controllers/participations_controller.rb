@@ -22,10 +22,10 @@ class ParticipationsController < ApplicationController
   end
 
   # POST /participations#create_status
-  # custom create action for participation
+  # custom create action for participations
   def create_status
     recurrence = Recurrence.find(params[:id])
-    recurrence.participations.create!(user: current_user, status: params[:status])
+    Participation.create(recurrence: recurrence, user: current_user, status: params[:status])
 
     redirect_to :back, notice: 'participation was successfully changed.'
   end
@@ -42,12 +42,12 @@ class ParticipationsController < ApplicationController
     end
   end
 
-  # POST /participations/1#update_status
+  # PUT /participations/1#toggle_status
   # custom update action for participation
-  # TODO: change to PUT
-  def update_status
+  def toggle_status
     participation = Participation.find(params[:id])
-    participation.toggle!(:status)
+    participation.toggle(:status)
+    participation.save
 
     redirect_to :back, notice: 'participation was successfully changed.'
   end
