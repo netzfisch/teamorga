@@ -16,7 +16,7 @@ describe ParticipationsController do
       post :create_status, id: recurrence.id, status: status
     end
 
-    it "should respond with http status 302 (redirect)" do
+    it "should respond with http status 302 (redirection found)" do
       do_post
       expect(response.status).to be(302) # better: be(201)
     end
@@ -56,7 +56,7 @@ describe ParticipationsController do
       put :toggle_status, id: participation.id
     end
 
-    it "should respond with http status 302 (redirect)" do
+    it "should respond with http status 302 (redirection found)" do
       do_put
       expect(response.status).to be(302)
     end
