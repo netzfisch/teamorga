@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.find(:all)
   end
 
   # GET /users/1
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
     if @user.destroy
       session[:user_id] = nil
-      redirect_to root_url, notice: 'User was successfully deleted / Signed out!'
+      redirect_to root_url, notice: 'User was successfully deleted and signed out!'
     else
       render action: "new"
     end
