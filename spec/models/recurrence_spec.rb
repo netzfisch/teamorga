@@ -50,9 +50,10 @@ describe Recurrence do
 
   describe ".accepted_for" do
     it "counts accepted participation for specific recurrence" do
+      recurrence = FactoryGirl.create(:recurrence)
       user = FactoryGirl.create(:user)
-      FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true)
-      expect{ accepted_for(recurrence) }.to change.by(1)
+
+      expect{ FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true) }.to change(recurrence.accepted_for(recurrence)).by(1)
     end
   end
 
