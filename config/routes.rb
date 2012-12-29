@@ -3,20 +3,29 @@ Teamorga::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
   resources :sessions
-  
-  # event-resource route with sub-resources recurrences:
+
   resources :events do
    resources :recurrences
-     resource :participations, :comments
+   resource :participations, :comments
   end
-  
+
+# TODO: remove later, just to verify functionalality
+match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
+
   resources :recurrences do
+    resources :participations
     resources :comments
   end
 
-  resources :participations
-  resources :comments
+  resources :participations do
+    member do
+      post 'create_status'
+      put 'toggle_status'
+    end
+  end
+
   resources :users
+  resources :comments
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -75,3 +84,4 @@ root :to => "recurrences#index"
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+

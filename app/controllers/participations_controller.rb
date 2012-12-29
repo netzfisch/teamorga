@@ -3,53 +3,62 @@ class ParticipationsController < ApplicationController
 
   # GET /participation/index
   def index
-    @participations = Participation.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-    end
+    @participations = Participation.all
   end
 
   # GET /participation/1/edit
   def edit
     @user = User.find(params[:id])
-    @recurrences = Recurrence.visible
-  end
-
-  # PUT /participations/1
-  # PUT /participations/1.json
-  def update
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to recurrences_path, notice: 'participation was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    @recurrences = Recurrence.current
   end
 
   # POST /participations
-  # custom confirm action for participation
+  # TODO: remove - old custom create action for participation
   def create
     recurrence = Recurrence.find(params[:id])
     current_user.recurrences << recurrence
-    redirect_to recurrence
+
+    redirect_to :back
+  end
+
+  # POST /participations#create_status
+  # custom create action for participations
+  def create_status
+    recurrence = Recurrence.find(params[:id])
+    Participation.create(recurrence: recurrence, user: current_user, status: params[:status])
+
+    redirect_to :back, notice: 'participation was successfully changed.'
+  end
+
+  # PUT /participations/1
+  # TODO: remove - old custom update action for participation
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(params[:user])
+      redirect_to recurrences_path, notice: 'participation was successfully updated.'
+    else
+      render action: "edit"
+    end
+  end
+
+  # PUT /participations/1#toggle_status
+  # custom update action for participation
+  def toggle_status
+    participation = Participation.find(params[:id])
+    participation.toggle(:status)
+    participation.save
+
+    redirect_to :back, notice: 'participation was successfully changed.'
   end
 
   # DELETE /participations/1
-  # custom deny action for participation
+  # TODO: remove - old custom destroy action for participation
   def destroy
     recurrence = Recurrence.find(params[:id])
     recurrence.users.destroy(current_user)
-    # or, other way around - ONLY delete:
-    # current_user.recurrences.delete(recurrence)
-    redirect_to recurrence
-    # or, long version:
-    # redirect_to :controller => "recurrences", :action => "show", :id => recurrence
+
+    redirect_to :back
   end
 
 end

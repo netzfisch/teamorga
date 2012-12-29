@@ -36,7 +36,7 @@ describe RecurrencesController do
       expect(response).to render_template("index")
     end
 
-    it "should defaults showing 5 results per page" do
+    it "should show five results per page" do
       Recurrence.current.should_receive(:paginate).with(:page => nil, :per_page => 5).and_return(@recurrence)
       get :index
     end
@@ -45,7 +45,7 @@ describe RecurrencesController do
       Recurrence.current.should_receive(:paginate).with(:page => '3', :per_page => 5).and_return(@recurrence)
       get :index, 'page' => '3'
     end
-
   end
+
 end
 

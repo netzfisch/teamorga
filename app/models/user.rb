@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :delete_all
 
   validates_presence_of :email, :password, :on => :create
-  validates_uniqueness_of :email, :case_sensitive => false
+  #validates_uniqueness_of :email, :case_sensitive => false
   has_secure_password
 
   validates_presence_of :name, :phone, :on => :update
@@ -15,5 +15,14 @@ class User < ActiveRecord::Base
     attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 
   default_scope order("name")
+
+  def responded?(recurrence)
+    #participations.exists?(recurrence)
+    participations.any? { | participation | participation.recurrence_id == recurrence.id }
+  end
+
+  def responded_at(recurrence)
+    participations.find(:first, conditions: ["recurrence_id = ?", recurrence.id] )
+  end
 end
 

@@ -1,8 +1,19 @@
-<% if @recurrence.users.exists?(current_user) %>              
+<% if @recurrence.users.exists?(current_user) %>
   <%= button_to "Absagen", participation_path(@recurrence), :method => :delete, :class => 'btn btn-mini btn-danger' %>
-  <!-- <%= button_to "Absagen", { :controller => :participations, :action => 'destroy', 
+  <!-- <%= button_to "Absagen", { :controller => :participations, :action => 'destroy',
   :id => @recurrence }, :method => :delete, :class => 'btn btn-mini btn-danger' %> -->
-<% else %>    
+<% else %>
   <%= button_to "Zusagen", { :controller => :participations, :action => 'create',
   :id => @recurrence }, :class => 'btn btn-mini btn-success' %>
 <% end %>
+
+
+
+============= NEU ==============
+<% if current_user.responded?(@recurrence) %>
+  <%= participation_link(@recurrence) %>
+<% else %>
+  <%= participation_link(@recurrence, 'accept') %>
+  <%= participation_link(@recurrence, 'refuse') %>
+<% end %> <%= debug @recurrence %>
+
