@@ -28,11 +28,5 @@ class Recurrence < ActiveRecord::Base
   def open_for(recurrence)
     User.count - (accepted_for(recurrence) + refused_for(recurrence))
   end
-
-# manual migration on heroku
-# $ heroku run rails console
-# ps = Participation.find(:all)
-# ps.each { |i| i.update_attributes(status: false); i.save }
-
 end
 

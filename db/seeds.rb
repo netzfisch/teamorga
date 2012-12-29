@@ -27,3 +27,13 @@ playday_list.each do |playday|
     Recurrence.create(:event_id => @event.id, :scheduled_to => @event.base_date)
   end
 end
+
+# 2012-12-29, hb-!
+# manual migration for new column 'participation.status':
+# - every existing entry in the participation table, represents acceptance
+# - so every existing participation.status need to be set to 'true'
+#
+# $ heroku run rails console
+# participations = Participation.find(:all)
+# participations.each { |i| i.update_attributes(status: true); i.save }
+
