@@ -16,5 +16,23 @@ class Recurrence < ActiveRecord::Base
   def self.current_paginate(page, per_page)
     recurrences = current.paginate(page, per_page)
   end
+
+  def accepted_for(recurrence)
+    participations.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, true]).count
+  end
+
+  def refused_for(recurrence)
+    participations.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, false]).count
+  end
+
+  def open_for(recurrence)
+    User.count - (accepted_for(recurrence) + refused_for(recurrence))
+  end
+
+# manual migration on heroku
+# $ heroku run rails console
+# ps = Participation.find(:all)
+# ps.each { |i| i.update_attributes(status: false); i.save }
+
 end
 
