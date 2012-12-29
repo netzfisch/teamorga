@@ -11,7 +11,9 @@ describe "login to the home page" do
     fill_in "Password", :with => "secret"
     click_button "Log in"
 
-    expect(page).to have_selector("table thead th .vertical a", :text => "jdoe")
+    expect(page).to have_selector("a", :text => "jdoe")
+    expect(page).to have_selector("table thead th .vertical", :text => "Zusagen")
+    # expect(page).to have_selector("table thead th .vertical a", :text => "jdoe")
   end
 
 end
