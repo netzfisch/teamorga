@@ -44,7 +44,7 @@ class EventsController < ApplicationController
 # alternatively merge params hash: p = params[:recurrence].merge(@event.id, date)
 
       # redirect and notice about sucessfull creation
-      redirect_to @event, notice: 'Event was successfully created.'
+      redirect_to @event, notice: 'event was successfully created.'
     else
       render action: "new"
     end
@@ -55,7 +55,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update_attributes(params[:event])
-      redirect_to @event, notice: 'Event was successfully updated.'
+      redirect_to events_path, notice: 'event was successfully updated.'
     else
       render action: "edit"
     end
@@ -66,7 +66,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
 
-    redirect_to events_url
+    redirect_to events_path
   end
 
 end
