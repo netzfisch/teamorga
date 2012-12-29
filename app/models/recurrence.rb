@@ -17,16 +17,16 @@ class Recurrence < ActiveRecord::Base
     recurrences = current.paginate(page, per_page)
   end
 
-  def accepted_for(recurrence)
-    participations.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, true]).count
+  def users_accepted(recurrence)
+    recurrence.users.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, true])
   end
 
-  def refused_for(recurrence)
-    participations.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, false]).count
+  def users_refused(recurrence)
+    recurrence.users.find(:all, conditions: ["recurrence_id = ? AND status = ? ", recurrence.id, false])
   end
 
-  def open_for(recurrence)
-    User.count - (accepted_for(recurrence) + refused_for(recurrence))
+  def users_open(recurrence)
+    User.count - (users_accepted(recurrence).count + users_refused(recurrence).count)
   end
 end
 
