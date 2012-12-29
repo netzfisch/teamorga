@@ -27,7 +27,7 @@ class ParticipationsController < ApplicationController
     recurrence = Recurrence.find(params[:id])
     Participation.create(recurrence: recurrence, user: current_user, status: params[:status])
 
-    redirect_to :back, notice: 'participation was successfully changed.'
+    redirect_to :back
   end
 
   # PUT /participations/1
@@ -49,7 +49,7 @@ class ParticipationsController < ApplicationController
     participation.toggle(:status)
     participation.save
 
-    redirect_to :back, notice: 'participation was successfully changed.'
+    redirect_to :back
   end
 
   # DELETE /participations/1
