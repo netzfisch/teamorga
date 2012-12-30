@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe "recurrences/index" do
 
+
+
   before(:each) do
+    #assign(:recurrences, [10.times { FactoryGirl.generate(:recurrence) }])
+    #assign(:recurrences, [10.times { FactoryGirl.create(:recurrence, scheduled_to: "2012-12-18") } ] )
     assign(:recurrences, [
+      FactoryGirl.build(Recurrence, scheduled_to: "2012-07-05"),
       FactoryGirl.build(Recurrence, scheduled_to: "2012-07-12"),
       FactoryGirl.build(Recurrence, scheduled_to: "2012-12-18") ])
     view.stub(:will_paginate).and_return(page: 1)
@@ -14,7 +19,9 @@ describe "recurrences/index" do
   it { should render_template("index") }
 
   it "should include column headers" do
-    expect(rendered).to include("Zusagen", "Absagen", "Offen")
+    expect(rendered).to match /Zusagen/
+    expect(rendered).to match /Absagen/
+    expect(rendered).to match /Offen/
   end
 
   it "should have table header selectors with participation status" do
@@ -32,8 +39,8 @@ describe "recurrences/index" do
     end
   end
 
-  it "should have a pagination link" do
-    expect(rendered).to have_selector("div.pagination")
+  it "should have a pagination bar" do
+    expect(response.body).to match /Previous/
   end
 
   it "should have a NEW link" do

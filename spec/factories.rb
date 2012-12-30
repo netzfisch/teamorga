@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
 
   factory :recurrence do
-    scheduled_to '2012-12-12'
+    sequence(:scheduled_to) { |n| Date.today.advance(weeks: n) }
     association :event
   end
 
