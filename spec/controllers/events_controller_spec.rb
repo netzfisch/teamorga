@@ -61,8 +61,7 @@ describe EventsController do
 
       it "sets a flash[:notice] event" do
         post :create
-        flash[:notice].should eq("Event was successfully created.")
-        # change to new syntax: expect(flash[:notice]).to
+        expect(flash[:notice]).not_to be(nil)
       end
 
       it "redirects to the Events index" do

@@ -45,9 +45,9 @@ describe ParticipationsController do
       expect(response).to redirect_to(:back)
     end
 
-    it "should set a flash[:notice]" do
+    it "should set no flash[:notice]" do
       do_post
-      expect(flash[:notice]).not_to be(nil)
+      expect(flash[:notice]).to be(nil)
     end
   end
 
@@ -92,9 +92,9 @@ describe ParticipationsController do
       expect(response).to redirect_to(:back)
     end
 
-    it "should set a flash[:notice]" do
+    it "should set no flash[:notice]" do
       do_put
-      expect(flash[:notice]).not_to be(nil)
+      expect(flash[:notice]).to be(nil)
     end
   end
 
