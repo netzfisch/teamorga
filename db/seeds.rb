@@ -6,7 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Event.create(category: '3.Spieltag', remark: 'SCN/AlTSV/GWE', base_date: '27.10.2012', base_time: '14:30', end_date: '27.10.2012', place: 'Pellwormstrasse 35, Norderstedt')
+User.create(name: "admin", email: "admin", password: "admin", password_confirmation: "admin", phone: "+49 150 123 45 67", admin: true)
+
+10.times { |i| User.create(name: "John_#{i}",
+                           email: "john_#{i}@doe.com",
+                           password: "foobar",
+                           password_confirmation: "foobar",
+                           phone: "+49 150 123 45 67") }
+
+@training = Event.create(category: 'Training', remark: '15 Min frueher wg. Aufwaermen', base_date: Date.today, base_time: '20:00', end_date: Date.today.advance(months: 3), place: 'Thedenstr., Hamburg')
+#  if @training.save
+    interval = (@training.base_date..@training.end_date).step(7).to_a
+    interval.each { |i| Recurrence.create(:event_id => @training.id, :scheduled_to => i) }
+#  end
 
 playday_list = [
   [ '3.Spieltag','SCN/AlTSV/GWE','27.10.2012','14:30','27.10.2012','20:00','Pellwormstrasse 35, Norderstedt' ],
