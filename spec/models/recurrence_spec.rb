@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Recurrence do
 
-  subject(:recurrence) { FactoryGirl.create(:recurrence) }
+  let(:recurrence) { FactoryGirl.create(:recurrence) }
 
   it { should respond_to(:scheduled_to) }
 
@@ -48,12 +48,27 @@ describe Recurrence do
     end
   end
 
-  describe ".accepted_for" do
-    it "counts accepted participation for specific recurrence" do
-      recurrence = FactoryGirl.create(:recurrence)
-      user = FactoryGirl.create(:user)
+  context "calculates the participation status per recurrence" do
+    it ".users_accepted" do
+      2.times { FactoryGirl.create(:participation,
+                  recurrence: recurrence,
+                  user: FactoryGirl.create(:user),
+                  status: true) }
 
-      expect{ FactoryGirl.create(:participation, recurrence: recurrence, user: user, status: true) }.to change(recurrence.accepted_for(recurrence)).by(1)
+      expect(recurrence.users_accepted(recurrence)).to have_exactly(2).items
+    end
+
+    it ".users_refused" do
+      rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
+
+      expect(rr.users_refused(rr)).to have_exactly(3).items
+    end
+
+    it ".users_open" do
+      2.times { FactoryGirl.create(:user) }
+      recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
+
+      expect(recurrence.users_open(recurrence)).to eq(User.count - 3)
     end
   end
 
