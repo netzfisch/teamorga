@@ -17,8 +17,8 @@
         <td><%= link_to recurrence.scheduled_to.strftime("%d.%m."), recurrence %></td>
         <td><%= recurrence.event.base_time.strftime("%H:%M") %></td>
         <td><%= recurrence.event.category %></td>
-        <td><%= recurrence.users_accepted(recurrence).count %></td>
-        <td><%= recurrence.users_refused(recurrence).count %></td>
+        <td><%= recurrence.participations.accepted.size %></td>
+        <td><%= recurrence.participations.refused.size %></td>
         <td><%= recurrence.users_open(recurrence) %></td>
         <td><%= link_to recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>

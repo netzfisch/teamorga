@@ -7,5 +7,8 @@ class Participation < ActiveRecord::Base
 
   attr_accessible :recurrence, :user, :status
 
+  scope :accepted, where(status: true)
+  scope :refused, where(status: false)
+
 end
 

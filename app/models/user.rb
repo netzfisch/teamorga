@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 
   default_scope order("name")
+  scope :licence, where("shirt_number IS NOT NULL")
 
   def responded?(recurrence)
     #participations.exists?(recurrence)

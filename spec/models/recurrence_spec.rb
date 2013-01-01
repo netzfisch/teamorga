@@ -24,7 +24,7 @@ describe Recurrence do
     expect(Recurrence.first).to eq(recurrence)
   end
 
-  describe '.current' do
+  describe '.current scope' do
     it 'excludes recurrences scheduled for yesterday' do
       recurrence.update_attributes(scheduled_to: Date.today - 1.second)
       expect(Recurrence.current).to be_empty
