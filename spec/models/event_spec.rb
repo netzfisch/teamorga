@@ -33,6 +33,13 @@ describe Event do
     event.should_not be_valid
   end
 
+  it 'orders events ascending by date' do
+    event_next = FactoryGirl.create(:event, base_date: Date.tomorrow)
+    event.update_attributes(base_date: Date.today)
+
+    expect(Event.first).to eq(event)
+  end
+
   describe '.dates_between' do
     context 'finds recurrences dates of a event' do
       start_date = Date.today

@@ -7,26 +7,27 @@
     <%= render "layouts/navigation" %>
     <div class="container">
       <div class="content">
-        
+
         <% flash.each do |name, msg| %>
           <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
             <a class="close" data-dismiss="alert" href="#">x</a>
             <%= msg %>
           </div>
         <% end %>
-                    
-        <%= content_for?(:divided_spans) ? yield(:divided_spans) : yield %>        
+
+        <%= content_for?(:divided_spans) ? yield(:divided_spans) : yield %>
       </div>
       <footer class="footer">
-        <p>&copy; mrah seitenmacher 2012</p>
+        <p>&copy; seitenmacher 2012 - <%= Date.today.strftime("%Y") %></p>
       </footer>
     </div>
-    
+
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
     <!-- falta google-analytics-tag -->
-    
+
   </body>
 </html>
+

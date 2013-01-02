@@ -2,9 +2,7 @@
   <%= comment.recurrence.event.category %>,
   <%= comment.recurrence.scheduled_to.strftime("%d.%m.") %>
 <% end %>
-<em>
-  , <%= comment.user.name %>
-</em>:
+<em>, <%= comment.user.name %></em>:
 <br />
 <%= comment.body %>
 

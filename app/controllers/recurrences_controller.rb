@@ -1,9 +1,9 @@
 class RecurrencesController < ApplicationController
-  layout 'with_sidebar', :only => [:index, :index_old]
+  layout 'with_sidebar', :only => [:index, :index_old, :show]
 
   # GET /recurrences
   def index
-    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
+    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
     @comments = Comment.order("created_at DESC").limit(5)
   end
 
@@ -22,6 +22,8 @@ class RecurrencesController < ApplicationController
     #@accepter = Participation.feedback(@recurrence, true)
     @refuser = Participation.feedback(@recurrence, false) # @refuser = @recurrence.feedback(@recurrence, false)
     #@refuser = @recurrence.participations.refused.map(&:user)
+
+    @comments = @recurrence.comments.order("created_at DESC").limit(5)
   end
 
   # GET /recurrences/new

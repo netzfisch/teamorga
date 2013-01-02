@@ -1,6 +1,6 @@
 <%- model_class = Event -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h3><%=t '.title', :default => model_class.model_name.human.pluralize %></h3>
 </div>
 
 <table class="table table-striped">
@@ -23,8 +23,7 @@
         <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
         <td>
           <% event.recurrences.each do |recurrence| %>
-            <%= link_to_unless event.recurrences.count == 1, "Destroy: #{recurrence.scheduled_to} ?",
-              recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %> -
+            Destroy: <%= link_to_unless event.recurrences.count < 2, recurrence.scheduled_to, recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
           <% end %>
         </td>
         <td><%= event.place %></td>

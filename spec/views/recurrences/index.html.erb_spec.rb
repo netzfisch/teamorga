@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe "recurrences/index" do
 
-
-
   before(:each) do
     #assign(:recurrences, [10.times { FactoryGirl.generate(:recurrence) }])
     #assign(:recurrences, [10.times { FactoryGirl.create(:recurrence, scheduled_to: "2012-12-18") } ] )

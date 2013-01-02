@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  layout 'with_sidebar', :only => :index
 
   # GET /comments
   def index
