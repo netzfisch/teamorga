@@ -3,7 +3,6 @@ class RecurrencesController < ApplicationController
 
   # GET /recurrences
   def index
-    @users = User.all
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
     @comments = Comment.order("created_at DESC").limit(5)
   end
@@ -17,6 +16,12 @@ class RecurrencesController < ApplicationController
   # GET /recurrences/1
   def show
     @recurrence = Recurrence.find(params[:id])
+
+    # which way makes sense, is faster?
+    @accepter = @recurrence.participations.accepted.map(&:user)
+    #@accepter = Participation.feedback(@recurrence, true)
+    @refuser = Participation.feedback(@recurrence, false) # @refuser = @recurrence.feedback(@recurrence, false)
+    #@refuser = @recurrence.participations.refused.map(&:user)
   end
 
   # GET /recurrences/new

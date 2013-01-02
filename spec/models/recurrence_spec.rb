@@ -48,27 +48,27 @@ describe Recurrence do
     end
   end
 
-  context "calculates the participation status per recurrence" do
-    it ".users_accepted" do
+  context "finds the participation status per recurrence" do
+    it "finds users accepted the recurrence" do
       2.times { FactoryGirl.create(:participation,
                   recurrence: recurrence,
                   user: FactoryGirl.create(:user),
                   status: true) }
 
-      expect(recurrence.users_accepted(recurrence)).to have_exactly(2).items
+      expect(recurrence.feedback(recurrence, true)).to have_exactly(2).items
     end
 
-    it ".users_refused" do
+    it "finds users refused the recurrence" do
       rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(rr.users_refused(rr)).to have_exactly(3).items
+      expect(rr.feedback(rr, false)).to have_exactly(3).items
     end
 
-    it ".users_open" do
+    it "counts user with no feedback of the recurrence" do
       2.times { FactoryGirl.create(:user) }
       recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(recurrence.users_open(recurrence)).to eq(User.count - 3)
+      expect(recurrence.with_no_feedback(recurrence)).to eq(User.count(:shirt_number) - 3)
     end
   end
 

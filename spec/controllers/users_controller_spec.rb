@@ -111,12 +111,12 @@ describe UsersController do
     end
 
     it "finds an existing user" do
-      User.should_receive(:find).with(user.id).and_return(user)
+      User.should_receive(:find).with(user.id.to_s).and_return(User) # just working with to_s !?
       do_put
     end
 
     it "updates an existing user" do
-      User.should_receive(:update_attributes).with("name" => "Joe").and_return(user)
+      User.should_receive(:update_attributes).with("name" => "Joe").and_return(User)
       put :update, id: user, "name" => "Joe"
     end
 
@@ -155,7 +155,7 @@ describe UsersController do
     end
 
     it "finds the user" do
-      User.should_receive(:find).with(user.id).and_return(user) #working: user.id.to_s
+      User.should_receive(:find).with(user.id.to_s).and_return(User) # just working with to_s !?
       do_delete
     end
 

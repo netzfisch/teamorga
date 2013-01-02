@@ -21,14 +21,14 @@
 <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=360x200&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
 
 <dl class="dl-horizontal" >
-  <dt><strong><%= @recurrence.participations.accepted.size %> Zusage(n):</strong></dt>
+  <dt><strong><%= @accepter.size %> Zusage(n):</strong></dt>
   <dd>.
-    <%= render "participations/participation", users: @recurrence.participations.accepted, spacer_template: "participations/divider" %>
+    <%= render :partial => "participations/participation", :collection =>  @accepter, spacer_template: "participations/divider" %>
   </dd>
 
-  <dt><strong><%= @recurrence.participations.refused.size %> Absage(n):</strong></dt>
+  <dt><strong><%= @refuser.size %> Absage(n):</strong></dt>
   <dd>.
-    <%= render :partial => "participations/participation", :collection => @recurrence.users_refused(@recurrence), :spacer_template => "participations/divider" %>
+    <%= render :partial => "participations/participation", :collection => @refuser, :spacer_template => "participations/divider" %>
   </dd>
 
   <dt></dt>

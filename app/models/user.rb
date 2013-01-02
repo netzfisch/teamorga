@@ -18,12 +18,15 @@ class User < ActiveRecord::Base
   scope :licence, where("shirt_number IS NOT NULL")
 
   def responded?(recurrence)
-    #participations.exists?(recurrence)
     participations.any? { | participation | participation.recurrence_id == recurrence.id }
   end
 
   def responded_at(recurrence)
-    participations.find(:first, conditions: ["recurrence_id = ?", recurrence.id] )
+    participations.where("recurrence_id = ?", recurrence.id).first
   end
+
+  #def responded_at_with(recurrence, status)
+  #  participations.where("recurrence_id = ? AND status = ? ", recurrence.id, status).all
+  #end
 end
 
