@@ -3,7 +3,7 @@ class RecurrencesController < ApplicationController
 
   # GET /recurrences
   def index
-    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
+    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8).joins(:event).order("scheduled_to ASC, events.base_time ASC")
     @comments = Comment.order("created_at DESC").limit(5)
   end
 

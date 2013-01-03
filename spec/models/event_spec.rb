@@ -33,11 +33,20 @@ describe Event do
     event.should_not be_valid
   end
 
-  it 'orders events ascending by date' do
-    event_next = FactoryGirl.create(:event, base_date: Date.tomorrow)
-    event.update_attributes(base_date: Date.today)
+  describe ".default_scope" do
+    it 'orders events ascending by date' do
+      event_next = FactoryGirl.create(:event, base_date: Date.tomorrow)
+      event.update_attributes(base_date: Date.today)
 
-    expect(Event.first).to eq(event)
+      expect(Event.first).to eq(event)
+    end
+
+    it 'orders events ascending by time' do
+      event_next = FactoryGirl.create(:event, base_time: Time.now + 1.hour)
+      event.update_attributes(base_time: Time.now)
+
+      expect(Event.first).to eq(event)
+    end
   end
 
   describe '.dates_between' do

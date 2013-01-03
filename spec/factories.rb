@@ -8,20 +8,6 @@ FactoryGirl.define do
     place "Halle"
   end
 
-  factory :aaa_recurrence, parent: :recurrence do |recurrence|
-    after(:create) { |recurrence| FactoryGirl.create(:participation,
-      recurrence: recurrence,
-      user: FactoryGirl.create(:user),
-      status: true )}
-  end
-
-  factory :rrr_recurrence, parent: :recurrence do |recurrence|
-    after(:create) { |recurrence| FactoryGirl.create(:participation,
-      recurrence: recurrence,
-      user: FactoryGirl.create(:user),
-      status: false )}
-  end
-
   factory :participation do
     association :recurrence
     association :user
