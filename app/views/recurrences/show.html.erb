@@ -28,13 +28,13 @@
       <dt><strong><%= @accepter.size %> Zusage(n):</strong></dt>
       <dd>
         <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
-        ... <%= email_link(@accepter, @recurrence) %>
+        ... <%= email_link(@accepter, @recurrence) %> !
       </dd>
 
       <dt><strong><%= @refuser.size %> Absage(n):</strong></dt>
       <dd>
         <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
-        ... <%= email_link(@accepter, @recurrence) %>
+        ... <%= email_link(@refuser, @recurrence) %> !
       </dd>
      </dl>
     <dl class="dl-horizontal" >
