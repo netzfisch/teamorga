@@ -17,8 +17,16 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= link_to comment.recurrence.scheduled_to, recurrence_path(comment.recurrence) %></td>
-        <td><%= comment.recurrence.event.category %></td>
+        <td>
+          <% if comment.recurrence_id != nil %>
+            <%= link_to comment.recurrence.scheduled_to, recurrence_path(comment.recurrence) %>
+          <% end %>
+        </td>
+        <td>
+          <% if comment.recurrence_id != nil %>
+            <%= comment.recurrence.event.category %>
+          <% end %>
+        </td>
         <td><%= comment.user.name %></td>
         <td><%= comment.title %></td>
         <td><%= comment.body %></td>
