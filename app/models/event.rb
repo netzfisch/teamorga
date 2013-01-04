@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  has_many :recurrences, :dependent => :delete_all
+  has_many :recurrences, :dependent => :destroy
 
   attr_accessible :category, :base_date, :base_time, :end_date, :place, :remark
 

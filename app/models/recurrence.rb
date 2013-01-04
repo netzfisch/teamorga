@@ -1,8 +1,8 @@
 class Recurrence < ActiveRecord::Base
   belongs_to :event
-  has_many :participations, :include => :user, :dependent => :delete_all
+  has_many :participations, :include => :user, :dependent => :destroy
   has_many :users, :through => :participations
-  has_many :comments
+  has_many :comments, :dependent => :nullify
 
   validates_presence_of :scheduled_to
 

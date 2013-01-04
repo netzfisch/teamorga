@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :participations, :include => :recurrence, :dependent => :delete_all
+  has_many :participations, :include => :recurrence, :dependent => :destroy
   has_many :recurrences, :through => :participations
-  has_many :comments, :dependent => :delete_all
+  has_many :comments, :dependent => :destroy
 
   validates_presence_of :email, :password, :on => :create
   #validates_uniqueness_of :email, :case_sensitive => false
