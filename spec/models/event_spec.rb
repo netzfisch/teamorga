@@ -61,7 +61,7 @@ describe Event do
       end
 
       it 'should find and return the RIGHT recurrences dates' do
-        Event.dates_between(start_date, end_date).should eq(output_dates)
+        event.dates_between(start_date, end_date).should eq(output_dates)
       end
     end
   end

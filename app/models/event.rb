@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
   default_scope order("base_date ASC, base_time ASC")
 
   # Retrieves a list of all recurrence dates for the named period
-  def self.dates_between(start_date, end_date)
+  def dates_between(start_date, end_date)
      dates = (start_date..end_date).step(7).to_a
   end
 

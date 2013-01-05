@@ -7,7 +7,7 @@ class Recurrence < ActiveRecord::Base
   validates_presence_of :scheduled_to
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
-  attr_accessible :scheduled_to, :event_id, :user_id, :user_ids
+  attr_accessible :scheduled_to, :user_id, :user_ids
 
   default_scope joins(:event).order("scheduled_to ASC, events.base_time ASC")
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.today) }
