@@ -33,6 +33,7 @@
     <%= f.label :end_date, :class => 'control-label' %>
     <div class="controls">
       <%= f.date_select :end_date, :class => 'date_select' %>
+      <span class="help-block">Wird ein End-Datum größer als das Start-Datum angegeben, so werden in dem Zeitraum alle 7 Tage "Wiederholungen" erzeugt (z.B. für Beachen, Training, etc.)!</span>
     </div>
   </div>
   <div class="control-group">
