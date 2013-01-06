@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Event do
 
-  subject(:event) { FactoryGirl.create(:event) }
+  let(:event) { FactoryGirl.create(:event) }
 
   it { should respond_to(:category) }
   it { should respond_to(:base_date) }
@@ -33,7 +33,7 @@ describe Event do
     event.should_not be_valid
   end
 
-  describe ".default_scope" do
+  describe "#default_scope" do
     it 'orders events ascending by date' do
       event_next = FactoryGirl.create(:event, base_date: Date.tomorrow)
       event.update_attributes(base_date: Date.today)
@@ -49,8 +49,7 @@ describe Event do
     end
   end
 
-  describe '.dates_between' do
-    context 'finds recurrences dates of a event' do
+  describe '#dates_between' do
       start_date = Date.today
       end_date = Date.today + 2.weeks
       output_dates = [Date.today, Date.today + 1.weeks, Date.today + 2.weeks]
@@ -59,10 +58,18 @@ describe Event do
         event.should_receive(:dates_between).with(start_date, end_date).and_return(output_dates)
         event.dates_between(start_date, end_date).should eq(output_dates)
       end
+  
+    context 'when the end_date ist after the start_date' do
 
-      it 'should find and return the RIGHT recurrences dates' do
+      it 'should return multiple dates as recurrences of the event' do
         event.dates_between(start_date, end_date).should eq(output_dates)
       end
+    end
+
+    context 'when the end_date is before the start_date' do
+      it 'should return a single date as recurrence of the event' do
+        event.dates_between(Date.today, Date.today - 1.day).should eq([Date.today])
+      end      
     end
   end
 
