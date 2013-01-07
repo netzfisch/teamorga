@@ -12,9 +12,9 @@ class Recurrence < ActiveRecord::Base
   default_scope joins(:event).order("scheduled_to ASC, events.base_time ASC")
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.today) }
 
-  #def feedback(recurrence, status)
-  #  recurrence.users.where("recurrence_id = ? AND status = ? ", recurrence.id, status)
-  #end
+  def feedback(recurrence, status)
+    users.where("recurrence_id = ? AND status = ? ", recurrence.id, status)
+  end
 
   def with_no_feedback(recurrence)
     User.licence.size - recurrence.participations.accepted.size - recurrence.participations.refused.size

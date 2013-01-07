@@ -16,12 +16,14 @@ class RecurrencesController < ApplicationController
   # GET /recurrences/1
   def show
     @recurrence = Recurrence.find(params[:id])
-
-    # which way makes sense, is faster?
-    @accepter = @recurrence.participations.accepted.map(&:user)
+  
+    @accepter = @recurrence.feedback(@recurrence, true)
+    @refuser = @recurrence.feedback(@recurrence, false)
+    #@accepter = @recurrence.participations.accepted.map(&:user)
+    #@refuser = @recurrence.participations.refused.map(&:user) 
+# which one is best, fast and sensefull?      
     #@accepter = Participation.feedback(@recurrence, true)
-    @refuser = Participation.feedback(@recurrence, false) # @refuser = @recurrence.feedback(@recurrence, false)
-    #@refuser = @recurrence.participations.refused.map(&:user)
+    #@refuser = Participation.feedback(@recurrence, false)
 
     @comments = @recurrence.comments.order("created_at DESC").limit(5)
   end

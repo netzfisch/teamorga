@@ -10,9 +10,9 @@ class Participation < ActiveRecord::Base
   scope :accepted, where(status: true)
   scope :refused, where(status: false)
 
-  def self.feedback(recurrence, status)
-    where("recurrence_id = ? AND status = ? ", recurrence.id, status).map(&:user)
-  end
+  #def self.feedback(recurrence, status)
+  #  where("recurrence_id = ? AND status = ? ", recurrence.id, status).map(&:user)
+  #end
 
 end
 
