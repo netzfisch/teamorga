@@ -9,12 +9,7 @@ class Event < ActiveRecord::Base
 
   # Retrieves a list of all recurrence dates for the named period
   def dates_between(start_date, end_date)
-     dates = (start_date..end_date).step(7).to_a
-     unless dates == []
-       return dates
-     else
-       return [start_date]
-     end
+     start_date > end_date ? [start_date] : (start_date..end_date).step(7).to_a
   end
 
   # Example from IceCube gem to retrieve a list of all dates for a period
