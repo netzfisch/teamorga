@@ -6,7 +6,7 @@ describe "login to the home page" do
     user = User.create!(:name => "jdoe", :email => "jdoe", :password => "secret")
     # why should I change to factory_girl:
     # user = FactoryGirl.create(:user, :name => "jdoe", :username => "jdoe", :password => "secret")
-    visit login_path # alternatively take the direct path "/login"
+    "/login" # visit login_path # alternatively take the direct path "/login"
     fill_in "Email", :with => "jdoe"
     fill_in "Password", :with => "secret"
     click_button "Log in"
