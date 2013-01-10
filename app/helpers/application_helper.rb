@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def active_class(url)
+    "class = active" if current_page?(url) 
+  end
+  
   def email_link(users, recurrence = nil)
     unless users == []
       mail_to(users.map(&:email).join(", "), name = "", html_options = {
