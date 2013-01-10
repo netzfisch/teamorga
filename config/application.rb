@@ -57,7 +57,8 @@ module Teamorga
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    # 10.1.2013-hb, increased because of twitter-bootstrap update problems!
+    config.assets.version = '1.1' 
   end
 end
 
