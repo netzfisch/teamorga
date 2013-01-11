@@ -1,7 +1,9 @@
 <div class="well">
 
   <h3>Kommentare</h3>
-  <%= render :partial => "comments/comment", :collection => @comments, :spacer_template => "comments/divider"%>
-
+  <ol class="microposts">
+    <%= render :partial => "comments/comment", :collection => @comments %>
+  </ol>
+  
 </div>
 
