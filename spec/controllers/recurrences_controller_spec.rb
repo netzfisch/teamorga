@@ -9,7 +9,7 @@ describe RecurrencesController do
 
     before(:each) do
       user = User.create!(:email => "jdoe", :password => "secret", :name => "jdoe")
-      request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id""
+      request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id"
 
       #@recurrence = mock_model(Recurrence)
       Recurrence.stub_chain(:current, :paginate).and_return([@recurrence])
