@@ -4,7 +4,7 @@ class RecurrencesController < ApplicationController
   # GET /recurrences
   def index
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
-    @comments = Comment.order("created_at DESC").limit(5)
+    @comments = Comment.limit(20)
   end
 
   def index_old
@@ -25,7 +25,7 @@ class RecurrencesController < ApplicationController
     #@accepter = Participation.feedback(@recurrence, true)
     #@refuser = Participation.feedback(@recurrence, false)
 
-    @comments = @recurrence.comments.order("created_at DESC").limit(5)
+    @comments = @recurrence.comments.scoped #that way lazy loaded!
   end
 
   # GET /recurrences/new

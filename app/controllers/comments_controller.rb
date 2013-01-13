@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.order("created_at DESC").limit(10)
+    @comments = Comment.all # order("created_at DESC")
   end
 
   # POST /comments
