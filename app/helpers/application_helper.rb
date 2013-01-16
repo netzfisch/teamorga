@@ -4,6 +4,10 @@ module ApplicationHelper
     "class = active" if current_page?(url) 
   end
   
+  def display_for(role)
+    yield if current_user.in_role?(role)
+  end
+
   def email_link(users, recurrence = nil)
     unless users == []
       mail_to(users.map(&:email).join(", "), name = "", html_options = {

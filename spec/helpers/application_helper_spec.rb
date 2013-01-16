@@ -6,9 +6,28 @@ describe ApplicationHelper do
 let(:user) { FactoryGirl.create(:user, email: "john@doe.com") }
 let(:recurrence) { FactoryGirl.create(:recurrence) }
 
-  it "#admin_link"
-
   it "#comment_link"
+
+  describe "#display_for(role)" do
+    context "when the current user has the role" do
+      it "displays the content" do
+        user = stub('User', :in_role? => true)
+        helper.stub(:current_user).and_return(user)
+        content = helper.display_for(:existing_role) {"content"}
+
+        expect(content).to eq("content")
+      end
+    end
+
+    context "when the current_user does not have the role" do
+      it "does not display the content" do
+        user = stub('User', :in_role? => false)
+        helper.stub(:current_user).and_return(user)
+        content = helper.display_for(:existing_role) {"content"}
+        expect(content).to eq(nil)
+      end
+    end
+  end
 
   describe "#email_link" do
     it "should generate the link" do
