@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <% if current_user.admin? %>
+  <%= display_for_admin do %>
     <div class="control-group">
       <%= f.label :admin, :class => 'control-label' %>
       <div class="controls">

@@ -3,9 +3,9 @@ module ApplicationHelper
   def active_class(url)
     "class = active" if current_page?(url) 
   end
-  
-  def display_for(role)
-    yield if current_user.in_role?(role)
+
+  def display_for_admin(&block)
+   content_tag(:div, class: "admin", &block) if current_user.admin?
   end
 
   def email_link(users, recurrence = nil)
