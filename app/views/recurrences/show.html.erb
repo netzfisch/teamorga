@@ -2,7 +2,6 @@
   <div>
     <h3>
       <%= @recurrence.event.category %>,
-      <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>:
       <%= @recurrence.event.remark %>
       <small>
         <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
@@ -13,6 +12,13 @@
   </div>
 
   <p>
+    <strong>Datum: </strong>
+    <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
+    <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr
+  </p>
+
+  <p>
+    <strong>Anfahrt: </strong>
     <%= link_to @recurrence.event.place,
     ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
     oder via <%= link_to 'OSM',

@@ -7,8 +7,6 @@
       <th><span class="vertical">Zusagen</span></th>
       <th><span class="vertical">Absagen</span></th>
       <th><span class="vertical">Offen</span></th>
-      <th>Ort</th>
-      <th>Bemerkung</th>
     </tr>
   </thead>
   <tbody>
@@ -20,9 +18,6 @@
         <td><%= recurrence.participations.accepted.size %></td>
         <td><%= recurrence.participations.refused.size %></td>
         <td><%= recurrence.with_no_feedback(recurrence) %></td>
-        <td><%= link_to recurrence.event.place,
-    ("http://maps.google.de/maps?f=q&hl=de&q="+recurrence.event.place), :target => "_blank" %></td>
-        <td><%= recurrence.event.remark %></td>
       </tr>
     <% end %>
   </tbody>
