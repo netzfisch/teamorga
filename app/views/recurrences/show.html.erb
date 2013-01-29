@@ -1,55 +1,51 @@
-<div class="span5">
-  <div>
-    <h3>
-      <%= @recurrence.event.category %>,
-      <%= @recurrence.event.remark %>
-      <small>
-        <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
-          <%= link_to 'Ergebniseingabe', 'http://hvbv.de/neue_HP/index.php?id=296', :target => "_blank" %>
-        <% end %>
-      </small>
-    </h3>
-  </div>
-
-  <p>
-    <strong>Datum: </strong>
-    <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
-    <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr
-  </p>
-
-  <p>
-    <strong>Anfahrt: </strong>
-    <%= link_to @recurrence.event.place,
-    ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
-    oder via <%= link_to 'OSM',
-    ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
-  </p>
-
-  <%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
-
-  <br /><br />
-
-  <div class="well">
-    <dl class="dl-horizontal" >
-      <dt><strong><%= @accepter.size %> Zusage(n):</strong></dt>
-      <dd>
-        <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
-        ... <%= email_link(@accepter, @recurrence) %> !
-      </dd>
-
-      <dt><strong><%= @refuser.size %> Absage(n):</strong></dt>
-      <dd>
-        <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
-        ... <%= email_link(@refuser, @recurrence) %> !
-      </dd>
-     </dl>
-    <dl class="dl-horizontal" >
-      <dt></dt>
-      <dd><%= render "participations/button" %></dd>
-
-      <dt><strong>Hinzufügen:</strong></dt>
-      <dd><%= render "comments/form" %></dd>
-    </dl>
-  </div>
+<div>
+  <h3>
+    <%= @recurrence.event.category %>,
+    <%= @recurrence.event.remark %>
+    <small>
+      <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
+        <%= link_to 'Ergebniseingabe', 'http://hvbv.de/neue_HP/index.php?id=296', :target => "_blank" %>
+      <% end %>
+    </small>
+  </h3>
 </div>
 
+<p class="lead">
+  <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
+  <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr
+</p>
+
+<p>
+  <%= @recurrence.event.place %>:
+  <strong> Anfahrt via </strong>
+  <%= link_to 'Google Maps',
+  ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
+  oder <%= link_to 'Open Street Map',
+  ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
+</p>
+
+<%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=470x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
+
+<br /><br />
+
+<div class="well">
+  <dl class="dl" >
+    <dt><%= @accepter.size %> Zusagen(n) :</dt>
+    <dd>
+      <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
+      ... <%= email_link(@accepter, @recurrence) %> !
+    </dd>
+
+    <dt><%= @refuser.size %> Absage(n):</dt>
+    <dd>
+      <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
+      ... <%= email_link(@refuser, @recurrence) %> !
+    </dd>
+
+    <dt><%= render "participations/button" %></dt>
+
+    <dt>Hinzufügen:</dt>
+    <dd><%= render "comments/form" %></dd>
+  </dl>
+  <p class="text-error">Mail an die "Turn-Beutel-Vergesser" <%= email_link(@refuser, @recurrence) %> !</p>
+</div>
