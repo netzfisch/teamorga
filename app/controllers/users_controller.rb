@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  layout 'with_sidebar', :only => [:index]
+
   skip_before_filter :require_login, :only => [:new, :create]
   before_filter :correct_user, :except => [:index, :show, :new, :create]
 
