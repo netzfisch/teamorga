@@ -5,9 +5,8 @@
   </head>
   <body>
     <%= render "layouts/navigation" %>
-    <div class="container">
-      <div class="content">
-
+    <div class="content">
+      <div class="container">
         <% flash.each do |name, msg| %>
           <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
             <a class="close" data-dismiss="alert" href="#">x</a>
@@ -17,12 +16,26 @@
 
         <%= content_for?(:divided_spans) ? yield(:divided_spans) : yield %>
       </div>
-      <footer class="footer">
-        <p>&copy; seitenmacher 2012 - <%= Date.today.strftime("%Y") %></p>
-      </footer>
     </div>
 
-    <!-- Javascripts
+<!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p>Built with the awesome <a href="https://github.com/twitter/bootstrap" target="_blank">Twitter Bootstrap</a> by <a href="http://twitter.com/netzfisch" target="_blank">@netzfisch</a>.</p>
+        <p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        <p>&copy; by seitenmacher 2012 - <%= Date.today.strftime("%Y") %></p>
+        <ul class="footer-links">
+          <li><a href="http://seitenmacher.de">Blog</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="https://github.com/netzfisch/teamorga/wiki">Documention</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="https://github.com/netzfisch/teamorga/issues?state=open">Issues</a></li>
+        </ul>
+      </div>
+    </footer>
+
+<!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
@@ -30,4 +43,3 @@
 
   </body>
 </html>
-

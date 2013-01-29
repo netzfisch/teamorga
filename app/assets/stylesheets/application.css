@@ -12,7 +12,9 @@
  *= require_tree .
  */
 /* <style type="text/css"> */
-body { padding-top: 85px; }
+body {
+  padding-top: 85px;
+}
 
 .vertical {
   display: block;
@@ -22,5 +24,37 @@ body { padding-top: 85px; }
   -o-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -ie-transform: rotate(-90deg);
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 20px;
+  border-top: 1px solid #E5E5E5;
+  background-color: whiteSmoke;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  padding: 0 2px;
+}
+.footer-links li:first-child {
+  padding-left: 0;
+}
+
+/* Rsponsive CSS fixes for the footer */
+@media (max-width: 767px) {
+  .footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 /* </style> */
