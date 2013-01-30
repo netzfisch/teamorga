@@ -16,6 +16,10 @@ class Recurrence < ActiveRecord::Base
     users.where("recurrence_id = ? AND status = ? ", recurrence.id, status)
   end
 
+  def no_feedback(recurrence)
+    User.licence - feedback(recurrence, true) - feedback(recurrence, false)
+  end
+
   def with_no_feedback(recurrence)
     User.licence.size - recurrence.participations.accepted.size - recurrence.participations.refused.size
   end

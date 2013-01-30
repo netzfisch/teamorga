@@ -73,12 +73,12 @@ describe Recurrence do
     end
   end
 
-  context "finds the participation status per recurrence" do
+  context "finds the participation status of licensed user per recurrence" do
     it "finds users accepted the recurrence" do
       2.times { FactoryGirl.create(:participation,
                   recurrence: recurrence,
                   user: FactoryGirl.create(:user),
-                  status: true) }
+                  status: true )}
 
       expect(recurrence.feedback(recurrence, true)).to have_exactly(2).items
     end
@@ -87,6 +87,12 @@ describe Recurrence do
       rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
       expect(rr.feedback(rr, false)).to have_exactly(3).items
+    end
+
+    it "finds users not replyed at the recurrence" do
+      4.times { FactoryGirl.create(:user, shirt_number: 13) }
+
+      expect(recurrence.no_feedback(recurrence)).to have_exactly(4).items
     end
 
     it "counts user with no feedback of the recurrence" do

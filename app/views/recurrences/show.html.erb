@@ -24,7 +24,7 @@
   ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
 </p>
 
-<%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=470x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false") %>
+<%= image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=false", class: "img-polaroid") %>
 
 <br /><br />
 
@@ -47,5 +47,5 @@
     <dt>Hinzufügen:</dt>
     <dd><%= render "comments/form" %></dd>
   </dl>
-  <p class="text-error">Mail an die "Turn-Beutel-Vergesser" <%= email_link(@refuser, @recurrence) %> !</p>
+  <p class="text-error">Mail an die "Turn-Beutel-Vergesser" <%= email_link(@no_replyer, @recurrence) %> !</p>
 </div>
