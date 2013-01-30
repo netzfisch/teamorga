@@ -14,14 +14,18 @@ class Recurrence < ActiveRecord::Base
 
   def feedback(recurrence, status)
     users.where("recurrence_id = ? AND status = ? ", recurrence.id, status)
+#    case
+#    when status == "true"
+#      recurrence.participations.accepted
+#    when status == "false"
+#      recurrence.participations.refused
+#    when status == "none"
+#      User.licence - recurrence.participations.accepted - recurrence.participations.refused
+#    end
   end
 
   def no_feedback(recurrence)
     User.licence - feedback(recurrence, true) - feedback(recurrence, false)
-  end
-
-  def with_no_feedback(recurrence)
-    User.licence.size - recurrence.participations.accepted.size - recurrence.participations.refused.size
   end
 
 end

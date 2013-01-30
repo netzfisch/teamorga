@@ -17,7 +17,7 @@
         <td><%= recurrence.event.category %></td>
         <td><%= recurrence.participations.accepted.size %></td>
         <td><%= recurrence.participations.refused.size %></td>
-        <td><%= recurrence.with_no_feedback(recurrence) %></td>
+        <td><%= recurrence.no_feedback(recurrence).size %></td>
       </tr>
     <% end %>
   </tbody>

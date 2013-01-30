@@ -96,10 +96,10 @@ describe Recurrence do
     end
 
     it "counts user with no feedback of the recurrence" do
-      2.times { FactoryGirl.create(:user) }
-      recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
+      5.times { FactoryGirl.create(:user, shirt_number: 15) }
+      recurrence = FactoryGirl.create(:refused_recurrence, shirt_number: 17, participations_count: 3)
 
-      expect(recurrence.with_no_feedback(recurrence)).to eq(User.count(:shirt_number) - 3)
+      expect(recurrence.no_feedback(recurrence).size).to eq(User.count(:shirt_number) - 3)
     end
   end
 
