@@ -30,7 +30,7 @@
 
 <div class="well">
   <dl class="dl" >
-    <dt><%= @accepter.size %> Zusagen(n) :</dt>
+    <dt><%= @accepter.size %> Zusage(n) :</dt>
     <dd>
       <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
       ... <%= email_link(@accepter, @recurrence) %> !
