@@ -16,16 +16,6 @@ body {
   padding-top: 85px;
 }
 
-.vertical {
-  display: block;
-  width: 10px;
-  -moz-transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -ie-transform: rotate(-90deg);
-}
-
 .footer {
   text-align: center;
   padding: 30px 0;
