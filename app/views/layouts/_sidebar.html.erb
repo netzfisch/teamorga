@@ -1,7 +1,7 @@
 <div class="well">
   <h3>Kommentare</h3>
   <ol class="microposts">
-    <%= render :partial => "comments/comment", :collection => @comments %>
+    <%= render(partial: "comments/comment", collection: @comments) || "Keine Kommentare zu dem Termin vorhanden!" %>
   </ol>
 </div>
 

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.find(:all)
+    @comments = Comment.limit(20)
   end
 
   # GET /users/1
