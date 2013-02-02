@@ -9,12 +9,13 @@
 
   <p>
     <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
-    <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr,  
-    <%= link_to name = "", '#place', html_options = { class: "icon-road", title: "Ort und Anfahrt" } %>
+    <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr: 
+    <%= link_to name = "", '#place', html_options = { class: "icon-road", title: "Ort und Anfahrt" } %> - 
+    <%= link_to name = "", '#comments', html_options = { class: "icon-comment", title: "Kommentare" } %>
   </p>
-</div>
 
-<div class="well">
+  <hr />
+
   <dl class="dl-horizontal" >
     <dt><i class="icon-user"></i> Zusage(n): <%= @accepter.size %></dt>
     <dd>
