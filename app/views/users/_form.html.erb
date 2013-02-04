@@ -32,7 +32,7 @@
   <div class="control-group">
     <%= f.label :birthday, :class => 'control-label' %>
     <div class="span1">
-      <%= f.date_select :birthday, :class => 'date_select', :start_year => 1950 , :end_year => 2000 %>
+      <%= f.date_select :birthday, :class => 'date_select', :start_year => 1950 , :end_year => Time.now.year - 5 %>
     </div>
   </div>
   <div class="control-group">
