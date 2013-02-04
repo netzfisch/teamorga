@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout 'with_sidebar', :only => [:index]
 
   skip_before_filter :require_login, :only => [:new, :create]
   before_filter :correct_user, :except => [:index, :show, :new, :create]
@@ -7,7 +6,6 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.find(:all)
-    @comments = Comment.limit(20)
   end
 
   # GET /users/1
