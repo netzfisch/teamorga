@@ -15,7 +15,7 @@
   <dt><strong>Trikotnummer:</strong></dt>
   <dd class="clearfix"><%= @user.shirt_number %></dd>
 
-  <%= display_for_admin do %>
+  <% display_for(:admin) do %>
     <dt><strong>Administrator:</strong></dt>
     <dd><%= check_box_tag "user_id", @user.id, @user.admin, :disabled => true %></dd>
   <% end %>
@@ -32,7 +32,7 @@
 
 <div class="form-actions">
   <%= link_to 'Back', users_path, :class => 'btn' %>
-  <% if current_user == @user || current_user.admin? %>
+  <% display_for(:owner) do %>
     <%= link_to('Edit', edit_user_path(@user), :class => 'btn') %>
     <%= link_to('Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger') %>
   <% end %>

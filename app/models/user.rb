@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates_length_of :shirt_number, :maximum => 2
 
   accepts_nested_attributes_for :participations #, :allow_destroy => true
-    attr_accessible :admin, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
+    attr_accessible :admin, :role, :name, :email, :phone, :birthday, :shirt_number, :password, :password_confirmation, :recurrence_ids
 
   default_scope order("name")
   scope :licence, where("shirt_number IS NOT NULL") # count(:shirt_number) or shirt_number.exist?

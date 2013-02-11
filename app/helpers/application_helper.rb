@@ -7,6 +7,14 @@ module ApplicationHelper
   def display_for_admin(&block)
    content_tag(:div, class: "admin", &block) if current_user.admin?
   end
+  
+  def display_for(role)
+    if role.to_s == "admin"
+      yield if current_user.admin?
+    elsif role.to_s == "owner"
+      yield if current_user == @user || current_user.admin?
+    end
+  end
 
   def email_link(users, recurrence = nil)
     unless users == []
