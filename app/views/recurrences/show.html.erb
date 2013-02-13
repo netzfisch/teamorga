@@ -37,7 +37,7 @@
 
   </dl>
 
-  <p class="text-warning" align="middle">Reminder an die "Schweiger" senden <%= email_link(@no_replyer, @recurrence) %> !</p>
+  <p class="text-warning" align="middle">Reminder an die <%= @no_replyer.size %> "Schweiger" senden <%= email_link(@no_replyer, @recurrence) %> !</p>
 </div>
 
 <div class="well">
