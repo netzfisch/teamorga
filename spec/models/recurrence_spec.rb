@@ -80,26 +80,26 @@ describe Recurrence do
                   user: FactoryGirl.create(:user),
                   status: true )}
 
-      expect(recurrence.feedback(recurrence, true)).to have_exactly(2).items
+      expect(recurrence.feedback(true)).to have_exactly(2).items
     end
 
     it "finds users refused the recurrence" do
       rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(rr.feedback(rr, false)).to have_exactly(3).items
+      expect(rr.feedback(false)).to have_exactly(3).items
     end
 
     it "finds users not replyed at the recurrence" do
       4.times { FactoryGirl.create(:user, shirt_number: 13) }
 
-      expect(recurrence.no_feedback(recurrence)).to have_exactly(4).items
+      expect(recurrence.no_feedback).to have_exactly(4).items
     end
 
     it "counts users with no feedback at the recurrence" do
       5.times { FactoryGirl.create(:user, shirt_number: 15) }
       recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(recurrence.no_feedback(recurrence).size).to eq(User.count - 3)
+      expect(recurrence.no_feedback.size).to eq(User.count - 3)
     end
   end
 

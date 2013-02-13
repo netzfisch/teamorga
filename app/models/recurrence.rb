@@ -12,8 +12,8 @@ class Recurrence < ActiveRecord::Base
   default_scope joins(:event).order("scheduled_to ASC, events.base_time ASC")
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.today) }
 
-  def feedback(recurrence, status)
-    users.where("recurrence_id = ? AND status = ? ", recurrence.id, status)
+  def feedback(status)
+    users.where("recurrence_id = ? AND status = ? ", self.id, status)
 #    case
 #    when status == "true"
 #      recurrence.participations.accepted
@@ -24,8 +24,8 @@ class Recurrence < ActiveRecord::Base
 #    end
   end
 
-  def no_feedback(recurrence)
-    User.licence - feedback(recurrence, true) - feedback(recurrence, false)
+  def no_feedback
+    User.licence - feedback(true) - feedback(false)
   end
 
 end

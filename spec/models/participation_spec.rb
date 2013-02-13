@@ -69,13 +69,13 @@ describe Participation do
                   user: FactoryGirl.create(:user),
                   status: true) }
 
-      expect(Participation.feedback(recurrence, true)).to have_exactly(2).items
+      expect(recurrence.feedback(true)).to have_exactly(2).items
     end
 
     it "finds users refused the recurrence" do
       rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(Participation.feedback(rr, false)).to have_exactly(3).items
+      expect(rr.feedback(false)).to have_exactly(3).items
     end
   end
 

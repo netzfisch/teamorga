@@ -17,9 +17,9 @@ class RecurrencesController < ApplicationController
   def show
     @recurrence = Recurrence.find(params[:id])
   
-    @accepter = @recurrence.feedback(@recurrence, true)
-    @refuser = @recurrence.feedback(@recurrence, false)
-    @no_replyer = @recurrence.no_feedback(@recurrence)
+    @accepter = @recurrence.feedback(true)
+    @refuser = @recurrence.feedback(false)
+    @no_replyer = @recurrence.no_feedback
     #@accepter = @recurrence.participations.accepted.map(&:user)
     #@refuser = @recurrence.participations.refused.map(&:user) 
 # which one is best, fast and sensefull?      
