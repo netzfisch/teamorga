@@ -9,15 +9,19 @@ group :development, :test do
   gem 'ruby-debug19' #, :require => 'ruby-debug'
   gem 'cucumber-rails', :require => false # user story framework
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
-  gem 'database_cleaner' # to clear Cucumber's test database between runs
-  gem 'capybara' # lets Cucumber pretend to be a web browser
-  gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
   gem 'rspec-rails' # specification driven framework
   gem 'factory_girl_rails' #instead of fixtures
+  gem 'guard-rspec' #run automatic rspec tests
 #TODO try following gems
 #  gem 'railroady' # creates an UML diagramm
 #  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
 #  gem 'metric_fu'' # invoke bei '$ rake metrics' instead of simple '$ rake stats'
+end
+
+group :test do
+  gem 'capybara' # lets Cucumber pretend to be a web browser
+  gem 'database_cleaner' # to clear Cucumber's test database between runs  
+  gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
 end
 
 group :production do
