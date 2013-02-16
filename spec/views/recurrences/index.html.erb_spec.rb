@@ -2,14 +2,16 @@ require 'spec_helper'
 
 describe "recurrences/index" do
 
-  before(:each) do
-    #assign(:recurrences, [10.times { FactoryGirl.generate(:recurrence) }])
-    #assign(:recurrences, [10.times { FactoryGirl.create(:recurrence, scheduled_to: "2012-12-18") } ] )
-    assign(:recurrences, [
-      FactoryGirl.build(Recurrence, scheduled_to: "2012-07-05"),
-      FactoryGirl.build(Recurrence, scheduled_to: "2012-07-12"),
-      FactoryGirl.build(Recurrence, scheduled_to: "2012-12-18") ])
-    view.stub(:will_paginate).and_return(page: 1)
+  let(:recurrences) do # { [10.times { FactoryGirl.create(:recurrence) }] }
+      [ FactoryGirl.create(:recurrence, scheduled_to: "2012-07-05"),
+      FactoryGirl.create(:recurrence, scheduled_to: "2012-07-12"),
+      FactoryGirl.create(:recurrence, scheduled_to: "2012-07-19") ]
+  end
+
+  before :each do
+    assign(:recurrences, recurrences)
+    view.stub(:will_paginate) # .and_return(recurrences)
+    # view.stub(:paginate).with(page: 1).and_return(recurrences.paginate(per_page: 2))
     render
   end
 
@@ -24,25 +26,24 @@ describe "recurrences/index" do
 
   it "should have table header selectors with participation status" do
     expect(rendered).to have_selector("table thead tr th", text: "Zusagen")
-  end
+  end 
 
-  it "should display two recurrences" do
-    expect(rendered).to match /12.07./
-    expect(rendered).to match /18.12./
+  it "should display three recurrences" do
+    expect(rendered).to have_selector('a', text: "07", count: 3)
   end
 
   it "should link to each single recurrence" do
-    [FactoryGirl.create(Recurrence), scheduled_to: "2012-12-24", id: 3].each do |recurrence|
-      expect(rendered).to have_selector('a', href: recurrence_path(recurrence), content: "24.12.")
+    recurrences.each do |recurrence|
+      expect(rendered).to have_link("#{recurrence.scheduled_to.strftime("%d.%m.")}", href: recurrence_path(recurrence))
     end
   end
 
   it "should have a pagination bar" do
-    expect(response.body).to match /Previous/
+    expect(rendered).to have_selector('div.pagination') # match /Next/
   end
 
   it "should have a NEW link" do
-    expect(rendered).to have_selector("a", :href => new_event_path, :content => "New")
+    expect(rendered).to have_link("New", href: new_event_path)
   end
 
 end
