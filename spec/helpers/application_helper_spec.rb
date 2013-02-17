@@ -12,6 +12,26 @@ before(:each) do
   #helper.stub(current_user: @user)
 end
 
+  describe "#active_class_if(url)" do
+    context "when link and actual URL are the same" do 
+      it "generates an active link" do
+        url = "http://example.com/"
+        helper.stub(:current_page?).with("http://example.com/").and_return(true)
+
+        helper.active_class_if(url, "link").should match(/\<li class="active"\>link\<\/li\>/)
+      end
+    end
+
+    context "when link and actual URL are not the same" do 
+      it "generates a passive link" do
+        url = "http://example.com/"
+        helper.stub(:current_page?).with("http://example.com/").and_return(false)
+
+        helper.active_class_if(url, "link").should match(/\<li\>link\<\/li\>/)
+      end
+    end
+  end
+
   it "#comment_link"
 
   describe "#display_for(role)" do
@@ -68,4 +88,3 @@ end
   it "#2x #google_link"
 
 end
-

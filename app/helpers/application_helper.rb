@@ -1,11 +1,9 @@
 module ApplicationHelper
 
-  def active_class(url)
-    "class = active" if current_page?(url) 
-  end
-
-  def display_for_admin(&block)
-   content_tag(:div, class: "admin", &block) if current_user.admin?
+  def active_class_if(url, link)
+   current_page?(url) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
+#  better match "model path", so sub-pages would be also highlighted:
+#  root_url.match(/.*\/\/.*\/"#{url}".*/) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
   end
   
   def display_for(role)
