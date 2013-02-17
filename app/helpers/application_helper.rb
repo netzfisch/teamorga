@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def active_class_if(url, link)
    current_page?(url) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
-#  better match "model path", so sub-pages would be also highlighted:
+#  TODO: better match "model path", so sub-pages would be also highlighted
 #  root_url.match(/.*\/\/.*\/"#{url}".*/) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
   end
   
