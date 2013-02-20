@@ -1,9 +1,11 @@
 module ApplicationHelper
 
-  def active_class_if(url, link)
-   current_page?(url) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
-#  TODO: better match "model path", so sub-pages would be also highlighted
-#  root_url.match(/.*\/\/.*\/"#{url}".*/) ? content_tag(:li, link, class: "active") : content_tag(:li, link)
+  def active_link_if(*controller, link_text, link_path)
+    class_name = controller.include?(params[:controller]) ? "active" : nil 
+   
+    content_tag(:li, class: class_name) do
+      link_to link_text, link_path
+    end
   end
   
   def display_for(role)

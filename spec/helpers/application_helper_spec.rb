@@ -1,24 +1,22 @@
 # encoding: utf-8
-require "spec_helper"
+require "spec_helper" 
 
 describe ApplicationHelper do
 
-  describe "#active_class_if(url)" do
-    context "when link and actual URL are the same" do 
+  describe "#active_class_if" do
+    context "when the navigation link 'belongs' to the current controller" do 
       it "generates an active link" do
-        url = "http://example.com/"
-        helper.stub(:current_page?).with("http://example.com/").and_return(true)
+        helper.stub(:params).and_return({:controller => "controller_name"})
 
-        helper.active_class_if(url, "link").should match(/\<li class="active"\>link\<\/li\>/)
+        helper.active_link_if("controller_name", "link_name", "link_path").should match(/\<li class="active"\>\<a href=\"link_path\"\>link_name\<\/a\>\<\/li\>/)
       end
     end
 
-    context "when link and actual URL are not the same" do 
+    context "when the navigation link does not 'belong' to the current controller" do 
       it "generates a passive link" do
-        url = "http://example.com/"
-        helper.stub(:current_page?).with("http://example.com/").and_return(false)
+        helper.stub(:params).and_return({:controller => "other_controller_name"})
 
-        helper.active_class_if(url, "link").should match(/\<li\>link\<\/li\>/)
+        helper.active_link_if("controller_name", "link_name", "link_path").should match(/\<li\>\<a href=\"link_path\"\>link_name\<\/a\>\<\/li\>/)
       end
     end
   end
