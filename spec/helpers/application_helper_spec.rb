@@ -4,7 +4,7 @@ require "spec_helper"
 describe ApplicationHelper do
 
   describe "#active_class_if" do
-    context "when the navigation link 'belongs' to the current controller" do 
+    context "when the navigation path 'contains' the current controller" do 
       it "generates an active link" do
         helper.stub(:params).and_return({:controller => "controller_name"})
 
@@ -12,7 +12,7 @@ describe ApplicationHelper do
       end
     end
 
-    context "when the navigation link does not 'belong' to the current controller" do 
+    context "when the navigation path 'contains' not the current controller" do 
       it "generates a passive link" do
         helper.stub(:params).and_return({:controller => "other_controller_name"})
 
