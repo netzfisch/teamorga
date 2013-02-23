@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 feature "User session management" do
-  given(:user) { User.create(name: "jdoe", email: "john@doe.com", password: "secret") }
+  given(:user) { FactoryGirl.create(:user, name: "jdoe") }
 
-  def login!
+  def login!(user)
     visit "/login"
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     click_button "Log in"
   end  
 
-  scenario "Signing in with false credentials" do
+  scenario "sign in with false credentials" do
     visit "/login"
     fill_in "Email", :with => user.email
     fill_in "Password", :with => "wrong-password"
@@ -19,16 +19,16 @@ feature "User session management" do
     expect(page).to have_text("Invalid email or password!")
   end
 
-  scenario "Signing in with correct credentials" do
-    login!
+  scenario "sign in with correct credentials" do
+    login!(user)
 
     expect(page).to have_text("Logged in!")
     expect(page).to have_selector("a", :text => "jdoe")
     expect(page).to have_selector("table thead th .vertical", :text => "Zusagen")
   end
 
-  scenario "Signing out" do
-    login!
+  scenario "sign out as authenticated user" do
+    login!(user)
     visit "/recurrences"
     click_link "Logout"
 
