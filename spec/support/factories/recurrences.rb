@@ -1,18 +1,5 @@
 FactoryGirl.define do
 
-  factory :event do
-    category "Training"
-    base_date Date.today
-    base_time Time.now
-    end_date Date.today
-    place "Halle"
-  end
-
-  factory :participation do
-    association :recurrence
-    association :user
-  end
-
   # recurrence factory without associated participations
   factory :recurrence do
     association :event
@@ -43,19 +30,6 @@ FactoryGirl.define do
       after(:create) do |recurrence, evaluator|
         FactoryGirl.create_list(:participation, evaluator.participations_count, recurrence: recurrence, status: false)
       end
-    end
-  end
-
-  factory :user do
-    sequence(:name)  { |n| "John #{n}" }
-    email { "#{name.downcase}@doe.com" }
-    password "foobar"
-    password_confirmation "foobar"
-    phone { "+49 #{rand(1000000000)}" } #validates_uniqueness_of phone, so can't do "+49 150 123 45 67"
-    #birthday { 41.years.ago }
-
-    trait :admin do
-      admin true
     end
   end
 
