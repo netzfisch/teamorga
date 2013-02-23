@@ -3,12 +3,12 @@ require 'spec_helper'
 feature "User data management" do
   given(:user)        { FactoryGirl.create(:user, admin: false) }
   given(:other_user)  { FactoryGirl.create(:user, admin: false) }
-  given(:admin)       { FactoryGirl.create(:user, admin: true) }
+  given(:admin)       { FactoryGirl.create(:user, :admin) }
 
   def login!(user)
     visit "/login"
     fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password
+    fill_in "Password", :with => user.password 
     click_button "Log in"
   end  
 
@@ -45,9 +45,9 @@ feature "User data management" do
     login!(admin)
     visit edit_user_path(other_user)
 
-    expect(page).to have_content('Admin')
-    check "Admin"
+    expect(page).to have_content("Admin")
+    find(:xpath, '//*[@id="user_admin"]').set(true) # check the admin-checkbox
 
-    expect{ click_link("Update User") }.to change(User.where("admin = 1").count).by(+1)
+    expect{ click_button("Update User") }.to change(User.where(:admin => true), :count).from(1).to(2)
   end
 end  

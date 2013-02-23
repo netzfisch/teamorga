@@ -51,13 +51,11 @@ FactoryGirl.define do
     email { "#{name.downcase}@doe.com" }
     password "foobar"
     password_confirmation "foobar"
-    phone "+49 150 123 45 67"
+    phone { "+49 #{rand(1000000000)}" } #validates_uniqueness_of phone, so can't do "+49 150 123 45 67"
     #birthday { 41.years.ago }
 
     trait :admin do
       admin true
-      name  { "admin-#{name}" }
-      email { "admin-#{email}" }
     end
   end
 
