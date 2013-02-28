@@ -47,7 +47,7 @@ describe EventsController do
     # see rspec-book position 10451, should not dates_between, but Recurrence.new !???
     it 'calls the model method that finds recurrences dates of the event' do
       fake_results = ["2012-12-01", "2012-12-08", "2012-12-15"]
-	    event.should_receive(:dates_between).with("2012-12-01", "2012-12-15").and_return(fake_results)
+      event.should_receive(:dates_between).with("2012-12-01", "2012-12-15").and_return(fake_results)
     end
 
     context "when the event saves successfully" do

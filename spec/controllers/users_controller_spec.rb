@@ -3,7 +3,6 @@ require 'spec_helper'
 describe UsersController do
 
   let(:user) { FactoryGirl.create(:user) }
-
   before(:each) { controller.stub(current_user: user) } # request valid session
 
   describe "GET index" do
@@ -71,7 +70,7 @@ describe UsersController do
     end
 
     it "increments users by one" do
-      expect{ do_post }.to change{ User.count }.by(1)
+      expect{ post :create, user: FactoryGirl.attributes_for(:user) }.to change(User, :count).by(1)
     end
 
     context "when the user saves successfully" do
@@ -111,13 +110,13 @@ describe UsersController do
     end
 
     it "finds an existing user" do
-      User.should_receive(:find).with(user.id.to_s).and_return(User) # just working with to_s !?
+      User.should_receive(:find).with(user.id.to_s).and_return(:user) # just working with to_s !?
       do_put
     end
 
     it "updates an existing user" do
-      User.should_receive(:update_attributes).with("name" => "Joe").and_return(User)
-      put :update, id: user, "name" => "Joe"
+      User.should_receive(:update_attributes).with("name" => "Joe").and_return(user)
+      put :update, id: user, name: "Joe"
     end
 
     context "when the user updates successfully" do

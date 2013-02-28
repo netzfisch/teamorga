@@ -1,4 +1,5 @@
 require 'spec_helper'
+# require 'will_paginate/array'
 
 describe "recurrences/index" do
 
@@ -10,8 +11,8 @@ describe "recurrences/index" do
 
   before :each do
     assign(:recurrences, recurrences)
-    view.stub(:will_paginate) # .and_return(recurrences)
     # view.stub(:paginate).with(page: 1).and_return(recurrences.paginate(per_page: 2))
+    view.stub(:will_paginate) #.and_return(:paginate)
     render
   end
 
@@ -39,7 +40,7 @@ describe "recurrences/index" do
   end
 
   it "should have a pagination bar" do
-    expect(rendered).to have_selector('div.pagination') # match /Next/
+    expect(rendered).to match /Next/ #have_selector('div.pagination') # match /Next/
   end
 
   it "should have a NEW link" do

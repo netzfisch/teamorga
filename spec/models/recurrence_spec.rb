@@ -17,7 +17,7 @@ describe Recurrence do
     recurrence.errors[:scheduled_to].should include("can't be blank")
   end
 
-  describe ".default_scope"
+  describe "#default_scope"
     it 'orders recurrences ascending by date' do
       recurrence_next = FactoryGirl.create(:recurrence, scheduled_to: Date.tomorrow)
       recurrence.update_attributes(scheduled_to: Date.today)
@@ -27,17 +27,17 @@ describe Recurrence do
 
     it 'orders recurrences ascending by time' do
       recurrence_second = FactoryGirl.create(:recurrence,
-        event_id: FactoryGirl.create(:event, base_time: Time.now),
+        event: FactoryGirl.create(:event, base_time: Time.now),
         scheduled_to: Date.today)
 
       recurrence_first = FactoryGirl.create(:recurrence,
-        event_id: FactoryGirl.create(:event, base_time: Time.now - 3.hours),
+        event: FactoryGirl.create(:event, base_time: Time.now - 3.hours),
         scheduled_to: Date.today)
 
       expect(Recurrence.first).to eq(recurrence_first)
     end
 
-  describe '.current scope' do
+  describe '#current scope' do
     it 'excludes recurrences scheduled for yesterday' do
       recurrence.update_attributes(scheduled_to: Date.today - 1.second)
       expect(Recurrence.current).to be_empty
@@ -62,11 +62,11 @@ describe Recurrence do
 
     it 'orders ascending by time' do
       recurrence_second = FactoryGirl.create(:recurrence,
-        event_id: FactoryGirl.create(:event, base_time: Time.now),
+        event: FactoryGirl.create(:event, base_time: Time.now),
         scheduled_to: Date.today)
 
       recurrence_first = FactoryGirl.create(:recurrence,
-        event_id: FactoryGirl.create(:event, base_time: Time.now - 3.hours),
+        event: FactoryGirl.create(:event, base_time: Time.now - 3.hours),
         scheduled_to: Date.today)
 
       expect(Recurrence.current.first).to eq(recurrence_first)
