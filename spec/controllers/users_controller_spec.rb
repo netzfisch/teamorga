@@ -110,7 +110,7 @@ describe UsersController do
     end
 
     it "finds an existing user" do
-      User.should_receive(:find).with(user.id.to_s).and_return(:user) # just working with to_s !?
+      User.should_receive(:find).with(user.id.to_s).and_return(user) # just working with to_s !?
       do_put
     end
 
