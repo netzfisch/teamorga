@@ -7,6 +7,17 @@ module ApplicationHelper
       link_to link_text, link_path
     end
   end
+
+  def markdown_parser(text)
+    options = { 
+      filter_html: true,
+      safe_links_only: true,
+      autolink: true,
+      hard_wrap: true
+    }
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
+    markdown.render(text).html_safe
+  end
   
   def display_for(role)
     if role.to_s == "admin"

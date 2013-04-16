@@ -1,7 +1,7 @@
 <div class="well">
   <h3>
     <%= @recurrence.event.category %>
-    <%= @recurrence.event.remark %> 
+    <%= markdown_parser @recurrence.event.remark %> 
     <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
       <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "icon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
     <% end %>
@@ -32,7 +32,10 @@
     <dt></dt>
     <dd><%= render "participations/button" %></dd>
 
-    <dt>Hinzufügen:</dt>
+    <dt>
+      Hinzufügen: 
+      <%= link_to name = "", 'http://daringfireball.net/projects/markdown/syntax#place', html_options = { class: "icon-pencil", title: "Markdown::Syntax", target: "new" } %>
+      </dt>
     <dd><%= render "comments/form" %></dd>
 
   </dl>

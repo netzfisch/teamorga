@@ -21,6 +21,29 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#markdown_parser" do
+    context "when the text field contains markdown syntax for 'bold'" do
+      it "generates valid html" do
+
+        helper.markdown_parser("**bold text**").should match("<strong>bold text</strong>")
+      end
+    end
+
+    context "when the text field contains markdown syntax for a 'link'" do
+      it "generates valid html" do
+
+        helper.markdown_parser("[this is a example link](http://example.com)").should match("<a href=\"http://example.com\">this is a example link</a>")
+      end
+    end
+
+    context "when the text field contains just a 'link'" do
+      it "generates valid html" do
+
+        helper.markdown_parser("generates http://automatic-links.com").should match("generates <a href=\"http://automatic-links.com\">http://automatic-links.com</a>")
+      end
+    end
+  end
+
   it "#comment_link"
 
   describe "#display_for(role)" do
