@@ -1,11 +1,12 @@
 <div class="well">
   <h3>
     <%= @recurrence.event.category %>
-    <%= markdown_parser @recurrence.event.remark %> 
     <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
       <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "icon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
     <% end %>
   </h3>
+
+  <p><%= markdown_parser @recurrence.event.remark %></p>
 
   <p>
     <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
@@ -32,19 +33,15 @@
     <dt></dt>
     <dd><%= render "participations/button" %></dd>
 
-    <dt>
-      Hinzufügen: 
-      <%= link_to name = "", 'http://daringfireball.net/projects/markdown/syntax#place', html_options = { class: "icon-pencil", title: "Markdown::Syntax", target: "new" } %>
-      </dt>
+    <dt>Hinzufügen:</dt>
     <dd><%= render "comments/form" %></dd>
-
   </dl>
 
   <p class="text-warning" align="middle">Reminder an die <%= @no_replyer.size %> "Schweiger" senden <%= email_link(@no_replyer, @recurrence) %> !</p>
 </div>
 
-<div class="well">
-  <p id="place"><strong>Ort: </strong><%= @recurrence.event.place %></p>
+<div class="well" id="place">
+  <p><strong>Ort: </strong><%= @recurrence.event.place %></p>
 
   <%= link_to image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
                         class: "img-polaroid"),

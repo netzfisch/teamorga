@@ -15,7 +15,9 @@
 body {
   padding-top: 85px;
 }
-
+.well a:hover {
+  text-decoration: none;
+}
 .footer {
   text-align: center;
   padding: 30px 0;

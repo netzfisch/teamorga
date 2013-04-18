@@ -39,12 +39,16 @@ describe "recurrences/index" do
     end
   end
 
-  it "should have a pagination bar" do
-    expect(rendered).to match /Next/ #have_selector('div.pagination') # match /Next/
+  it "should have a EDIT link" do
+    expect(rendered).to have_link("Edit", href: events_path)
   end
 
   it "should have a NEW link" do
     expect(rendered).to have_link("New", href: new_event_path)
+  end
+
+  it "should have a pagination bar" do
+    expect(rendered).to match /Next/ #have_selector('div.pagination') # match /Next/
   end
 
 end

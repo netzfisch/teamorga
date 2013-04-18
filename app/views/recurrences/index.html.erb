@@ -23,6 +23,6 @@
       <% end %>
     </tbody>
   </table>
-  Hier klicken <%= link_to 'New', new_event_path, :class => 'btn btn-primary' %> um neuen Termin anzulegen!
+  <%= link_to 'Edit', events_path, :class => 'btn btn-primary btn-mini' %> existing events or create directly a <%= link_to 'New', new_event_path, :class => 'btn btn-primary btn-mini' %> new one!
   <%= will_paginate %>
 </div>

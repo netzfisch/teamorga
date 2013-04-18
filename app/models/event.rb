@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
 
   validates :category, :base_date, :place, :presence => true
 
-  default_scope order("base_date ASC, base_time ASC")
+  default_scope order("base_date DESC, base_time ASC")
 
   # Retrieves a list of all recurrence dates for the named period
   def dates_between(start_date, end_date)

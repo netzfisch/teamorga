@@ -34,8 +34,8 @@ describe Event do
   end
 
   describe "#default_scope" do
-    it 'orders events ascending by date' do
-      event_next = FactoryGirl.create(:event, base_date: Date.tomorrow)
+    it 'orders events descending by date' do
+      event_next = FactoryGirl.create(:event, base_date: Date.yesterday)
       event.update_attributes(base_date: Date.today)
 
       expect(Event.first).to eq(event)
