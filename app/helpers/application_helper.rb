@@ -16,9 +16,16 @@ module ApplicationHelper
       hard_wrap: true
     }
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
-    markdown.render(text).html_safe
+    mention_link(markdown.render(text)).html_safe
   end
   
+  def mention_link(text)
+    # before '@' matches: Start of string, White space, Not Word
+    # after '@' matches: [a-z0-9_-], alternatively write \w for Word
+    regex = /(^|\s|\W)@([a-z0-9_-]+)/i
+    text.gsub(regex) {|x| "#{$1}<a href=\"/users/#{$2}\">@#{$2}</a>"}
+  end
+
   def display_for(role)
     if role.to_s == "admin"
       yield if current_user.admin?

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   has_many :participations, :include => :recurrence, :dependent => :destroy
   has_many :recurrences, :through => :participations
   has_many :comments, :dependent => :destroy

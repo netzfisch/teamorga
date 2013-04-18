@@ -11,7 +11,8 @@ group :development, :test do
   gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'rspec-rails' # specification driven framework
   gem 'factory_girl_rails' #instead of fixtures
-  gem 'guard-rspec' #run automatic rspec tests
+  gem 'guard-rspec' # run automatic rspec tests
+  gem 'rb-inotify', '~> 0.8.8' # guard dependency
 #TODO try following gems
 #  gem 'railroady' # creates an UML diagramm
 #  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
@@ -54,6 +55,9 @@ gem 'bootstrap-will_paginate'
 
 # To use markdown in text fields
 gem 'redcarpet'
+
+# To get nice Urls
+gem 'friendly_id'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

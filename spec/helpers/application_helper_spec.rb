@@ -42,7 +42,40 @@ describe ApplicationHelper do
         helper.markdown_parser("generates http://automatic-links.com").should match("generates <a href=\"http://automatic-links.com\">http://automatic-links.com</a>")
       end
     end
+    
+    context "when the text field contains a 'mention link'" do
+      it "generates valid html" do
+
+        helper.mention_link("I mention @bill ...").should match("I mention <a href=\"/users/bill\">@bill</a> ...")
+      end
+    end
   end
+
+  describe "#mention_link" do
+    let(:user) { FactoryGirl.create(:user, id: 8, name: "greg") }
+
+    context "when the text field contains a user name at the beginning" do
+      it "creates a  mention link" do
+
+        helper.mention_link("@bill at the beginning").should match("<a href=\"/users/bill\">@bill</a> at the beginning")
+      end
+    end
+
+    context "when the text field contains two user names" do
+      it "creates two mention links" do
+
+        helper.mention_link("here I mention @bill and @greg ...").should match("here I mention <a href=\"/users/bill\">@bill</a> and <a href=\"/users/greg\">@greg</a> ...")
+      end
+    end
+
+    context "when the text field contains a email adress" do
+      it "creates not a mention link" do
+
+        helper.mention_link("and his email is greg@example.com ...").should match("and his email is greg@example.com ...")
+      end
+    end
+  end
+
 
   it "#comment_link"
 

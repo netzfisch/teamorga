@@ -7,6 +7,7 @@ describe User do
   context "should validate" do
 
     it { should respond_to(:name) }
+    it { should respond_to(:slug) }
     it { should respond_to(:email) }
     it { should respond_to(:password) }
     it { should respond_to(:password_confirmation) }

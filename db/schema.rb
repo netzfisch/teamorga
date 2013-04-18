@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121222225239) do
+ActiveRecord::Schema.define(:version => 20130418175608) do
 
   create_table "comments", :force => true do |t|
     t.integer  "recurrence_id"
@@ -66,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20121222225239) do
     t.datetime "updated_at",                         :null => false
     t.string   "password_digest"
     t.boolean  "admin",           :default => false
+    t.string   "slug"
   end
+
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
 end
