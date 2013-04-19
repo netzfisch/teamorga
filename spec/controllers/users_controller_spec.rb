@@ -42,7 +42,7 @@ describe UsersController do
     end
 
     it "finds a single user" do
-      User.should_receive(:find).with(user.name).and_return(user)
+      User.should_receive(:find).with(user).and_return(user)
       do_get
     end
 
