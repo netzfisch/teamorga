@@ -28,6 +28,11 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
   resources :users
   resources :comments
 
+  # Routes within the backoffice namespace:
+  namespace :backoffice do
+    get '', to: 'dashboard#index', as: '/'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,5 +1,5 @@
 class ParticipationsController < ApplicationController
-  layout 'with_sidebar', :only => :index
+  layout 'sidebar_comments', :only => :index
 
   # GET /participation/index
   def index
