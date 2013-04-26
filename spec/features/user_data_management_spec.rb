@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User data management" do
+feature "User data management with ordinary user rights" do
   given(:user)        { FactoryGirl.create(:user, admin: false) }
   given(:other_user)  { FactoryGirl.create(:user, admin: false) }
   given(:admin)       { FactoryGirl.create(:user, :admin) }
@@ -12,7 +12,14 @@ feature "User data management" do
     click_button "Log in"
   end  
 
-  scenario "ordinary user can not manage other user data" do
+  scenario "does NOT see a backoffice link" do
+    login!(user)
+    visit root_path
+
+    expect(page).not_to have_link("Backoffice", href: backoffice_path )
+  end
+
+  scenario "can NOT manage other user data" do
     login!(user)
     visit user_path(other_user)
 
@@ -20,7 +27,7 @@ feature "User data management" do
     expect(page).not_to have_link("Destroy", href: user_path(other_user) )
   end
 
-  scenario "ordinary user can manage his own user data" do
+  scenario "can manage his own user data" do
     login!(user)
     visit user_path(user)
 
@@ -29,8 +36,28 @@ feature "User data management" do
 
     expect{ click_link('Destroy') }.to change(User, :count).by(-1)
   end
+end
 
-  scenario "administrator can manage other user data" do
+feature "User data management with administraion rights" do
+  given(:user)        { FactoryGirl.create(:user, admin: false) }
+  given(:other_user)  { FactoryGirl.create(:user, admin: false) }
+  given(:admin)       { FactoryGirl.create(:user, :admin) }
+
+  def login!(user)
+    visit "/login"
+    fill_in "Email", :with => user.email
+    fill_in "Password", :with => user.password 
+    click_button "Log in"
+  end  
+
+  scenario "does see a backoffice link" do
+    login!(admin)
+    visit root_path
+
+    expect(page).to have_link("Backoffice", href: backoffice_path )
+  end
+
+  scenario "can manage other user data" do
     login!(admin)
     visit user_path(other_user)
 
@@ -41,7 +68,7 @@ feature "User data management" do
     expect{ click_link("Destroy") }.to change(User, :count).by(-1)
   end
 
-  scenario "administrator can make other user to 'admin'" do
+  scenario "can make other user to 'admin'" do
     login!(admin)
     visit edit_user_path(other_user)
 
