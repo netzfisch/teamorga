@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418175608) do
+ActiveRecord::Schema.define(:version => 20130428105024) do
 
   create_table "comments", :force => true do |t|
     t.integer  "recurrence_id"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(:version => 20130418175608) do
     t.text     "remark"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.string   "logo_url"
+    t.text     "public_information"
+    t.text     "private_information"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "participations", :force => true do |t|

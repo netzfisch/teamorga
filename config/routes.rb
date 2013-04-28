@@ -31,6 +31,7 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
   # Routes within the backoffice namespace:
   namespace :backoffice do
     get '', to: 'dashboard#index', as: '/'
+    resources :groups
   end
 
   # The priority is based upon order of creation:
@@ -82,7 +83,7 @@ match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-root :to => "recurrences#index"
+  root :to => "recurrences#index"
 
   # See how all your routes lay out with "rake routes"
 
@@ -90,4 +91,3 @@ root :to => "recurrences#index"
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
-
