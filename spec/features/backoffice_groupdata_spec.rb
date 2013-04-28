@@ -18,7 +18,7 @@ feature "backoffice group data management" do
   scenario "adds groupdata" do
     visit "/backoffice"
     click_link "Groupdata"
-    current_path.should eq admin_group_path 
+    current_path.should eq backoffice_group_path 
 
     expect{
       click_link "New"
