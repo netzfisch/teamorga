@@ -62,7 +62,7 @@ layout 'sidebar_backoffice'
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to [:backoffice, @group], notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -78,7 +78,7 @@ layout 'sidebar_backoffice'
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to groups_url }
+      format.html { redirect_to backoffice_groups_url }
       format.json { head :no_content }
     end
   end

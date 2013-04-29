@@ -9,7 +9,9 @@
 
 <% @groups.each do |group| %>
   <tr>
+    <td><%= link_to 'Show', backoffice_group_path(group) %></td>
     <td><%= link_to 'Edit', edit_backoffice_group_path(group) %></td>
+    <td><%= link_to 'Destroy', backoffice_group_path(group), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

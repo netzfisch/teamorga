@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+ 
 feature "backoffice group data management" do
   given(:admin) { FactoryGirl.create(:user, :admin) }
 
@@ -18,8 +18,8 @@ feature "backoffice group data management" do
   scenario "adds groupdata" do
     visit "/backoffice"
     click_link "Groupdata"
-    current_path.should eq backoffice_group_path 
-
+    current_path.should eq backoffice_groups_path 
+  
     expect{
       click_link "New"
       fill_in "Name", with: "Training"
@@ -29,7 +29,7 @@ feature "backoffice group data management" do
       click_button "Create"
     }.to change(Group, :count).by(1)
 
-    current_path.should eq admin_groups_path
+    current_path.should eq backoffice_groups_path
     page.should have_content "Group was successfully created."
   end
 

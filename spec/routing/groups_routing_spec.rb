@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe GroupsController do
+describe Backoffice::GroupsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/groups").should route_to("groups#index")
+      get("/backoffice/groups").should route_to("backoffice/groups#index")
     end
 
     it "routes to #new" do
