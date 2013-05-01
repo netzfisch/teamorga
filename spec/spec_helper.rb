@@ -13,6 +13,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
 #  require 'rspec/autorun'
+#require 'capybara/rails'
 #require 'capybara/rspec'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
@@ -53,7 +54,7 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-  #FactoryGirl.reload
+  FactoryGirl.reload
 end
 
 # --- Instructions ---

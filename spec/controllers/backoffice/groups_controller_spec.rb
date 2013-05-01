@@ -31,11 +31,12 @@ describe Backoffice::GroupsController do
   # in order to pass any filters (e.g. authentication) defined in
   # GroupsController. Be sure to keep this updated too.
   def valid_session
-    {}
+    user = FactoryGirl.create(:user)
+    session[:user_id] = user.id
   end
 
   describe "GET index" do
-    it "assigns all groups as @groups" do
+    it "assigns all groups as @groups", :focus do
       group = Group.create! valid_attributes
       get :index, {}, valid_session
       assigns(:groups).should eq([group])
