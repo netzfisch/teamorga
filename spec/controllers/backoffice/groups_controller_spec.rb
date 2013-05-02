@@ -20,6 +20,8 @@ require 'spec_helper'
 
 describe Backoffice::GroupsController do
 
+  let(:user) { FactoryGirl.create(:user) }
+
   # This should return the minimal set of attributes required to create a valid
   # Group. As you add validations to Group, be sure to
   # update the return value of this method accordingly.
@@ -31,8 +33,7 @@ describe Backoffice::GroupsController do
   # in order to pass any filters (e.g. authentication) defined in
   # GroupsController. Be sure to keep this updated too.
   def valid_session
-    user = FactoryGirl.create(:user)
-    session[:user_id] = user.id
+    { :user_id => user.id } # alternatively controller.stub(current_user: user) or session[:user_id] = user.id
   end
 
   describe "GET index" do
