@@ -20,24 +20,22 @@ require 'spec_helper'
 
 describe Backoffice::GroupsController do
 
-  let(:user) { FactoryGirl.create(:user) }
-
   # This should return the minimal set of attributes required to create a valid
-  # Group. As you add validations to Group, be sure to
+  # Group. As you add validations to Backoffice::Group, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {  }
+    { :name => "ATSV", :public_information => "workout on tuesday" }
   end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # GroupsController. Be sure to keep this updated too.
+  # Backoffice::GroupsController. Be sure to keep this updated too.
   def valid_session
-    { :user_id => user.id } # alternatively controller.stub(current_user: user) or session[:user_id] = user.id
+    controller.stub(current_user: FactoryGirl.create(:user))
   end
 
   describe "GET index" do
-    it "assigns all groups as @groups", :focus do
+    it "assigns all groups as @groups" do
       group = Group.create! valid_attributes
       get :index, {}, valid_session
       assigns(:groups).should eq([group])
@@ -83,7 +81,7 @@ describe Backoffice::GroupsController do
 
       it "redirects to the created group" do
         post :create, {:group => valid_attributes}, valid_session
-        response.should redirect_to(Group.last)
+        response.should redirect_to(backoffice_group_path(Group.last))
       end
     end
 

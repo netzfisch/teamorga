@@ -1,7 +1,8 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV' => 'test' }, test_unit: false, wait: 50 do
+# cucumber_env: { 'RAILS_ENV' => 'test' }
+guard 'spork', cucumber_env: false, rspec_env: { 'RAILS_ENV' => 'test' }, test_unit: false, wait: 50 do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch('config/environments/test.rb')

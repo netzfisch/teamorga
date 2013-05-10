@@ -2,176 +2,206 @@ require 'spec_helper'
 
 describe UsersController do
 
+  # This should return the minimal set of attributes required to create a valid
+  # User. As you add validations to the User model, be sure to
+  # update the return value of this method accordingly.
+  def valid_attributes
+    { :name => "Jim", :email => "jim@doe.com", :password => "secret", :phone => "+49 40 123 4567" }
+  end
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # UsersController. Be sure to keep this updated too.
   let(:user) { FactoryGirl.create(:user) }
-  before(:each) { controller.stub(current_user: user) } # request valid session
+  def valid_session
+    controller.stub(current_user: user)
+    # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
+  end
+  # before(:each) { controller.stub(current_user: user) } # request valid session
 
   describe "GET index" do
-    def do_get
-      get :index
+    it "assigns all users as @users" do
+      #user = User.create! valid_attributes
+      get :index, {}, valid_session
+      expect(assigns :users).to eq([user])
     end
 
-    it "should be successfull" do
-      do_get
-      expect(response).to be_success
-    end
-
-    it "finds all users" do
-      User.should_receive(:find).with(:all).and_return([user])
-      do_get
-    end
-
-    it "assigns an array of users" do
-      do_get
-      expect(assigns[:users]).to eq([user]) #or: be_instance_of(Array) #
-    end
-
-    it "renders the index template" do
-      do_get
+    it "renders the 'index' template" do
+      get :index, {}, valid_session
       expect(response).to render_template("index")
+    end
+
+    it "returns http success" do
+      get :index, {}, valid_session
+      expect(response).to be_success
     end
   end
 
   describe "GET show" do
-    def do_get
-      get :show, id: user
+    it "assigns the requested user as @user" do
+      #user = User.create! valid_attributes
+      get :show, {:id => user.to_param}, valid_session
+      assigns(:user).should eq(user)
     end
 
-    it "should be successfull" do
-      do_get
+    it "renders the 'show' template" do
+      get :show, {id: user}, valid_session
+      expect(response).to render_template :show
+    end
+
+    it "returns http success" do
+      get :show, {id: user}, valid_session
       expect(response).to be_success
     end
+  end
 
-    it "finds a single user" do
-      User.should_receive(:find).with(user).and_return(user)
-      do_get
+  describe "GET new" do
+    it "assigns a new user as @user" do
+      get :new, {}, valid_session
+      assigns(:user).should be_a_new(User)
     end
 
-    it "assigns a single user" do
-      get :show, id: user
-      expect(assigns(:user)).to eq(user)
+    it "renders the 'new' template" do
+      get :new, {}, valid_session
+      expect(response).to render_template :new
     end
 
-    it "renders the show template" do
-      get :show, id: user
-      expect(response).to render_template :show
+    it "returns http success" do
+      get :new, {}, valid_session
+      expect(response).to be_success
+    end
+  end
+
+  describe "GET edit" do
+    it "assigns the requested user as @user" do
+      #user = User.create! valid_attributes
+      get :edit, {id: user.to_param}, valid_session
+      assigns(:user).should eq(user)
+    end
+
+    it "renders the 'edit' template" do
+      get :edit, {id: user.to_param}, valid_session
+      expect(response).to render_template :edit
+    end
+
+    it "returns http success" do
+      get :edit, {id: user.to_param}, valid_session
+      expect(response).to be_success
     end
   end
 
   describe "POST create" do
-    before { User.stub(:new).and_return(user) }
+    context "with valid params" do
+      it "creates a new User" do
+        expect {
+          post :create, {:user => valid_attributes} #free registration, so no 'valid_session' needed!
+        }.to change(User, :count).by(1)
+      end
 
-    def do_post
-      post :create
-    end
+      it "assigns a newly created user as @user" do
+        post :create, {:user => valid_attributes} #, valid_session
+        assigns(:user).should be_a(User)
+        assigns(:user).should be_persisted
+      end
 
-    it "creates a new user" do
-      User.should_receive(:new).with("name" => "Joe").and_return(user)
-      post :create, user: { "name" => "Joe" }
-    end
-
-    it "increments users by one" do
-      expect{ post :create, user: FactoryGirl.attributes_for(:user) }.to change(User, :count).by(1)
-    end
-
-    context "when the user saves successfully" do
-      before { user.stub(:save).and_return(true) }
-
-      it "sets a flash[:notice]" do
-        do_post
+      it "sets a flash notice about the successful created user" do
+        post :create, {:user => valid_attributes} #, valid_session
         expect(flash[:notice]).not_to be(nil)
       end
 
-      it "redirects to the user profil" do
-        do_post
-        expect(response).to redirect_to edit_user_path(user)
+      it "redirects to the created user" do
+        post :create, {:user => valid_attributes} #, valid_session
+        expect(response).to redirect_to(edit_user_path(User.last))
       end
     end
 
-    context "when the user fails to save" do
-      before { user.stub(:save).and_return(false) }
-
-      it "assigns a user" do
-        do_post
-        expect(assigns[:user]).to eq(user)
+    context "with invalid params" do
+      it "assigns a newly created but unsaved user as @user" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        User.any_instance.stub(:save).and_return(false)
+        post :create, {:user => { }} #, valid_session
+        assigns(:user).should be_a_new(User)
       end
 
-      it "renders the new template" do
-        do_post
-        expect(response).to render_template("new")
+      it "re-renders the 'new' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        User.any_instance.stub(:save).and_return(false)
+        post :create, {:user => { }} #, valid_session
+        response.should render_template("new")
       end
     end
   end
 
   describe "PUT update" do
-    before { User.stub(:new).and_return(user) }
+    context "with valid params" do
+      it "updates the requested user" do
+        #user = User.create! valid_attributes
+        # Assuming there are no other users in the database, this
+        # specifies that the User created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        User.any_instance.should_receive(:update_attributes).with({ "these" => "params" })
+        put :update, {:id => user.to_param, :user => { "these" => "params" }}, valid_session
+      end
 
-    def do_put
-      put :update, id: user.id
-    end
+      it "assigns the requested user as @user" do
+        #user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        assigns(:user).should eq(user)
+      end
 
-    it "finds an existing user" do
-      User.should_receive(:find).with(user.id.to_s).and_return(user) # just working with to_s !?
-      do_put
-    end
-
-    it "updates an existing user" do
-      User.should_receive(:update_attributes).with("name" => "Joe").and_return(user)
-      put :update, id: user, name: "Joe"
-    end
-
-    context "when the user updates successfully" do
-      before { user.stub(:save).and_return(true) }
-
-      it "sets a flash[:notice]" do
-        do_put
+      it "sets a flash notice about the successful updated user" do
+        #user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
         expect(flash[:notice]).not_to be(nil)
       end
 
-      it "redirects to the user profil" do
-        do_put
-        expect(response).to redirect_to user_path(user)
+      it "redirects to the updated user" do
+        #user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        response.should redirect_to(User.last)
       end
     end
 
-    context "when the user fails to update" do
-      before { user.stub(:save).and_return(false) }
-
-      it "assigns a user" do
-        do_put
-        expect(assigns[:user]).to eq(user)
+    context "with invalid params" do
+      it "assigns the user as @user" do
+        #user = User.create! valid_attributes
+        # Trigger the behavior that occurs when invalid params are submitted
+        User.any_instance.stub(:save).and_return(false)
+        put :update, {:id => user.to_param, :user => { }}, valid_session
+        assigns(:user).should eq(user)
       end
 
-      it "renders the edit template" do
-        do_put
-        expect(response).to render_template(:action => "edit")
+      it "re-renders the 'edit' template" do
+        #user = User.create! valid_attributes
+        # Trigger the behavior that occurs when invalid params are submitted
+        User.any_instance.stub(:save).and_return(false)
+        put :update, {:id => user.to_param, :user => { }}, valid_session
+        response.should render_template("edit")
       end
     end
   end
 
-  describe 'DELETE destroy' do
-    def do_delete
-      delete :destroy, id: user
+  describe "DELETE destroy" do
+    it "destroys the requested user" do
+      #user = User.create! valid_attributes
+      expect {
+        delete :destroy, {:id => user.to_param}, valid_session
+      }.to change(User, :count).by(-1)
     end
 
-    it "finds the user" do
-      User.should_receive(:find).with(user.id.to_s).and_return(User) # just working with to_s !?
-      do_delete
-    end
-
-    it "deletes the user" do
-      expect{ do_delete }.to change(User, :count).by(-1)
-    end
-
-    it "sets a flash[:notice]" do
-      do_delete
+    it "sets a flash notice about the successful destroyed user" do
+      #user = User.create! valid_attributes
+      delete :destroy, {:id => user.to_param}, valid_session
       expect(flash[:notice]).not_to be(nil)
     end
 
-    it "redirects to users index" do
-      do_delete
-      expect{ response}.to redirect_to root_url
+    it "redirects to the root url" do
+      #user = User.create! valid_attributes
+      delete :destroy, {:id => user.to_param}, valid_session
+      response.should redirect_to(root_url)
+      # when user destoys himself, ist like a log-out, so redirect to 'users_list' is senseless!
     end
   end
-
 end
 
