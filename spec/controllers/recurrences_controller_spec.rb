@@ -48,4 +48,3 @@ describe RecurrencesController do
   end
 
 end
-
