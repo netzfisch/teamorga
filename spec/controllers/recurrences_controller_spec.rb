@@ -1,51 +1,85 @@
 require 'spec_helper'
 
 describe RecurrencesController do
+
+  # This should return the minimal set of attributes required to create a valid
+  # Recurrence. As you add validations to the Recurrence model, be sure to
+  # update the return value of this method accordingly.
+  def valid_attributes
+    #{ event_id: FactoryGirl.create(:event).id, scheduled_to: "2013-05-08" }
+    { scheduled_to: "2013-05-08" }
+  end
+
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # RecurrencesController. Be sure to keep this updated too.
+  def valid_session
+    controller.stub(current_user: FactoryGirl.create(:user))
+    # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
+  end
+
+  let(:recurrence) { Recurrence.create! valid_attributes }
+
   describe "GET index" do
-
-# REFACTOR, beautyfy and maybe change to shoulda gem, see http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
-
-    let(:recurrence) { [mock_model(Recurrence)] }
-
-    before(:each) do
-      user = User.create!(:email => "jdoe", :password => "secret", :name => "jdoe")
-      request.session = { :user_id => user.id } # alternatively "session[:user_id] = user.id"
-
-      #@recurrence = mock_model(Recurrence)
-      Recurrence.stub_chain(:current, :paginate).and_return([@recurrence])
+    before(:each) { Recurrence.stub_chain(:current, :paginate).and_return([recurrence]) }
+    
+    it "assigns all recurrences as @recurrences" do
+      #recurrence = Recurrence.create! valid_attributes
+      get :index, {}, valid_session
+      expect(assigns :recurrences).to eq([recurrence])
     end
 
-    it "should be successfull" do
-      get :index
-      response.should be_success
-    end
+# TODO refactor to new rspec-syntax, see also http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
 
-    it "should assign an array of recurrences" do
-      get :index
-      assigns[:recurrences].should be_instance_of(Array)
-      expect(assigns(:recurrences)).to be_instance_of(Array)
-    end
-
-    it "should call the paginate method of the recurrence class" do
+    it "calls the paginate method on all recurrences" do
       Recurrence.current.should_receive(:paginate).and_return([@recurrence])
-      get :index
+      get :index, {}, valid_session
     end
 
-    it "should render the index template" do
-      get :index
+    it "assigns all comments as @comments" do
+      comment = Comment.create!(body: "time to beach")
+      get :index, {}, valid_session
+      expect(assigns :comments).to eq([comment])
+    end
+
+    it "renders the 'index' template" do
+      get :index, {}, valid_session
       expect(response).to render_template("index")
     end
 
-    it "should show eight results per page" do
-      Recurrence.current.should_receive(:paginate).with(:page => nil, :per_page => 8).and_return(@recurrence)
-      get :index
+    it "shows eight results per page" do
+      Recurrence.current.should_receive(:paginate).with(page: nil, per_page: 8).and_return(recurrence)
+      get :index, {}, valid_session
     end
 
-    it "should pass on the page number to will_paginate" do
-      Recurrence.current.should_receive(:paginate).with(:page => '3', :per_page => 8).and_return(@recurrence)
-      get :index, 'page' => '3'
+    it "passes the page number on to will_paginate" do
+      Recurrence.current.should_receive(:paginate).with(page: "3", per_page: 8).and_return(recurrence)
+      get :index, { page: "3" }, valid_session
+    end
+
+    it "returns http success" do
+      get :index, {}, valid_session
+      expect(response).to be_success
     end
   end
 
-end
+  describe "GET show" do
+    it "assigns a recurrence as @recurrence"
 
+    it "assigns all accepter as @accepter"
+
+    it "assigns all refuser as @refuser"
+
+    it "assigns all no_replyer as @no_replyer"
+
+    it "assigns all comments as @comments" do
+      comment = Comment.create!(body: "time to beach")
+      get :index, {}, valid_session
+      expect(assigns :comments).to eq([comment])
+    end
+
+    it "reners the 'show' template"
+
+    it "returns http success"
+  end
+end
