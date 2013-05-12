@@ -123,7 +123,7 @@ describe Backoffice::GroupsController do
       it "redirects to the group" do
         group = Group.create! valid_attributes
         put :update, {:id => group.to_param, :group => valid_attributes}, valid_session
-        response.should redirect_to(group)
+        response.should redirect_to(backoffice_group_path(Group.last))
       end
     end
 
@@ -157,7 +157,7 @@ describe Backoffice::GroupsController do
     it "redirects to the groups list" do
       group = Group.create! valid_attributes
       delete :destroy, {:id => group.to_param}, valid_session
-      response.should redirect_to(groups_url)
+      response.should redirect_to(backoffice_groups_url)
     end
   end
 

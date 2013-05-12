@@ -29,7 +29,7 @@ feature "backoffice group data management" do
       click_button "Create"
     }.to change(Group, :count).by(1) 
 
-    current_path.should eq backoffice_groups_path
+    current_path.should eq backoffice_group_path(Group.last)
     page.should have_content "Group was successfully created."
   end
 
