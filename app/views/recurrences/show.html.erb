@@ -43,7 +43,7 @@
 <div class="well" id="place">
   <p><strong>Ort: </strong><%= @recurrence.event.place %></p>
 
-  <%= link_to image_tag("http://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
+  <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
                         class: "img-polaroid"),
                         "http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place,
                         target: "_blank" %>
