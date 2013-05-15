@@ -28,6 +28,11 @@ describe EventsController do
       expect(assigns :events).to eq([event])
     end
 
+    it "renders the 'backoffice' layout" do
+      get :index, {}, valid_session
+      expect(response).to render_template("layouts/sidebar_backoffice")
+    end
+
     it "renders the 'index' template" do
       get :index, {}, valid_session
       expect(response).to render_template("index")

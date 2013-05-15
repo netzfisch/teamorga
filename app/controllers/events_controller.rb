@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+layout 'sidebar_backoffice'
 
   # GET /events
   def index

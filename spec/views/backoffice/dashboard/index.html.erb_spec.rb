@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe "dashboard/index.html.erb" do
+describe "backoffice/dashboard/index" do
   pending "add some examples to (or delete) #{__FILE__}"
 end

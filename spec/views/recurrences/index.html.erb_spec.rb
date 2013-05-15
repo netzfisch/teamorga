@@ -1,5 +1,5 @@
 require 'spec_helper'
-# require 'will_paginate/array'
+require 'will_paginate/array'
 
 describe "recurrences/index" do
 
@@ -11,8 +11,8 @@ describe "recurrences/index" do
 
   before :each do
     assign(:recurrences, recurrences)
-    # view.stub(:paginate).with(page: 1).and_return(recurrences.paginate(per_page: 2))
-    view.stub(:will_paginate) #.and_return(:paginate)
+#     view.stub(:will_paginate).with(page: "1").and_return(recurrences.paginate(per_page: 2))
+    view.stub(:will_paginate).and_return(recurrences.paginate)
     render
   end
 
