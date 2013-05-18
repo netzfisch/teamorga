@@ -21,16 +21,15 @@ describe EventsController do
 
   let(:event) { Event.create! valid_attributes }
 
-  describe "GET index" do
-    it "assigns all events as @events" do
-      event = Event.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns :events).to eq([event])
-    end
+  it "renders the 'backoffice' layout" do
+    get :index, {}, valid_session
+    expect(response).to render_template("layouts/sidebar_backoffice")
+  end
 
-    it "renders the 'backoffice' layout" do
+  describe "GET index" do
+    it "returns http success" do
       get :index, {}, valid_session
-      expect(response).to render_template("layouts/sidebar_backoffice")
+      expect(response).to be_success
     end
 
     it "renders the 'index' template" do
@@ -38,17 +37,17 @@ describe EventsController do
       expect(response).to render_template("index")
     end
 
-    it "returns http success" do
+    it "assigns all events as @events" do
+      event = Event.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to be_success
+      expect(assigns :events).to eq([event])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested event as @event" do
-      event = Event.create! valid_attributes
-      get :show, {:id => event.to_param}, valid_session
-      assigns(:event).should eq(event)
+    it "returns http success" do
+      get :show, {id: event}, valid_session
+      expect(response).to be_success
     end
 
     it "renders the 'show' template" do
@@ -56,16 +55,17 @@ describe EventsController do
       expect(response).to render_template :show
     end
 
-    it "returns http success" do
-      get :show, {id: event}, valid_session
-      expect(response).to be_success
+    it "assigns the requested event as @event" do
+      event = Event.create! valid_attributes
+      get :show, {:id => event.to_param}, valid_session
+      assigns(:event).should eq(event)
     end
   end
 
   describe "GET new" do
-    it "assigns a new event as @event" do
+    it "returns http success" do
       get :new, {}, valid_session
-      assigns(:event).should be_a_new(Event)
+      expect(response).to be_success
     end
 
     it "renders the 'new' template" do
@@ -73,17 +73,16 @@ describe EventsController do
       expect(response).to render_template :new
     end
 
-    it "returns http success" do
+    it "assigns a new event as @event" do
       get :new, {}, valid_session
-      expect(response).to be_success
+      assigns(:event).should be_a_new(Event)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested event as @event" do
-      event = Event.create! valid_attributes
+    it "returns http success" do
       get :edit, {id: event.to_param}, valid_session
-      assigns(:event).should eq(event)
+      expect(response).to be_success
     end
 
     it "renders the 'edit' template" do
@@ -91,9 +90,10 @@ describe EventsController do
       expect(response).to render_template :edit
     end
 
-    it "returns http success" do
+    it "assigns the requested event as @event" do
+      event = Event.create! valid_attributes
       get :edit, {id: event.to_param}, valid_session
-      expect(response).to be_success
+      assigns(:event).should eq(event)
     end
   end
 

@@ -19,14 +19,14 @@ describe Backoffice::DashboardController do
   end
 
   describe "GET 'index'" do
-    it "renders the 'index' template" do
-      get :index, {}, valid_session
-      expect(response).to render_template("backoffice/dashboard/index")
-    end
-
     it "returns http success" do
       get :index, {}, valid_session
       expect(response).to be_success
+    end
+
+    it "renders the 'index' template" do
+      get :index, {}, valid_session
+      expect(response).to render_template("backoffice/dashboard/index")
     end
   end
 end

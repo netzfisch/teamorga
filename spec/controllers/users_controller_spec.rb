@@ -12,18 +12,17 @@ describe UsersController do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
-  let(:user) { FactoryGirl.create(:user) }
   def valid_session
-    controller.stub(current_user: user)
+    controller.stub(current_user: mock_model(User))
     # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
   end
-  # before(:each) { controller.stub(current_user: user) } # request valid session
+
+  let(:user) { User.create! valid_attributes }
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      #user = User.create! valid_attributes
+    it "returns http success", focus: true do
       get :index, {}, valid_session
-      expect(assigns :users).to eq([user])
+      expect(response).to be_success
     end
 
     it "renders the 'index' template" do
@@ -31,17 +30,17 @@ describe UsersController do
       expect(response).to render_template("index")
     end
 
-    it "returns http success" do
+    it "assigns all users as @users" do
+      #user = User.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to be_success
+      expect(assigns :users).to eq([user])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested user as @user" do
-      #user = User.create! valid_attributes
-      get :show, {:id => user.to_param}, valid_session
-      assigns(:user).should eq(user)
+    it "returns http success" do
+      get :show, {id: user}, valid_session
+      expect(response).to be_success
     end
 
     it "renders the 'show' template" do
@@ -49,16 +48,17 @@ describe UsersController do
       expect(response).to render_template :show
     end
 
-    it "returns http success" do
-      get :show, {id: user}, valid_session
-      expect(response).to be_success
+    it "assigns the requested user as @user" do
+      #user = User.create! valid_attributes
+      get :show, {:id => user.to_param}, valid_session
+      assigns(:user).should eq(user)
     end
   end
 
   describe "GET new" do
-    it "assigns a new user as @user" do
+    it "returns http success" do
       get :new, {}, valid_session
-      assigns(:user).should be_a_new(User)
+      expect(response).to be_success
     end
 
     it "renders the 'new' template" do
@@ -66,17 +66,16 @@ describe UsersController do
       expect(response).to render_template :new
     end
 
-    it "returns http success" do
+    it "assigns a new user as @user" do
       get :new, {}, valid_session
-      expect(response).to be_success
+      assigns(:user).should be_a_new(User)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested user as @user" do
-      #user = User.create! valid_attributes
+    it "returns http success" do
       get :edit, {id: user.to_param}, valid_session
-      assigns(:user).should eq(user)
+      expect(response).to be_success
     end
 
     it "renders the 'edit' template" do
@@ -84,9 +83,10 @@ describe UsersController do
       expect(response).to render_template :edit
     end
 
-    it "returns http success" do
+    it "assigns the requested user as @user" do
+      #user = User.create! valid_attributes
       get :edit, {id: user.to_param}, valid_session
-      expect(response).to be_success
+      assigns(:user).should eq(user)
     end
   end
 
@@ -183,8 +183,8 @@ describe UsersController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested user" do
-      #user = User.create! valid_attributes
+    it "destroys the requested user", focus: true do
+      user = User.create! valid_attributes
       expect {
         delete :destroy, {:id => user.to_param}, valid_session
       }.to change(User, :count).by(-1)
