@@ -31,6 +31,11 @@ describe RecurrencesController do
 
 # TODO refactor to new rspec-syntax, see also http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
 
+    it "returns http success" do
+      get :index, {}, valid_session
+      expect(response).to be_success
+    end
+
     it "calls the paginate method on all recurrences" do
       Recurrence.current.should_receive(:paginate).and_return([@recurrence])
       get :index, {}, valid_session
@@ -47,23 +52,29 @@ describe RecurrencesController do
       expect(response).to render_template("index")
     end
 
-    it "shows eight results per page" do
-      Recurrence.current.should_receive(:paginate).with(page: nil, per_page: 8).and_return(recurrence)
-      get :index, {}, valid_session
-    end
-
     it "passes the page number on to will_paginate" do
       Recurrence.current.should_receive(:paginate).with(page: "3", per_page: 8).and_return(recurrence)
       get :index, { page: "3" }, valid_session
     end
 
-    it "returns http success" do
+    it "shows eight results per page" do
+      Recurrence.current.should_receive(:paginate).with(page: nil, per_page: 8).and_return(recurrence)
       get :index, {}, valid_session
-      expect(response).to be_success
+    end
+
+    #render_views
+    it "shows pagination bar" do
+      #recurrences = (1..5).map { mock_model(Recurrence) }
+      recurrences = 20.times { FactoryGirl.create(:recurrence) }
+      Recurrence.current.should_receive(:paginate).with(page: "1", per_page: 2).and_return(recurrences)
+      get :index, { page: "1" }, valid_session
+      expect(response.body).to match /div.pagination/ # have_selector"div.pagination"
     end
   end
 
   describe "GET show" do
+    it "returns http success"
+
     it "assigns a recurrence as @recurrence"
 
     it "assigns all accepter as @accepter"
@@ -79,7 +90,5 @@ describe RecurrencesController do
     end
 
     it "reners the 'show' template"
-
-    it "returns http success"
   end
 end
