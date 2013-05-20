@@ -1,33 +1,25 @@
 require 'spec_helper'
 require 'will_paginate/array'
-#require 'will_paginate/collection'
 
 describe "recurrences/index" do
-
-  let(:recurrences) do [ # { [10.times { FactoryGirl.build(:recurrence) }] }
-    FactoryGirl.create(:recurrence, scheduled_to: "2013-07-05"),
-    FactoryGirl.create(:recurrence, scheduled_to: "2013-07-12"),
-    FactoryGirl.create(:recurrence, scheduled_to: "2013-07-19")
-    ]
+# see Mislav's gist at https://gist.github.com/mislav/587c1a6daa775f5c85fc and
+# https://groups.google.com/forum/#!msg/will_paginate/i2LCboRZWfs/DpGHi5Msc74J
+ 
+  let(:recurrences) { create_recurrences("2013-07-05", "2013-07-12", "2013-07-19") }
+ 
+  def create_recurrences(*dates)
+    dates.map { |date| FactoryGirl.create(:recurrence, scheduled_to: date) }
   end
 
-# see https://groups.google.com/forum/#!msg/will_paginate/i2LCboRZWfs/DpGHi5Msc74J and
-# https://gist.github.com/mislav/587c1a6daa775f5c85fc
-#
-# let(:recurrences) do
-#   create_recurrences("2012-07-05", "2012-07-12", "2012-07-19")
-# end
-#
-# def create_recurrence(date)
-#   FactoryGirl.create(:recurrence, scheduled_to: date)
-# end
-#
-# def create_recurrences(*dates)
-#   dates.map { |date| create_recurrence(date) }
+# let(:recurrences) do [
+#   FactoryGirl.create(:recurrence, scheduled_to: "2013-07-05"),
+#   FactoryGirl.create(:recurrence, scheduled_to: "2013-07-12"),
+#   FactoryGirl.create(:recurrence, scheduled_to: "2013-07-19")
+#   ]
 # end
 
   before :each do
-    assign(:recurrences, recurrences.paginate(per_page: 2))
+    assign(:recurrences, recurrences.paginate(page: 1, per_page: 2))
     render
   end
 
@@ -49,7 +41,7 @@ describe "recurrences/index" do
   end
 
   it "renders recurrences links" do
-    recurrences.each do |recurrence|
+    recurrences.paginate(page: 1, per_page: 2).each do |recurrence|
       expect(rendered).to have_link("#{recurrence.scheduled_to.strftime("%d.%m.")}", href: recurrence_path(recurrence))
     end
   end

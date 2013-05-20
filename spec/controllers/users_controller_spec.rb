@@ -9,18 +9,21 @@ describe UsersController do
     { :name => "Jim", :email => "jim@doe.com", :password => "secret", :phone => "+49 40 123 4567" }
   end
 
+  let(:user) { User.create! valid_attributes }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   def valid_session
-    controller.stub(current_user: mock_model(User))
-    # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
+    #controller.stub(
+#    { :current_user => FactoryGirl.create(:user) }
+   # alternatively 
+#    { session[:user_id] => user.id }# or 
+    { :user_id => user.id } 
   end
 
-  let(:user) { User.create! valid_attributes }
-
   describe "GET index" do
-    it "returns http success", focus: true do
+    it "returns http success" do
       get :index, {}, valid_session
       expect(response).to be_success
     end
@@ -94,23 +97,23 @@ describe UsersController do
     context "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes} #free registration, so no 'valid_session' needed!
+          post :create, {:user => valid_attributes} #free registration, no 'valid_session' needed!
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes} #, valid_session
+        post :create, {:user => valid_attributes} #free registration, no 'valid_session' needed!
         assigns(:user).should be_a(User)
         assigns(:user).should be_persisted
       end
 
       it "sets a flash notice about the successful created user" do
-        post :create, {:user => valid_attributes} #, valid_session
+        post :create, {:user => valid_attributes} #free registration, no 'valid_session' needed!
         expect(flash[:notice]).not_to be(nil)
       end
 
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes} #, valid_session
+        post :create, {:user => valid_attributes} #free registration, no 'valid_session' needed!
         expect(response).to redirect_to(edit_user_path(User.last))
       end
     end
@@ -183,25 +186,48 @@ describe UsersController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested user", focus: true do
-      user = User.create! valid_attributes
-      expect {
+    context "as ordinary user" do
+      it "destroys himself as user" do
+        user = User.create! valid_attributes 
+        expect {
+          delete :destroy, {:id => user}, {:user_id => user.id} #valid_session
+        }.to change(User, :count).by(-1)
+      end
+
+      it "sets a flash notice about the successful destroyed user" do
+        #user = User.create! valid_attributes
         delete :destroy, {:id => user.to_param}, valid_session
-      }.to change(User, :count).by(-1)
+        expect(flash[:notice]).to match /deleted and signed out/
+      end
+
+      it "redirects to the root url" do
+        #user = User.create! valid_attributes
+        delete :destroy, {:id => user.to_param}, valid_session
+        response.should redirect_to(root_url)
+        # when user destoys himself, ist like a log-out, so redirect to 'users_list' is senseless!
+      end
     end
 
-    it "sets a flash notice about the successful destroyed user" do
-      #user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      expect(flash[:notice]).not_to be(nil)
-    end
+    context "as admin user" do
+      it "destroys the requested user" do
+        requested_user = User.create! valid_attributes
+        admin = FactoryGirl.create(:user, :admin)
+        expect {
+          delete :destroy, {:id => requested_user}, {:user_id => admin.id} #valid_session
+        }.to change(User, :count).by(-1)
+      end
 
-    it "redirects to the root url" do
-      #user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      response.should redirect_to(root_url)
-      # when user destoys himself, ist like a log-out, so redirect to 'users_list' is senseless!
+      it "sets a flash notice about the successful destroyed user" do
+        #user = User.create! valid_attributes
+        delete :destroy, {:id => user.to_param}, valid_session
+        expect(flash[:notice]).not_to be(nil)
+      end
+
+      it "redirects to the root url" do
+        #user = User.create! valid_attributes
+        delete :destroy, {:id => user.to_param}, valid_session
+        response.should redirect_to(users_path)
+      end
     end
   end
 end
-
