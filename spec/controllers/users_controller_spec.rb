@@ -186,28 +186,6 @@ describe UsersController do
   end
 
   describe "DELETE destroy" do
-    context "as ordinary user" do
-      it "destroys himself as user" do
-        user = User.create! valid_attributes 
-        expect {
-          delete :destroy, {:id => user}, {:user_id => user.id} #valid_session
-        }.to change(User, :count).by(-1)
-      end
-
-      it "sets a flash notice about the successful destroyed user" do
-        #user = User.create! valid_attributes
-        delete :destroy, {:id => user.to_param}, valid_session
-        expect(flash[:notice]).to match /deleted and signed out/
-      end
-
-      it "redirects to the root url" do
-        #user = User.create! valid_attributes
-        delete :destroy, {:id => user.to_param}, valid_session
-        response.should redirect_to(root_url)
-        # when user destoys himself, ist like a log-out, so redirect to 'users_list' is senseless!
-      end
-    end
-
     context "as admin user" do
       it "destroys the requested user" do
         requested_user = User.create! valid_attributes
@@ -218,15 +196,38 @@ describe UsersController do
       end
 
       it "sets a flash notice about the successful destroyed user" do
-        #user = User.create! valid_attributes
-        delete :destroy, {:id => user.to_param}, valid_session
-        expect(flash[:notice]).not_to be(nil)
+        requested_user = User.create! valid_attributes
+        admin = FactoryGirl.create(:user, :admin)
+        delete :destroy, {:id => requested_user}, {:user_id => admin.id} #valid_session
+        expect(flash[:notice]).to match /successfully deleted!/
       end
 
       it "redirects to the root url" do
-        #user = User.create! valid_attributes
-        delete :destroy, {:id => user.to_param}, valid_session
+        requested_user = User.create! valid_attributes
+        admin = FactoryGirl.create(:user, :admin)
+        delete :destroy, {:id => requested_user}, {:user_id => admin.id} #valid_session
         response.should redirect_to(users_path)
+      end
+    end
+
+    context "as ordinary user" do
+      it "destroys himself as user" do
+        user = User.create! valid_attributes 
+        expect {
+          delete :destroy, {:id => user}, {:user_id => user.id} #valid_session
+        }.to change(User, :count).by(-1)
+      end
+
+      it "sets a flash notice about the successful destroyed user" do
+        user = User.create! valid_attributes
+        delete :destroy, {:id =>  user}, {:user_id => user.id} #valid_session
+        expect(flash[:notice]).to match /deleted and signed out!/
+      end
+
+      it "redirects to the root url" do
+        user = User.create! valid_attributes
+        delete :destroy, {:id =>  user}, {:user_id => user.id} #valid_session
+        response.should redirect_to(root_url)
       end
     end
   end
