@@ -49,15 +49,14 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user = User.find(params[:id])
+    @user.destroy
 
-    case
-    when current_user.admin? == true && @user.destroy
+    case current_user.admin?
+    when true
       redirect_to users_path, notice: 'User was successfully deleted!'
-    when current_user.admin? == false && @user.destroy
+    when false
       session[:user_id] = nil
       redirect_to root_url, notice: 'User was successfully deleted and signed out!'
-    else
-      render action: "new"
     end
   end
 
