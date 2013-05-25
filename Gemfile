@@ -7,12 +7,13 @@ gem 'rails', '3.2.11'
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19' #, :require => 'ruby-debug'
-  gem 'cucumber-rails', :require => false # user story framework
-  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'rspec-rails' # specification driven framework
-  gem 'factory_girl_rails' #instead of fixtures
-  gem 'guard-rspec' # run automatic rspec tests
-  gem 'rb-inotify', '~> 0.8.8' # guard dependency
+#TODO remove next five lines, moved to 'test'
+#  gem 'cucumber-rails', :require => false # user story framework
+#  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
+#  gem 'factory_girl_rails' #instead of fixtures
+#  gem 'guard-rspec' # run automatic rspec tests
+#  gem 'rb-inotify', '~> 0.8.8' # guard dependency
 #TODO try following gems
 #  gem 'railroady' # creates an UML diagramm
 #  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
@@ -20,9 +21,20 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara' # lets Cucumber pretend to be a web browser
+  gem 'factory_girl_rails' # create factorys instead of fixures
+  gem 'capybara' # lets RSpec/Cucumber pretend to be a web browser
+
+  gem 'cucumber-rails', :require => false # user story framework
+  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'database_cleaner' # to clear Cucumber's test database between runs  
   gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
+
+  gem 'spork-rails'
+#  gem 'spork', '~> 1.0rc'
+
+  gem 'guard-rspec' # run automatic rspec tests
+  gem 'guard-spork'
+  gem 'rb-inotify', '~> 0.8.8' # guard dependency
 end
 
 group :production do

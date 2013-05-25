@@ -72,6 +72,7 @@ describe RecurrencesController do
     end
   end
 
+<<<<<<< HEAD
   describe "GET show" do
     it "returns http success"
 
@@ -91,4 +92,6 @@ describe RecurrencesController do
 
     it "reners the 'show' template"
   end
+=======
+>>>>>>> dashboard
 end

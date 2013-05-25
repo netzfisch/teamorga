@@ -1,6 +1,10 @@
 <%- model_class = Event -%>
 <div class="page-header">
-  <h3><%=t '.title', :default => model_class.model_name.human.pluralize %></h3>
+  <h3>
+    <%=t '.title', :default => model_class.model_name.human.pluralize %>, 
+    <%= link_to t('.new', :default => t("helpers.links.new")), new_event_path, 
+        :class => 'btn btn-primary btn-mini' %>
+  </h3>
 </div>
 
 <table class="table table-striped">
@@ -8,7 +12,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:base_date) %></th>
-      <th><%= model_class.human_attribute_name(:base_time) %></th>
+      <th>Time</th>
       <th><%= model_class.human_attribute_name(:recurrences) %></th>
       <th><%= model_class.human_attribute_name(:place) %></th>
       <th><%= model_class.human_attribute_name(:remark) %></th>
@@ -41,8 +45,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_event_path,
-            :class => 'btn btn-primary' %>
-

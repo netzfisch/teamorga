@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+
+<p>
+  <b>Logo Url:</b>
+  <%= @group.logo_url %>
+</p>
+
+<p>
+  <b>Public Information:</b>
+  <%= @group.public_information %>
+</p>
+
+<p>
+  <b>Private Information:</b>
+  <%= @group.private_information %>
+</p>
+
+
+<%= link_to 'Edit', edit_backoffice_group_path(@group) %> |
+<%= link_to 'Back', backoffice_groups_path %>

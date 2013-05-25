@@ -1,0 +1,13 @@
+<% content_for :right_column do %>
+  <div class="row">
+    <div class="span8 offset1">
+      <%= yield %>
+    </div>
+    <div class="span2">
+      <%= render 'layouts/backoffice' %>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>
+

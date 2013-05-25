@@ -1,0 +1,25 @@
+<div class="well sidebar-nav">
+  <h3>Backoffice</h3>
+  <ul class="nav nav-list">
+    <li class="nav-header">Manage</li>
+    <li><%= link_to (events_path)  do %>
+      <i class="icon-check"></i>Events<% end %>
+    </li>
+
+    <li><%= link_to(comments_path) do  %>
+      <i class="icon-comment"></i>Comments<% end %>
+    </li>
+
+    <li><%= link_to(backoffice_groups_path) do  %>
+      <i class="icon-list"></i>Groupdata<% end %>
+    </li>
+
+    <li><%= link_to (users_path) do  %>
+      <i class="icon-user"></i>Members<% end %>
+    </li>
+
+    <li class="nav-header">Statistics</li>
+    <li>X Members Online</li>
+    <li>X Members Offline</li>
+  </ul>
+</div>

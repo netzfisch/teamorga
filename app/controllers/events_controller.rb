@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+layout 'sidebar_backoffice'
 
   # GET /events
   def index
@@ -65,8 +66,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
 
-    redirect_to events_path
+    redirect_to events_path, notice: 'Event was successfully deleted!'
   end
-
 end
 
