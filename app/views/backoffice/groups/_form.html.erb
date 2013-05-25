@@ -24,13 +24,13 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label "public_information*", class: 'control-label' %>
+    <%= f.label :public_information, class: 'control-label' %>
     <div class="controls">
       <%= f.text_area :public_information, class: 'span5', rows: '4' %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label "private_information*", class: 'control-label' %>
+    <%= f.label :private_information, class: 'control-label' %>
     <div class="controls">
       <%= f.text_area :private_information, class: 'span5', rows: '4' %>
       <%= render :partial => 'layouts/markdown_tip' %>
@@ -38,6 +38,6 @@
   </div>
   <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', backoffice_group_path(@group), class: 'btn' %>
+    <%= link_to 'Cancel', backoffice_groups_path, class: 'btn' %>
   </div>
 <% end %>

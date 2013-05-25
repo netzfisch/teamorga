@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe RecurrencesController do
 
+# TODO check spec/views/recurrences/index.html.rb_spec for **mocking will_paginate** and check also
+# http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
+
   # This should return the minimal set of attributes required to create a valid
   # Recurrence. As you add validations to the Recurrence model, be sure to
   # update the return value of this method accordingly.
@@ -23,22 +26,14 @@ describe RecurrencesController do
   describe "GET index" do
     before(:each) { Recurrence.stub_chain(:current, :paginate).and_return([recurrence]) }
     
-    it "assigns all recurrences as @recurrences" do
-      #recurrence = Recurrence.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns :recurrences).to eq([recurrence])
-    end
-
-# TODO refactor to new rspec-syntax, see also http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
-
     it "returns http success" do
       get :index, {}, valid_session
       expect(response).to be_success
     end
 
-    it "calls the paginate method on all recurrences" do
-      Recurrence.current.should_receive(:paginate).and_return([@recurrence])
+    it "renders the 'index' template" do
       get :index, {}, valid_session
+      expect(response).to render_template("index")
     end
 
     it "assigns all comments as @comments" do
@@ -47,9 +42,15 @@ describe RecurrencesController do
       expect(assigns :comments).to eq([comment])
     end
 
-    it "renders the 'index' template" do
+    it "assigns all recurrences as @recurrences" do
+      #recurrence = Recurrence.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to render_template("index")
+      expect(assigns :recurrences).to eq([recurrence])
+    end
+
+    it "calls the paginate method on all recurrences" do
+      Recurrence.current.should_receive(:paginate).and_return([@recurrence])
+      get :index, {}, valid_session
     end
 
     it "passes the page number on to will_paginate" do
@@ -57,22 +58,12 @@ describe RecurrencesController do
       get :index, { page: "3" }, valid_session
     end
 
-    it "shows eight results per page" do
+    it "returns eight results per page" do
       Recurrence.current.should_receive(:paginate).with(page: nil, per_page: 8).and_return(recurrence)
       get :index, {}, valid_session
     end
-
-    #render_views
-    it "shows pagination bar" do
-      #recurrences = (1..5).map { mock_model(Recurrence) }
-      recurrences = 20.times { FactoryGirl.create(:recurrence) }
-      Recurrence.current.should_receive(:paginate).with(page: "1", per_page: 2).and_return(recurrences)
-      get :index, { page: "1" }, valid_session
-      expect(response.body).to match /div.pagination/ # have_selector"div.pagination"
-    end
   end
 
-<<<<<<< HEAD
   describe "GET show" do
     it "returns http success"
 
@@ -92,6 +83,4 @@ describe RecurrencesController do
 
     it "reners the 'show' template"
   end
-=======
->>>>>>> dashboard
 end
