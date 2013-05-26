@@ -5,6 +5,7 @@ class RecurrencesController < ApplicationController
   def index
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
     @comments = Comment.limit(20)
+    @groups = Group.find(:all)
   end
 
   def index_old

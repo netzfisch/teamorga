@@ -18,8 +18,11 @@ describe "recurrences/index" do
 #   ]
 # end
 
+  let(:group) { stub_model(Group, :name => "AlTSV", :private_information => "PrivateText" ) }
+
   before :each do
     assign(:recurrences, recurrences.paginate(page: 1, per_page: 2))
+    assign(:groups, [group])
     render
   end
 
@@ -47,14 +50,24 @@ describe "recurrences/index" do
   end
 
   it "renders a EDIT link" do
-    expect(rendered).to have_link("Edit", href: events_path)
+    expect(rendered).to have_link("Manage", href: events_path)
   end
 
   it "renders a NEW link" do
-    expect(rendered).to have_link("New", href: new_event_path)
+    expect(rendered).to have_link("new", href: new_event_path)
   end
 
   it "renders a pagination bar" do
     expect(rendered).to have_selector("div.pagination")
+  end
+
+  context "shows group content" do
+    it "renders private information" do
+      expect(rendered).to have_selector("p#private_information")
+    end
+
+    it "renders a EDIT link" do
+      expect(rendered).to have_link("Edit", href: edit_backoffice_group_path(group))
+    end
   end
 end

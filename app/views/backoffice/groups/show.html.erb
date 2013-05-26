@@ -12,12 +12,12 @@
 
 <p>
   <b>Public Information:</b>
-  <%= @group.public_information %>
+  <%= markdown_parser @group.public_information %>
 </p>
 
 <p>
   <b>Private Information:</b>
-  <%= @group.private_information %>
+  <%= markdown_parser @group.private_information %>
 </p>
 
 

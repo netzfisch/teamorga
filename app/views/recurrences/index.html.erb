@@ -23,6 +23,14 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to 'Edit', events_path, :class => 'btn btn-primary btn-mini' %> existing events or create directly a <%= link_to 'New', new_event_path, :class => 'btn btn-primary btn-mini' %> one!
+  <%= link_to 'Manage', events_path %> existing events or create directly a <%= link_to 'new', new_event_path %> one!
   <%= will_paginate @recurrences %>
 </div>
+
+<% @groups.each do |group| %>
+  <div class="well">
+    <p>Private Information for <strong><%= group.name %></strong></p>
+    <p id="private_information"><%= markdown_parser group.private_information %></p>
+    <%= link_to 'Edit', edit_backoffice_group_path(group), :class => 'pull-right' %>
+  </div>
+<% end %>

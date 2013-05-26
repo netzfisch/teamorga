@@ -36,6 +36,12 @@ describe RecurrencesController do
       expect(response).to render_template("index")
     end
 
+    it "assigns all groups as @groups" do
+      group = Group.create!(private_information: "Next workout will be at ...")
+      get :index, {}, valid_session
+      expect(assigns :groups).to eq([group])
+    end
+
     it "assigns all comments as @comments" do
       comment = Comment.create!(body: "time to beach")
       get :index, {}, valid_session

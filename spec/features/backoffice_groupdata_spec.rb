@@ -52,7 +52,7 @@ feature "backoffice group data management" do
   end
 
   it "shows a group" do
-    group = FactoryGirl.create(:group, name: "ATSV", public_information: "2. Herren")
+    group = FactoryGirl.create(:group, name: "ATSV", public_information: "Training 2. Herren")
 
     visit "/backoffice"
     click_link "Groupdata"
@@ -60,11 +60,11 @@ feature "backoffice group data management" do
 
     current_path.should eq backoffice_group_path(group)
     page.should have_content "ATSV"
-    page.should have_content "2. Herren"
+    page.should have_content "Training 2. Herren"
   end
 
   it "deletes a group" do
-    group = FactoryGirl.create(:group, name: "ATSV", public_information: "2. Herren")
+    group = FactoryGirl.create(:group, name: "ATSV", public_information: "Training 2. Herren")
 
     visit "/backoffice"
     click_link "Groupdata"
@@ -74,6 +74,6 @@ feature "backoffice group data management" do
     }.to change(Group, :count).by(-1)
 
     current_path.should eq backoffice_groups_path
-    page.should_not have_content "2. Herren"
+    page.should_not have_content "Training 2. Herren"
   end
 end  
