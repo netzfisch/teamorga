@@ -8,7 +8,7 @@ describe EventsController do
   def valid_attributes
     { category: "Spieltag", base_date: "2013-05-08", end_date: "2013-05-13", place: "Hamburg" }
 # TODO EventsController needs 'end_date', although it shouldn't be necessary! 
-# Move 'EventRecurrence' save action to RecurrenceController?
+# Move 'EventRecurrence' save action to RecurrenceModel?
   end
 
   # This should return the minimal set of values that should be in the session

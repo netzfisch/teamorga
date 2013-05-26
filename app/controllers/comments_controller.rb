@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
+layout 'sidebar_backoffice'
 
   # GET /comments
   def index
-    @comments = Comment.all # order("created_at DESC")
+    @comments = Comment.all 
   end
 
   # POST /comments
@@ -20,8 +21,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
 
-    redirect_to :back
+    redirect_to :back, notice: 'Comment was successfully deleted!'
   end
-
 end
-
