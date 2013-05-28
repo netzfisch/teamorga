@@ -108,5 +108,60 @@ describe User do
     end
   end
 
-end
+  describe "#next_birthday", focus: true do
+    it "delivers a date in the future" do
+      today = Date.new(2013,06,01)
+      user.update_attributes(birthday: "2000-06-13")
 
+      expect(user.next_birthday).to eq(user.birthday + 13.years) #be >=("today")
+    end
+
+    it "delivers the right date in the ACTUAL year " do
+      today = Date.new(2013,06,01)
+      user.update_attributes(birthday: "2000-06-13")
+
+#user = stub_model(User, birthday: "2000-06-13")
+#user = FactoryGirl.create(:user, birthday: "2000-06-13")
+
+      expect(user.next_birthday).to eq(user.birthday + 13.years)
+    end
+
+    it "delivers the right date in the NEXT year" do
+      today = Date.new(2013,06,01)
+      user.update_attributes(birthday: "2000-05-13")
+
+      expect(user.next_birthday).to eq(user.birthday + 14.years) #2014-05-13")
+    end
+  end
+
+  describe "#upcoming_birthdadys", focus: true do
+    it "includes birthdays scheduled for today" do
+      today = Date.new(2013-06-13)
+      user.update_attributes(birthday: "2000-06-13")
+users = [user]
+      expect(User.upcoming_birthdays).to eq([today])
+    end
+
+    it "includes birthdays scheduled for tomorrow" do
+      today = Date.new(2013-06-13)
+      user.update_attributes(birthday: "2000-06-14")
+
+      expect(User.upcoming_birthdays).to eq([2013-06-14])
+    end
+
+    it "excludes birthdays scheduled more than 14 days ahead" do
+      today = Date.new(2013-06-13)
+      user.update_attributes(birthday: "2000-06-28")
+
+      expect(User.upcoming_birthdays).to be_empty
+    end
+
+    it "orderes birthdays ascending by date" do
+      today = Date.new(2013-06-13)
+      user.update_attributes(birthday: "2000-06-13")
+      user_later = FactoryGirl.create(:user, birthday: "2000-06-20")
+
+      expect(User.upcoming_birthdays.last).to eq(user_later)
+    end
+  end
+end
