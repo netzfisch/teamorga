@@ -109,15 +109,17 @@ describe User do
   end
 
   describe "#next_birthday", focus: true do
+#before(:each) { Date.stub!(:today).and_return(Date.new 2013,06,01) }
+    
     it "delivers a date in the future" do
-      today = Date.new(2013,06,01)
+      Date.stub!(:today).and_return(Date.new(2013,06,01))
       user.update_attributes(birthday: "2000-06-13")
 
       expect(user.next_birthday).to eq(user.birthday + 13.years) #be >=("today")
     end
 
     it "delivers the right date in the ACTUAL year " do
-      today = Date.new(2013,06,01)
+      Date.stub!(today: Date.new(2013,06,01))
       user.update_attributes(birthday: "2000-06-13")
 
 #user = stub_model(User, birthday: "2000-06-13")
