@@ -4,8 +4,10 @@ class RecurrencesController < ApplicationController
   # GET /recurrences
   def index
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
-    @comments = Comment.limit(20)
     @groups = Group.find(:all)
+
+    @birthdays = User.upcoming_birthdays
+    @comments = Comment.limit(20)
   end
 
   def index_old

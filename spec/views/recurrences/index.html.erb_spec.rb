@@ -23,6 +23,7 @@ describe "recurrences/index" do
   before :each do
     assign(:recurrences, recurrences.paginate(page: 1, per_page: 2))
     assign(:groups, [group])
+    #assign(:comments, [ FactoryGirl.create(:comment) ])
     render
   end
 
@@ -70,4 +71,16 @@ describe "recurrences/index" do
       expect(rendered).to have_link("Edit", href: edit_backoffice_group_path(group))
     end
   end
+
+# context "shows birthdays" do
+#   it "renders upcoming birthdays" do
+#     expect(rendered).to match /Geburtstage/
+#   end
+# end
+
+# context "shows comments" do
+#   it "renders latest comments" do
+#     expect(rendered).to match /Kommentare/
+#   end
+# end
 end

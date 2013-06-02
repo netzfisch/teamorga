@@ -109,61 +109,53 @@ describe User do
   end
 
   describe "#next_birthday", focus: true do
-#before(:each) { Date.stub!(:today).and_return(Date.new 2013,06,01) }
+    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
     
-    it "delivers a date in the future" do
-      Date.stub!(:today).and_return(Date.new(2013,06,01))
-      user.update_attributes(birthday: "2000-06-13")
-
-      expect(user.next_birthday).to eq(user.birthday + 13.years) #be >=("today")
+    it "calculates a already passed birthday" do
+      user.update_attributes(birthday: "1999-12-25")
+      expect(user.next_birthday).to eq(Date.parse "2014-12-25")
     end
 
-    it "delivers the right date in the ACTUAL year " do
-      Date.stub!(today: Date.new(2013,06,01))
-      user.update_attributes(birthday: "2000-06-13")
-
-#user = stub_model(User, birthday: "2000-06-13")
-#user = FactoryGirl.create(:user, birthday: "2000-06-13")
-
-      expect(user.next_birthday).to eq(user.birthday + 13.years)
+    it "calculates todays birthday" do
+      user.update_attributes(birthday: "2000-12-30")
+      expect(user.next_birthday).to eq(Date.parse "2013-12-30")
     end
 
-    it "delivers the right date in the NEXT year" do
-      today = Date.new(2013,06,01)
-      user.update_attributes(birthday: "2000-05-13")
-
-      expect(user.next_birthday).to eq(user.birthday + 14.years) #2014-05-13")
+    it "calculates a soon coming birthday" do
+      user.update_attributes(birthday: "2001-01-05")
+      expect(user.next_birthday).to eq(Date.parse "2014-01-05")
     end
   end
 
   describe "#upcoming_birthdadys", focus: true do
-    it "includes birthdays scheduled for today" do
-      today = Date.new(2013-06-13)
-      user.update_attributes(birthday: "2000-06-13")
-users = [user]
-      expect(User.upcoming_birthdays).to eq([today])
+    before(:each) { Date.stub!(:current).and_return(Date.new 2013,06,15) }
+
+    it "excludes birthdays passed more than 1 day" do
+      user.update_attributes(birthday: "2000-06-14")
+      expect(User.upcoming_birthdays).to eq([])
     end
 
-    it "includes birthdays scheduled for tomorrow" do
-      today = Date.new(2013-06-13)
-      user.update_attributes(birthday: "2000-06-14")
+    it "includes birthdays of today" do
+      user.update_attributes(birthday: "2000-06-15")
+      expect(User.upcoming_birthdays).to eq([user])
+    end
 
-      expect(User.upcoming_birthdays).to eq([2013-06-14])
+    it "includes birthdays scheduled just 14 days ahead" do #, focus: true do
+      user.update_attributes(birthday: "2000-06-29")
+      user_earlier = FactoryGirl.create(:user, birthday: "2000-06-21")
+      expect(User.upcoming_birthdays).to eq([user_earlier, user])
     end
 
     it "excludes birthdays scheduled more than 14 days ahead" do
-      today = Date.new(2013-06-13)
-      user.update_attributes(birthday: "2000-06-28")
-
+      user.update_attributes(birthday: Date.current + 15.days)
       expect(User.upcoming_birthdays).to be_empty
     end
 
-    it "orderes birthdays ascending by date" do
-      today = Date.new(2013-06-13)
-      user.update_attributes(birthday: "2000-06-13")
-      user_later = FactoryGirl.create(:user, birthday: "2000-06-20")
+    it "orderes birthdays ascending by month/day" do
+      user.update_attributes(birthday: "2000-06-10")
+      user_later = FactoryGirl.create(:user, birthday: "1999-06-20")
 
-      expect(User.upcoming_birthdays.last).to eq(user_later)
+      expect(User.upcoming_birthdays.last).to eq(user_later) #[user, user_later])
     end
   end
 end
