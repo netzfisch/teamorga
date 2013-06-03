@@ -17,7 +17,7 @@ describe RecurrencesController do
   # in order to pass any filters (e.g. authentication) defined in
   # RecurrencesController. Be sure to keep this updated too.
   def valid_session
-    controller.stub(current_user: FactoryGirl.create(:user, birthday: "2013-06-13"))
+    controller.stub(current_user: FactoryGirl.create(:user))
     # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
   end
 
@@ -42,7 +42,7 @@ describe RecurrencesController do
       expect(assigns :groups).to eq([group])
     end
 
-    it "assigns all birthdays as @birthdays", focus: true do
+    it "assigns all birthdays as @birthdays" do
       Date.stub!(:current).and_return(Date.new 2013,06,15)
       user = FactoryGirl.create(:user, birthday: "2013-06-15")
       get :index, {}, valid_session

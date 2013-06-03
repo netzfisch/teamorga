@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 describe User do
-
   let(:user) { FactoryGirl.create(:user) }
 
   context "should validate" do
-
     it { should respond_to(:name) }
     it { should respond_to(:slug) }
     it { should respond_to(:email) }
@@ -44,6 +42,11 @@ describe User do
       user.should_not be_valid
     end
 
+    it "is not valid without a birthday" do
+      user.birthday = nil
+      user.should_not be_valid
+    end
+
     it "is not valid without a phone number" do
       user.phone = nil
       user.should_not be_valid
@@ -63,7 +66,7 @@ describe User do
     end
   end
 
-  context ".admin flag" do
+  context "#admin flag" do
     it "excludes users without admin flag" do
       non_admin = user.update_attributes!(admin: false)
       user.admin.should_not be(non_admin)
@@ -75,7 +78,7 @@ describe User do
     end
   end
 
-  context '.licence scope' do
+  context '#licence scope' do
     it "excludes users with no shirt number" do
       2.times { |i| FactoryGirl.create(:user) }
 
@@ -92,23 +95,38 @@ describe User do
     end
   end
 
-  context "finds participation info for specific recurrence" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:recurrence) { FactoryGirl.create(:recurrence) }
+  describe "#self.upcoming_birthdadys" do
+    before(:each) { Date.stub!(:current).and_return(Date.new 2013,06,05) }
 
-    it "#responded?" do
-      user.responded?(recurrence).should be(false)
-      user.participations.create(recurrence: recurrence, user: user)
-      user.responded?(recurrence).should be(true)
+    it "excludes birthdays passed more than 1 day" do
+      user.update_attributes(birthday: "2000-06-04")
+      expect(User.upcoming_birthdays).to eq([])
     end
 
-    it "#responded_at" do
-      participation = user.participations.create(recurrence: recurrence, user: user)
-      user.responded_at(recurrence).should eq(participation)
+    it "includes birthdays of today" do
+      user.update_attributes(birthday: "2000-06-05")
+      expect(User.upcoming_birthdays).to eq([user])
+    end
+
+    it "includes birthdays scheduled 21 days ahead" do 
+      user.update_attributes(birthday: Date.current + 21.days)
+      expect(User.upcoming_birthdays).to eq([user])
+    end
+
+    it "excludes birthdays scheduled 22 days ahead" do
+      user.update_attributes(birthday: Date.current + 22.days)
+      expect(User.upcoming_birthdays).to be_empty
+    end
+
+    it "orderes birthdays ascending by month/day" do
+      user.update_attributes(birthday: "2000-06-20")
+      user_first = FactoryGirl.create(:user, birthday: "2001-06-13")
+
+      expect(User.upcoming_birthdays.first).to eq(user_first)
     end
   end
 
-  describe "#next_birthday", focus: true do
+  describe "#next_birthday" do
     before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
     
     it "calculates a already passed birthday" do
@@ -127,35 +145,19 @@ describe User do
     end
   end
 
-  describe "#upcoming_birthdadys", focus: true do
-    before(:each) { Date.stub!(:current).and_return(Date.new 2013,06,15) }
+  context "finds participation response for specific recurrence" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:recurrence) { FactoryGirl.create(:recurrence) }
 
-    it "excludes birthdays passed more than 1 day" do
-      user.update_attributes(birthday: "2000-06-14")
-      expect(User.upcoming_birthdays).to eq([])
+    it "#responded?" do
+      user.responded?(recurrence).should be(false)
+      user.participations.create(recurrence: recurrence, user: user)
+      user.responded?(recurrence).should be(true)
     end
 
-    it "includes birthdays of today" do
-      user.update_attributes(birthday: "2000-06-15")
-      expect(User.upcoming_birthdays).to eq([user])
-    end
-
-    it "includes birthdays scheduled just 14 days ahead" do #, focus: true do
-      user.update_attributes(birthday: "2000-06-29")
-      user_earlier = FactoryGirl.create(:user, birthday: "2000-06-21")
-      expect(User.upcoming_birthdays).to eq([user_earlier, user])
-    end
-
-    it "excludes birthdays scheduled more than 14 days ahead" do
-      user.update_attributes(birthday: Date.current + 15.days)
-      expect(User.upcoming_birthdays).to be_empty
-    end
-
-    it "orderes birthdays ascending by month/day" do
-      user.update_attributes(birthday: "2000-06-10")
-      user_later = FactoryGirl.create(:user, birthday: "1999-06-20")
-
-      expect(User.upcoming_birthdays.last).to eq(user_later) #[user, user_later])
+    it "#responded_at" do
+      participation = user.participations.create(recurrence: recurrence, user: user)
+      user.responded_at(recurrence).should eq(participation)
     end
   end
 end

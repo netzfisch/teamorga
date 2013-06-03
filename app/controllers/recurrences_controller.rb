@@ -1,5 +1,5 @@
 class RecurrencesController < ApplicationController
-  layout 'sidebar_comments', :only => [:index, :index_old, :show]
+  layout 'sidebar_default', :only => [:index, :index_old, :show]
 
   # GET /recurrences
   def index
