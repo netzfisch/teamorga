@@ -13,8 +13,7 @@ module ApplicationHelper
       filter_html: true,
       safe_links_only: true,
       autolink: true,
-      hard_wrap: true,
-      tables: true
+      hard_wrap: true
     }
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
     mention_link(markdown.render(text)).html_safe
