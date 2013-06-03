@@ -6,7 +6,7 @@ describe UsersController do
   # User. As you add validations to the User model, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { :name => "Jim", :email => "jim@doe.com", :password => "secret", :phone => "+49 40 123 4567" }
+    { :name => "Jim", :email => "jim@doe.com", :password => "secret", :birthday => "1999-10-08", :phone => "+49 40 123 4567" }
   end
 
   let(:user) { User.create! valid_attributes }
