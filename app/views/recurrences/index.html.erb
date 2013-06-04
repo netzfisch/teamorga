@@ -29,7 +29,6 @@
 
 <% @groups.each do |group| %>
   <div class="well">
-    <p>Private Information for <strong><%= group.name %></strong></p>
     <p id="private_information"><%= markdown_parser group.private_information %></p>
     <%= link_to 'Edit', edit_backoffice_group_path(group), :class => 'pull-right' %>
   </div>

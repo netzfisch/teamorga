@@ -29,6 +29,7 @@ class RecurrencesController < ApplicationController
     #@accepter = Participation.feedback(@recurrence, true)
     #@refuser = Participation.feedback(@recurrence, false)
 
+    @birthdays = User.upcoming_birthdays
     @comments = @recurrence.comments.scoped #that way lazy loaded!
   end
 

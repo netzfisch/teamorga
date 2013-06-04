@@ -1,4 +1,5 @@
 <tr>
-  <td><%= birthday.next_birthday.strftime("%d.%m.%y") %></td>
-  <td><%= birthday.name %></td>
+  <td><%= birthday.next_birthday.strftime("%d.%m.%Y") %></td>
+  <td><%= link_to birthday.name, user_path(birthday) %></td>
+  <td>wird <%= birthday.next_birthday.year - birthday.birthday.year %> Jahre!</td>
 </tr>

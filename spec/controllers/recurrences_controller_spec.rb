@@ -88,6 +88,13 @@ describe RecurrencesController do
 
     it "assigns all no_replyer as @no_replyer"
 
+    it "assigns all birthdays as @birthdays" do
+      Date.stub!(:current).and_return(Date.new 2013,06,15)
+      user = FactoryGirl.create(:user, birthday: "2013-06-15")
+      get :index, {}, valid_session
+      expect(assigns :birthdays).to eq([user])
+    end
+
     it "assigns all comments as @comments" do
       comment = Comment.create!(body: "time to beach")
       get :index, {}, valid_session
