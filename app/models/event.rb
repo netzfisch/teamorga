@@ -1,9 +1,9 @@
 class Event < ActiveRecord::Base
-  has_many :recurrences, :dependent => :destroy
-
   attr_accessible :category, :base_date, :base_time, :end_date, :place, :remark
 
   validates :category, :base_date, :place, :presence => true
+
+  has_many :recurrences, :dependent => :destroy
 
   default_scope order("base_date DESC, base_time ASC")
 
@@ -22,6 +22,4 @@ class Event < ActiveRecord::Base
   #    dates.concat(recurrence.dates(:starts => start_date, :until => end_date))
   #  end
   #end
-
 end
-
