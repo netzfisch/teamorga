@@ -38,6 +38,7 @@
   </dl>
 
   <p class="text-warning" align="middle">Reminder an die <%= @no_replyer.size %> "Schweiger" senden <%= email_link(@no_replyer, @recurrence) %> !</p>
+  <%= link_to 'Edit', edit_event_path(@recurrence.event), :class => 'pull-right' %>
 </div>
 
 <div class="well" id="place">
