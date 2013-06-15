@@ -6,7 +6,7 @@ describe "layouts/sidebar_default" do
   end
 
   it "displays all the widgets" do
-    assign(:layoutus, [
+    assign(:layouts, [
            stub_model(User, :name => "birthdays"),
            stub_model(Comment, :name => "comments")
     ])
