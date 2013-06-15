@@ -12,7 +12,8 @@
     <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
     <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr: 
     <%= link_to name = "", '#place', html_options = { class: "icon-road", title: "Ort und Anfahrt" } %> - 
-    <%= link_to name = "", '#comments', html_options = { class: "icon-comment", title: "Kommentare" } %>
+    <%= link_to name = "", '#comments', html_options = { class: "icon-comment", title: "Kommentare" } %> - 
+    <%= link_to name = "", '#birthdays', html_options = { class: "icon-gift", title: "Geburtstage" } %>
   </p>
 
   <hr />

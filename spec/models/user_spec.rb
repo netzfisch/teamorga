@@ -78,7 +78,7 @@ describe User do
     end
   end
 
-  context '#licence scope' do
+  describe '#licence scope' do
     it "excludes users with no shirt number" do
       2.times { |i| FactoryGirl.create(:user) }
 
@@ -145,7 +145,50 @@ describe User do
     end
   end
 
-  context "finds participation response for specific recurrence" do
+  describe "#next_birthday_age" do
+    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
+    
+    it "calculates it for todays birthday" do
+      user.update_attributes(birthday: "2000-12-30")
+      expect(user.next_birthday_age).to eq(13)
+    end
+
+    it "calculates it for a future birthday this year" do
+      user.update_attributes(birthday: "2000-12-31")
+      expect(user.next_birthday_age).to eq(13)
+    end
+    
+    it "calculates it for a future birthday next year" do
+      user.update_attributes(birthday: "2001-01-05")
+      expect(user.next_birthday_age).to eq(13)
+    end
+  end
+
+  describe "#current_age" do
+    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
+    
+    it "calculates it for a passed birthday" do
+      user.update_attributes(birthday: "2000-12-25")
+      expect(user.current_age).to eq(13)
+    end
+
+    it "calculates it for todays birthday" do
+      user.update_attributes(birthday: "2000-12-30")
+      expect(user.current_age).to eq(13)
+    end
+
+    it "calculates it for a future birthday this year" do
+      user.update_attributes(birthday: "2000-12-31")
+      expect(user.current_age).to eq(12)
+    end
+    
+    it "calculates it for a future birthday next year" do
+      user.update_attributes(birthday: "2001-01-05")
+      expect(user.current_age).to eq(12)
+    end
+  end
+
+  describe "finds participation response for specific recurrence" do
     let(:user) { FactoryGirl.create(:user) }
     let(:recurrence) { FactoryGirl.create(:recurrence) }
 

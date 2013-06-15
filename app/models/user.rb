@@ -24,20 +24,30 @@ class User < ActiveRecord::Base
   scope :licence, where("shirt_number IS NOT NULL") # count(:shirt_number) or shirt_number.exist?
 
   def self.upcoming_birthdays
-    birthdays = []
+    anniversarys = []
 
     find(:all).each do |user|
       if user.next_birthday.between?(Date.current, Date.current + 3.weeks)
-        birthdays << user
+        anniversarys << user
       end
     end
 
-    return birthdays.sort_by { |u| u.next_birthday }
+    return anniversarys.sort_by { |u| u.next_birthday }
   end
 
   def next_birthday
-    birthday = Date.new(Date.current.year, self.birthday.month, self.birthday.day)
-    birthday.past? ? birthday + 1.year : birthday
+    anniversary = Date.new(Date.current.year, self.birthday.month, self.birthday.day)
+    anniversary.past? ? anniversary + 1.year : anniversary
+  end
+
+  def next_birthday_age
+    self.next_birthday.year - self.birthday.year
+  end
+
+  def current_age
+    anniversary = Date.new(Date.current.year, self.birthday.month, self.birthday.day)
+    age = Date.current.year - self.birthday.year
+    anniversary.future? ? age - 1 : age
   end
 
   def responded?(recurrence)
