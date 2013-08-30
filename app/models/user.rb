@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
                   :admin, :phone, :shirt_number, 
                   :recurrence_ids
 
-  validates_presence_of :email, :password, :on => :create
+  validates_presence_of :name, :email, :password, :on => :create
   #validates_uniqueness_of :email, :case_sensitive => false
   has_secure_password
 
-  validates_presence_of :name, :birthday, :phone, :on => :update
+  validates_presence_of :birthday, :phone, :on => :update
   validates_uniqueness_of :name, :phone, :case_sensitive => false, :on => :update
   validates_length_of :shirt_number, :maximum => 2
 
