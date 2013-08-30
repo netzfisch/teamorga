@@ -10,6 +10,47 @@ feature "User session management" do
     click_button "Log in"
   end  
 
+  context "registers as new user" do
+    scenario "with complete data" do
+      visit "/signup"
+      fill_in "Name", with: "John"
+      fill_in "Email", with: "john@doe.com"
+      find(:xpath, '//*[@id="user_password"]').set("foobar")
+      find(:xpath, '//*[@id="user_password_confirmation"]').set("foobar")
+
+      expect{ click_button "Create User" }.to change(User, :count).by(1)
+
+      expect(current_path).to eq edit_user_path("john") 
+      expect(page).to have_content "User was successfully created / Signed up!"
+    end
+
+    scenario "with incomplete data" do
+      visit "/signup"
+      fill_in "Name", with: "" #leave name blank = incomplete data!
+      fill_in "Email", with: "john@doe.com"
+      find(:xpath, '//*[@id="user_password"]').set("foobar")
+      find(:xpath, '//*[@id="user_password_confirmation"]').set("foobar")
+
+      expect{ click_button "Create User" }.to change(User, :count).by(0)
+
+      expect(current_path).to eq users_path 
+      expect(page).to have_content "Name can't be blank"
+    end
+
+    scenario "with wrong password confirmation" do
+      visit "/signup"
+      fill_in "Name", with: "john"
+      fill_in "Email", with: "john@doe.com"
+      find(:xpath, '//*[@id="user_password"]').set("foobar")
+      find(:xpath, '//*[@id="user_password_confirmation"]').set("barfoo") #wrong password confirmation!
+
+      expect{ click_button "Create User" }.to change(User, :count).by(0)
+
+      expect(current_path).to eq users_path 
+      expect(page).to have_content "Password doesn't match confirmation"
+    end
+  end
+
   scenario "sign in with false credentials" do
     visit "/login"
     fill_in "Email", :with => user.email
