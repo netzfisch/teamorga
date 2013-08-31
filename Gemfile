@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.14'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -8,12 +9,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19' #, :require => 'ruby-debug'
   gem 'rspec-rails' # specification driven framework
-#TODO remove next five lines, moved to 'test'
-#  gem 'cucumber-rails', :require => false # user story framework
-#  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
-#  gem 'factory_girl_rails' #instead of fixtures
-#  gem 'guard-rspec' # run automatic rspec tests
-#  gem 'rb-inotify', '~> 0.8.8' # guard dependency
 #TODO try following gems
 #  gem 'railroady' # creates an UML diagramm
 #  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
@@ -30,7 +25,6 @@ group :test do
   gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
 
   gem 'spork-rails'
-#  gem 'spork', '~> 1.0rc'
 
   gem 'guard-rspec' # run automatic rspec tests
   gem 'guard-spork'
@@ -82,4 +76,3 @@ gem 'friendly_id'
 
 # To use debugger
 # gem 'debugger'
-
