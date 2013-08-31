@@ -6,12 +6,11 @@ class User < ActiveRecord::Base
                   :admin, :phone, :shirt_number, 
                   :recurrence_ids
 
-  validates_presence_of :name, :email, :password, :on => :create
-  #validates_uniqueness_of :email, :case_sensitive => false
+  validates_presence_of :name, :email
+  validates_presence_of :password, :on => :create
   has_secure_password
 
-  validates_presence_of :birthday, :phone, :on => :update
-  validates_uniqueness_of :name, :phone, :case_sensitive => false, :on => :update
+  validates_uniqueness_of :email, :case_sensitive => false
   validates_length_of :shirt_number, :maximum => 2
 
   has_many :participations, :include => :recurrence, :dependent => :destroy
@@ -26,7 +25,7 @@ class User < ActiveRecord::Base
   def self.upcoming_birthdays
     anniversarys = []
 
-    find(:all).each do |user|
+    where('birthday IS NOT NULL').each do |user|
       if user.next_birthday.between?(Date.current, Date.current + 3.weeks)
         anniversarys << user
       end
