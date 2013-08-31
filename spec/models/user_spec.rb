@@ -19,7 +19,6 @@ describe User do
       user.should be_valid
     end
 
-    #TODO: validate uniqueness_of name/email/phone and differentiating ":on => create/update"
     it "is not valid without a name" do
       invalid_user = user.update_attributes(:name => nil)
       user.should_not be_valid
@@ -29,7 +28,13 @@ describe User do
 
     it "is not valid without an email" do
       invalid_user = FactoryGirl.build(:user, email: nil)
-      invalid_user.should_not be_valid
+      expect(invalid_user).not_to be_valid
+    end
+
+    it "is not valid with existing email" do
+      user.update_attributes(email: "john@doe.com")
+      user_with_existing_email = FactoryGirl.build(:user, email: "John@Doe.com")
+      expect(user_with_existing_email).not_to be_valid
     end
 
     it "is not valid without a password" do
@@ -42,20 +47,24 @@ describe User do
       user.should_not be_valid
     end
 
-    it "is not valid without a birthday" do
-      user.birthday = nil
-      user.should_not be_valid
-    end
-
-    it "is not valid without a phone number" do
+    it "is valid without a phone number" do
       user.phone = nil
-      user.should_not be_valid
+      expect(user).to be_valid
     end
-    #TODO: why are rspec-core one-liner not working: it { should validate_presence_of :phone }
+    
+    it "is valid without a birthday" do
+      user.birthday = nil
+      expect(user).to be_valid
+    end
 
-    it "is not valid with a shirt number greater two digits" do
+    it "is valid with two digit shirt number" do
+      user.shirt_number = 99
+      expect(user).to be_valid
+    end
+    
+    it "is not valid with three digit shirt number" do
       user.shirt_number = 100
-      user.should_not be_valid
+      expect(user).not_to be_valid
     end
 
     it 'orders users alphabetical by the name' do
@@ -97,6 +106,11 @@ describe User do
 
   describe "#self.upcoming_birthdadys" do
     before(:each) { Date.stub!(:current).and_return(Date.new 2013,06,05) }
+
+    it "excludes birthdays with 'nil' value" do
+      user.update_attributes(birthday: nil)
+      expect(User.upcoming_birthdays).to eq([])
+    end
 
     it "excludes birthdays passed more than 1 day" do
       user.update_attributes(birthday: "2000-06-04")
