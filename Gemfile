@@ -7,32 +7,31 @@ gem 'rails', '3.2.14'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'ruby-debug19' #, :require => 'ruby-debug'
-  gem 'rspec-rails' # specification driven framework
+  gem 'ruby-debug19'
 #TODO try following gems
-#  gem 'railroady' # creates an UML diagramm
-#  gem 'simpleCov' # find code coverage beneath /coverage/index.html, or 'RCov'!?
-#  gem 'metric_fu'' # invoke bei '$ rake metrics' instead of simple '$ rake stats'
+#  gem 'railroady'   # creates an UML diagramm
+#  gem 'simpleCov'   # find code coverage beneath /coverage/index.html, or 'RCov'!?
+#  gem 'metric_fu''  # invoke with '$ rake metrics' instead of simple '$ rake stats'
+  gem 'meta_request' # Chrome extension, which provides insights to db/rendering/parameter list ...
 end
 
 group :test do
+  gem 'rspec-rails'        # specification driven framework
+  gem 'database_cleaner'   # to clear between test-runs Rspec/Cucumber's database  
   gem 'factory_girl_rails' # create factorys instead of fixures
-  gem 'capybara' # lets RSpec/Cucumber pretend to be a web browser
-
-#  gem 'cucumber-rails', :require => false # user story framework
-#  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
-  gem 'database_cleaner' # to clear Cucumber's test database between runs  
-  gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
+  gem 'capybara'           # lets RSpec/Cucumber pretend to be a web browser
+  gem 'launchy'            # a useful debugging aid for user stories, launches browser at breakpoint
 
   gem 'spork-rails'
 
   gem 'guard-rspec' # run automatic rspec tests
   gem 'guard-spork'
-  gem 'rb-inotify', '~> 0.8.8' # guard dependency
+  gem 'rb-inotify', '~> 0.9' # guard dependency
 end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor' # to avoid heroku's gem injection!
 end
 
 # Gems used only for assets and not required
@@ -41,18 +40,15 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  #gem 'therubyracer', :platforms => :ruby
-  #
-  # See https://github.com/seyhunak/twitter-bootstrap-rails, just using STATIC version: 
-  # $ rails generate bootstrap:install static
-  #gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+# See https://github.com/seyhunak/twitter-bootstrap-rails, just using STATIC version: 
+# $ rails generate bootstrap:install static
+#gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
+# To use ActiveModel 'has_secure_password'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use WillPaginate
