@@ -1,6 +1,13 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+# instead of *require 'rails/all'*
+# pick the frameworks you want:
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "sprockets/railtie"
+# don't want the standardrequire "rails/test_unit/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -55,6 +62,9 @@ module Teamorga
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    # At heroku 'rake assets: precompile' failed, as described at
+    # https://devcenter.heroku.com/articles/rails-asset-pipeline this helps
+    config.assets.initialize_on_precompile = false #
 
     # Version of your assets, change this if you want to expire all your assets
     # 10.1.2013-hb, increased because of twitter-bootstrap update problems!

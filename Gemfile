@@ -19,8 +19,8 @@ group :test do
   gem 'factory_girl_rails' # create factorys instead of fixures
   gem 'capybara' # lets RSpec/Cucumber pretend to be a web browser
 
-  gem 'cucumber-rails', :require => false # user story framework
-  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
+#  gem 'cucumber-rails', :require => false # user story framework
+#  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions
   gem 'database_cleaner' # to clear Cucumber's test database between runs  
   gem 'launchy' # a useful debugging aid for user stories, launches browser at breakpoint
 
