@@ -6,15 +6,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <%= link_to "ATSV", root_path, class: "brand" %>
+      <%= link_to "TEAM ORGA", root_path, class: "brand" %>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li class="divider-vertical"></li>
-          <%= active_link_if "recurrences", "Anwesenheiten", recurrences_path %>
+          <%= active_link_if "recurrences", "Termine", recurrences_path %>
           <li class="divider-vertical"></li>
           <%= active_link_if "users", "Spieler", users_path %>
-          <li class="divider-vertical"></li>
-          <li><%= link_to "Tabelle", "http://hvbv.de/index.php?id=285&tx_wfqbe_pi1[uid]=45", :target => "_blank" %></li>
         </ul>
         <ul class="nav pull-right">
         <% if current_user %>
