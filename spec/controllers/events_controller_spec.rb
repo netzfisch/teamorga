@@ -7,8 +7,8 @@ describe EventsController do
   # update the return value of this method accordingly.
   def valid_attributes
     { category: "Spieltag", base_date: "2013-05-08", end_date: "2013-05-13", place: "Hamburg" }
-# TODO EventsController needs 'end_date', although it shouldn't be necessary! 
-# Move 'EventRecurrence' save action to RecurrenceModel?
+# TODO EventsController needs 'end_date', obviously not nil-safe! 
+# TODO Move 'EventRecurrence' create action to RecurrenceModel!
   end
 
   # This should return the minimal set of values that should be in the session
@@ -16,7 +16,6 @@ describe EventsController do
   # EventsController. Be sure to keep this updated too.
   def valid_session
     controller.stub(current_user: FactoryGirl.create(:user))
-    # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
   end
 
   let(:event) { Event.create! valid_attributes }
@@ -105,20 +104,10 @@ describe EventsController do
         }.to change(Event, :count).by(1)
       end
 
-    # TODO see rspec-book position 10451, should not dates_between, but Recurrence.new !???
-      it "calls the model method that returns valid EventRecurrences" # do
-    #    results =     
-    #    expect { 
-    #      post :create, {:event => {base_date: "2012-12-01", end_date: "2012-12-15"}}, valid_session
-    #    }.to eq(["2012-12-01", "2012-12-08", "2012-12-15"])
-    #  end
-    #OR
-    #  it "calls the model method that returns valid EventRecurrences" do
-    #    event_n = Event.create! valid_attributes
-    #    results = ["2012-12-01", "2012-12-08", "2012-12-15"]
-    #    event_n.should_receive(:dates_between).with("2012-12-01", "2012-12-15").and_return(results)
-    #    post :create, {:event => {base_date: "2012-12-01", end_date: "2012-12-15"}}, valid_session
-    #  end
+      it "calls 'dates_between' method with two date arguments" do
+        Event.any_instance.should_receive(:dates_between).with(Date.new(2013,5,8), Date.new(2013,5,13)).and_return(["2013-05-08"])
+        post :create, {event: valid_attributes}, valid_session
+      end
 
       it "assigns a newly created event as @event" do
         post :create, {:event => valid_attributes}, valid_session
