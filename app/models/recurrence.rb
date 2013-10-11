@@ -8,8 +8,6 @@ class Recurrence < ActiveRecord::Base
   has_many :users, :through => :participations
   has_many :comments, :dependent => :nullify
 
-  accepts_nested_attributes_for :participations #, :allow_destroy => true
-
   default_scope joins(:event).order("scheduled_to ASC, events.base_time ASC")
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.today) }
 
