@@ -1,9 +1,10 @@
 class Event < ActiveRecord::Base
-  attr_accessible :category, :base_date, :base_time, :end_date, :place, :remark
+  attr_accessible :category, :base_date, :base_time, :end_date, :place, :remark, :recurrences_attributes
 
   validates :category, :base_date, :place, :presence => true
 
-  has_many :recurrences, :dependent => :destroy
+  has_many :recurrences, :readonly => false, :dependent => :destroy
+  accepts_nested_attributes_for :recurrences #, :allow_destroy => true
 
   default_scope order("base_date DESC, base_time ASC")
 

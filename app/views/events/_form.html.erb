@@ -20,20 +20,20 @@
   <div class="control-group">
     <%= f.label :base_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_select :base_date, :class => 'date_select' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :base_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.time_select :base_time, :class => 'time_select' %>
+      <ul><li><%= f.date_select :base_date, {}, :class => 'date_select' %></li></ul>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :end_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_select :end_date, :class => 'date_select' %>
+      <ul><li><%= f.date_select :end_date, {}, :class => 'date_select' %></li></ul>
       <span class="help-block">Wird ein End-Datum größer als das Start-Datum angegeben, so werden in dem Zeitraum alle 7 Tage "Wiederholungen" erzeugt (z.B. für Beachen, Training, etc.)!</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :base_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.time_select :base_time, {}, :class => 'time_select' %>
     </div>
   </div>
   <div class="control-group">

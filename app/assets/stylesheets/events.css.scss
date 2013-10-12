@@ -1,3 +1,14 @@
 // Place all the styles related to the Events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* form_for stylings */
+
+.text_field, .text_area { width: 344px; }
+
+.date_select {
+//float: left
+  width: 108px
+}
+
+.time_select { width: 173px; }

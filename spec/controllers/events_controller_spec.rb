@@ -167,10 +167,10 @@ describe EventsController do
         expect(flash[:notice]).not_to be(nil)
       end
 
-      it "redirects to the events list" do
+      it "redirects to the updated event" do
         #event = Event.create! valid_attributes
         put :update, {:id => event.to_param, :event => valid_attributes}, valid_session
-        response.should redirect_to(events_path)
+        response.should redirect_to(event_path(event))
       end
     end
 
