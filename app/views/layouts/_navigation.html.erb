@@ -13,6 +13,8 @@
           <%= active_link_if "recurrences", "Termine", recurrences_path %>
           <li class="divider-vertical"></li>
           <%= active_link_if "users", "Spieler", users_path %>
+          <li class="divider-vertical"></li>
+          <%= active_link_if "events", "Events", events_path %>
         </ul>
         <ul class="nav pull-right">
         <% if current_user %>
@@ -23,8 +25,8 @@
             <ul class="dropdown-menu">
               <% display_for(:admin) do %>
                 <li><%= link_to "Backoffice", backoffice_path %></li>
+                <li class="divider"></li>
               <% end %>
-              <li class="divider"></li>
               <li><%= link_to "Profil", current_user %></li>
               <li><%= link_to "Logout", logout_path, method: :delete %></li>
             </ul>

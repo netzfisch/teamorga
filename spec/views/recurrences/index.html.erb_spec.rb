@@ -49,14 +49,6 @@ describe "recurrences/index" do
     end
   end
 
-  it "renders a EDIT link" do
-    expect(rendered).to have_link("Manage", href: events_path)
-  end
-
-  it "renders a NEW link" do
-    expect(rendered).to have_link("new", href: new_event_path)
-  end
-
   it "renders a pagination bar" do
     expect(rendered).to have_selector("div.pagination")
   end
