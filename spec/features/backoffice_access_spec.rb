@@ -1,6 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
-feature 'backoffice data management' do
+feature "backoffice access management" do
+  given(:user) { FactoryGirl.create(:user) }
   given(:admin) { FactoryGirl.create(:user, :admin) }
 
   def login!(user)
@@ -10,17 +11,31 @@ feature 'backoffice data management' do
     click_button "Log in"
   end  
 
-  scenario 'allows backoffice access' do
-    login!(admin)
-    visit '/backoffice' 
+  scenario "denies backoffice access" do 
+    login!(user)
 
-    current_path.should eq backoffice_path
-    within 'h3' do
-      page.should have_content 'Backoffice'
-    end
-    page.should have_content 'Groupdata'
-    page.should have_content 'Members'
+    expect(page).not_to have_link "Backoffice"
+    expect(page).to have_link "Logout"
+# after CanCan integration - better write:
+    # login!(user)
+    # expect(page).not_to have_link "Backoffice"
+    #
+    # visit "/backoffice"
+    # expect(current_path).to eq root_url #access denied!
+    # expect(page).to have_content "Your are not qualified for the backoffice!" 
   end
 
-  scenario 'denies backoffice access' 
+  scenario "allows backoffice access" do
+    login!(admin)
+    expect(page).to have_link "Backoffice"
+
+    click_link "Backoffice"
+
+    expect(current_path).to eq backoffice_path
+    within "h3" do
+      expect(page).to have_content "Backoffice"
+    end
+    expect(page).to have_content "Groupdata"
+    expect(page).to have_content "Members"
+  end
 end
