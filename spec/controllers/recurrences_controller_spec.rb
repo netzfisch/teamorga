@@ -1,27 +1,22 @@
 require 'spec_helper'
 
 describe RecurrencesController do
-
-# TODO check spec/views/recurrences/index.html.rb_spec for **mocking will_paginate** and check also
-# http://codereview.stackexchange.com/questions/505/how-to-effectively-unit-test-a-controller-in-ruby-on-rails-please-critique-a-sa
-
   # This should return the minimal set of attributes required to create a valid
   # Recurrence. As you add validations to the Recurrence model, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    #{ event_id: FactoryGirl.create(:event).id, scheduled_to: "2013-05-08" }
     { scheduled_to: "2013-05-08" }
   end
+
+  let(:recurrence) { FactoryGirl.create(:recurrence) } # Recurrence.create! valid_attributes }
+  let(:user) { FactoryGirl.create(:user) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # RecurrencesController. Be sure to keep this updated too.
   def valid_session
-    controller.stub(current_user: FactoryGirl.create(:user))
-    # alternatively { session[:user_id] = user.id } or {:user_id => user.id} 
+    controller.stub(current_user: user)
   end
-
-  let(:recurrence) { Recurrence.create! valid_attributes }
 
   describe "GET index" do
     before(:each) { Recurrence.stub_chain(:current, :paginate).and_return([recurrence]) }
@@ -36,27 +31,25 @@ describe RecurrencesController do
       expect(response).to render_template("index")
     end
 
-    it "assigns all groups as @groups" do
-      group = Group.create!(private_information: "Next workout will be at ...")
-      get :index, {}, valid_session
-      expect(assigns :groups).to eq([group])
-    end
-
     it "assigns all birthdays as @birthdays" do
-      Date.stub!(:current).and_return(Date.new 2013,06,15)
-      user = FactoryGirl.create(:user, birthday: "2013-06-15")
+      user.update_attributes(birthday: "2013-06-15")
+      Date.stub(:current).and_return(Date.new 2013,06,15)
+
       get :index, {}, valid_session
       expect(assigns :birthdays).to eq([user])
     end
 
     it "assigns all comments as @comments" do
-      comment = Comment.create!(body: "time to beach")
+      recurrence.comments.create(user_id: user.id, body: "time to beach")
+
       get :index, {}, valid_session
-      expect(assigns :comments).to eq([comment])
+      expect(assigns :comments).to match_array(recurrence.comments)
+      # IMPORTANT for Rails 4, as then 'Recurrence.all' will 
+      # return ActiveRecord::Relation instead of Array, see
+      # https://www.relishapp.com/rspec/rspec-rails/docs/matchers/activerecord-relation-match-array
     end
 
     it "assigns all recurrences as @recurrences" do
-      #recurrence = Recurrence.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns :recurrences).to eq([recurrence])
     end
@@ -78,29 +71,52 @@ describe RecurrencesController do
   end
 
   describe "GET show" do
-    it "returns http success"
+    it "returns http success" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(response).to be_success
+    end
 
-    it "assigns a recurrence as @recurrence"
+    it "renders the 'show' template" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(response).to render_template("show")
+    end
 
-    it "assigns all accepter as @accepter"
+    it "assigns a recurrence as @recurrence" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(assigns :recurrence).to eq(recurrence)
+    end
 
-    it "assigns all refuser as @refuser"
+    it "assigns all accepter as @accepter" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(assigns :accepter).to eq(recurrence.feedback(true))
+    end
 
-    it "assigns all no_replyer as @no_replyer"
+    it "assigns all refuser as @refuser" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(assigns :refuser).to eq(recurrence.feedback(false))
+    end
+
+    it "assigns all no_replyer as @no_replyer" do
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(assigns :no_replyer).to eq(recurrence.no_feedback)
+    end
 
     it "assigns all birthdays as @birthdays" do
-      Date.stub!(:current).and_return(Date.new 2013,06,15)
-      user = FactoryGirl.create(:user, birthday: "2013-06-15")
-      get :index, {}, valid_session
+      user.update_attributes(birthday: "2013-06-15")
+      Date.stub(:current).and_return(Date.new 2013,06,15)
+
+      get :show, { :id => recurrence.to_param }, valid_session
       expect(assigns :birthdays).to eq([user])
     end
 
     it "assigns all comments as @comments" do
-      comment = Comment.create!(body: "time to beach")
-      get :index, {}, valid_session
-      expect(assigns :comments).to eq([comment])
-    end
+      recurrence.comments.create(user_id: user.id, body: "time to beach")
 
-    it "reners the 'show' template"
+      get :show, { :id => recurrence.to_param }, valid_session
+      expect(assigns :comments).to match_array(recurrence.comments)
+      # IMPORTANT for Rails 4, as then 'Recurrence.all' will 
+      # return ActiveRecord::Relation instead of Array, see
+      # https://www.relishapp.com/rspec/rspec-rails/docs/matchers/activerecord-relation-match-array
+    end
   end
 end
