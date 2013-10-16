@@ -105,7 +105,7 @@ describe User do
   end
 
   describe "#self.upcoming_birthdadys" do
-    before(:each) { Date.stub!(:current).and_return(Date.new 2013,06,05) }
+    before(:each) { Date.stub(:current).and_return(Date.new 2013,06,05) }
 
     it "excludes birthdays with 'nil' value" do
       user.update_attributes(birthday: nil)
@@ -141,7 +141,7 @@ describe User do
   end
 
   describe "#next_birthday" do
-    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
+    before(:each) { Date.stub(:current).and_return(Date.new 2013,12,30) }
     
     it "calculates a already passed birthday" do
       user.update_attributes(birthday: "1999-12-25")
@@ -160,7 +160,7 @@ describe User do
   end
 
   describe "#next_birthday_age" do
-    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
+    before(:each) { Date.stub(:current).and_return(Date.new 2013,12,30) }
     
     it "calculates it for todays birthday" do
       user.update_attributes(birthday: "2000-12-30")
@@ -179,7 +179,7 @@ describe User do
   end
 
   describe "#current_age" do
-    before(:each) { Date.stub!(:current).and_return(Date.new 2013,12,30) }
+    before(:each) { Date.stub(:current).and_return(Date.new 2013,12,30) }
     
     it "calculates it for a passed birthday" do
       user.update_attributes(birthday: "2000-12-25")

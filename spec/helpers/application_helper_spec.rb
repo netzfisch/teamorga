@@ -84,7 +84,7 @@ describe ApplicationHelper do
     
     context "when the current user has the role 'admin'" do
       it "displays the content" do
-        helper.stub(:current_user).and_return(stub('User', :admin? => true))
+        helper.stub(:current_user).and_return(double('User', :admin? => true))
         content = helper.display_for(:admin) {"content"}
 
         expect(content).to eq("content")
@@ -93,7 +93,7 @@ describe ApplicationHelper do
 
     context "when the current_user has not the role 'admin'" do
       it "does not display the content" do
-        helper.stub(:current_user).and_return(stub('User', :admin? => false))
+        helper.stub(:current_user).and_return(double('User', :admin? => false))
         content = helper.display_for(:admin) {"content"}
 
         expect(content).to eq(nil)
