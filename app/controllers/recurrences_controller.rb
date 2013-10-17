@@ -10,12 +10,6 @@ class RecurrencesController < ApplicationController
     @comments = Comment.limit(20)
   end
 
-  def index_old
-    @users = User.all
-    @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 5)
-    @comments = Comment.order("created_at DESC").limit(5)
-  end
-
   # GET /recurrences/1
   def show
     @recurrence = Recurrence.find(params[:id])

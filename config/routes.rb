@@ -10,9 +10,6 @@ Teamorga::Application.routes.draw do
    resource :participations, :comments
   end
 
-# TODO: remove later, just to verify functionalality
-match 'recurrences/index_old' => 'recurrences#index_old', :as => :index_old
-
   resources :recurrences do
     resources :participations
     resources :comments
