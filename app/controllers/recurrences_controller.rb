@@ -22,12 +22,7 @@ class RecurrencesController < ApplicationController
   
     @accepter = @recurrence.feedback(true)
     @refuser = @recurrence.feedback(false)
-    @no_replyer = @recurrence.no_feedback
-    #@accepter = @recurrence.participations.accepted.map(&:user)
-    #@refuser = @recurrence.participations.refused.map(&:user) 
-# which one is best, fast and sensefull?      
-    #@accepter = Participation.feedback(@recurrence, true)
-    #@refuser = Participation.feedback(@recurrence, false)
+    @no_replyer = @recurrence.feedback("none")
 
     @birthdays = User.upcoming_birthdays
     @comments = @recurrence.comments.scoped #that way lazy loaded!
@@ -77,6 +72,4 @@ class RecurrencesController < ApplicationController
 
     redirect_to events_path, notice: 'recurrence was successfully destroyed.'
   end
-
 end
-

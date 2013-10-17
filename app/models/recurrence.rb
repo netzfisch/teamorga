@@ -12,18 +12,15 @@ class Recurrence < ActiveRecord::Base
   scope :current, lambda { where("scheduled_to >= ?", Time.zone.today) }
 
   def feedback(status)
-    users.where("recurrence_id = ? AND status = ? ", self.id, status)
-#    case
-#    when status == "true"
-#      recurrence.participations.accepted
-#    when status == "false"
-#      recurrence.participations.refused
-#    when status == "none"
-#      User.licence - recurrence.participations.accepted - recurrence.participations.refused
-#    end
-  end
-
-  def no_feedback
-    User.licence - feedback(true) - feedback(false)
+    case
+    when status == true
+      self.participations.accepted.map(&:user)
+      #users.where("recurrence_id = ? AND status = ? ", self.id, true)
+    when status == false
+      self.participations.refused.map(&:user)
+      #users.where("recurrence_id = ? AND status = ? ", self.id, false)
+    when status == "none"
+      User.licence - feedback(true) - feedback(false)
+    end
   end
 end

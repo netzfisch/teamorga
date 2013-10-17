@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Participation do
-
   let(:participation) { FactoryGirl.create(:participation) }
 
   it "is valid with valid attributes" do
@@ -23,9 +22,7 @@ describe Participation do
     expect(participation.status).to be(false)
   end
 
-  it "has a default_scope 'group' by recurrence_id"
-
-  context '.accepted scope' do
+  context '.accepted' do
     it "excludes refused participations" do
       2.times { FactoryGirl.create(:participation, status: false) }
 
@@ -60,24 +57,4 @@ describe Participation do
       expect(Participation.refused.map(&:status).uniq).to eq([false])
     end
   end
-
-  context "finds the participation status per recurrence" do
-    it "finds users accepted the recurrence" do
-      recurrence = FactoryGirl.create(:recurrence)
-      2.times { FactoryGirl.create(:participation,
-                  recurrence: recurrence,
-                  user: FactoryGirl.create(:user),
-                  status: true) }
-
-      expect(recurrence.feedback(true)).to have_exactly(2).items
-    end
-
-    it "finds users refused the recurrence" do
-      rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
-
-      expect(rr.feedback(false)).to have_exactly(3).items
-    end
-  end
-
 end
-

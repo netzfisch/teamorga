@@ -73,7 +73,7 @@ describe Recurrence do
     end
   end
 
-  describe "#feedback(true/false/none)" do
+  describe "#feedback(true/false/'none')" do
     it "finds users accepted the recurrence" do
       2.times { FactoryGirl.create(:participation,
                   recurrence: recurrence,
@@ -81,20 +81,23 @@ describe Recurrence do
                   status: true )}
 
       expect(recurrence.feedback(true)).to have_exactly(2).items
+      expect(recurrence.feedback(true).first).to be_a_kind_of(User)
     end
 
     it "finds users refused the recurrence" do
-      rr = FactoryGirl.create(:refused_recurrence, participations_count: 3)
+      recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
 
-      expect(rr.feedback(false)).to have_exactly(3).items
+      expect(recurrence.feedback(false)).to have_exactly(3).items
+      expect(recurrence.feedback(false).first).to be_a(User)
     end
 
     it "finds users not replyed at the recurrence" do
       recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
-      FactoryGirl.create(:user, shirt_number: "13") # this is the no 'replyer'!
+      FactoryGirl.create(:user, shirt_number: "13") #this is the 'no_replyer'!
 
       expect(User.count).to eq(4)
-      expect(recurrence.no_feedback).to have_exactly(1).item
+      expect(recurrence.feedback("none")).to have_exactly(1).item
+      expect(recurrence.feedback("none").first).to be_a(User)
     end
   end
 end

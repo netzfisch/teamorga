@@ -98,7 +98,7 @@ describe RecurrencesController do
 
     it "assigns all no_replyer as @no_replyer" do
       get :show, { :id => recurrence.to_param }, valid_session
-      expect(assigns :no_replyer).to eq(recurrence.no_feedback)
+      expect(assigns :no_replyer).to eq(recurrence.feedback("none"))
     end
 
     it "assigns all birthdays as @birthdays" do
