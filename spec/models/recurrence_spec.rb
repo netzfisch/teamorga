@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Recurrence do
-
   let(:recurrence) { FactoryGirl.create(:recurrence) }
 
   it { should respond_to(:scheduled_to) }
@@ -17,7 +16,7 @@ describe Recurrence do
     recurrence.errors[:scheduled_to].should include("can't be blank")
   end
 
-  describe "#default_scope"
+  describe ".default_scope" do
     it 'orders recurrences ascending by date' do
       recurrence_next = FactoryGirl.create(:recurrence, scheduled_to: Date.tomorrow)
       recurrence.update_attributes(scheduled_to: Date.today)
@@ -36,8 +35,9 @@ describe Recurrence do
 
       expect(Recurrence.first).to eq(recurrence_first)
     end
+  end
 
-  describe '#current scope' do
+  describe '.current' do
     it 'excludes recurrences scheduled for yesterday' do
       recurrence.update_attributes(scheduled_to: Date.today - 1.second)
       expect(Recurrence.current).to be_empty
@@ -73,7 +73,7 @@ describe Recurrence do
     end
   end
 
-  context "finds the participation status of licensed user per recurrence" do
+  describe "#feedback(true/false/none)" do
     it "finds users accepted the recurrence" do
       2.times { FactoryGirl.create(:participation,
                   recurrence: recurrence,
@@ -90,18 +90,11 @@ describe Recurrence do
     end
 
     it "finds users not replyed at the recurrence" do
-      4.times { FactoryGirl.create(:user, shirt_number: 13) }
-
-      expect(recurrence.no_feedback).to have_exactly(4).items
-    end
-
-    it "counts users with no feedback at the recurrence" do
-      5.times { FactoryGirl.create(:user, shirt_number: 15) }
       recurrence = FactoryGirl.create(:refused_recurrence, participations_count: 3)
+      FactoryGirl.create(:user, shirt_number: "13") # this is the no 'replyer'!
 
-      expect(recurrence.no_feedback.size).to eq(User.count - 3)
+      expect(User.count).to eq(4)
+      expect(recurrence.no_feedback).to have_exactly(1).item
     end
   end
-
 end
-
