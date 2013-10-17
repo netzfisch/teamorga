@@ -1,6 +1,15 @@
-# encoding: UTF-8
 require 'spec_helper'
 
+# Specs in this file have access to a helper object that includes
+# the RecurrencesHelper. For example:
+#
+# describe RecurrencesHelper do
+#   describe "string concat" do
+#     it "concats two strings with spaces" do
+#       helper.concat_strings("this","that").should == "this that"
+#     end
+#   end
+# end
 describe RecurrencesHelper do
   let(:user) { FactoryGirl.create(:user) }
   let(:recurrence) { FactoryGirl.create(:recurrence) }
@@ -8,11 +17,6 @@ describe RecurrencesHelper do
   before(:each) do
     helper.stub(current_user: user)
   end
-
-  #let(:participation) { FactoryGirl.create(:participation, recurrence: recurrence, user: user) }
-
-  #let(:participant) { create(:participant, user: event.user) }
-  #let(:participation_event) { create(:event, participants: [participant]) }
 
   describe "#participation_link" do
     context "for not yet responded recurrence" do
@@ -42,5 +46,7 @@ describe RecurrencesHelper do
     end
   end
 
+  describe "#google_link (2x)" do
+    pending
+  end
 end
-

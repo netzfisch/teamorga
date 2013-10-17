@@ -1,8 +1,16 @@
-# encoding: utf-8
 require "spec_helper" 
 
+# Specs in this file have access to a helper object that includes
+# the ApplicationHelper. For example:
+#
+# describe ApplicationHelper do
+#   describe "string concat" do
+#     it "concats two strings with spaces" do
+#       helper.concat_strings("this","that").should == "this that"
+#     end
+#   end
+# end
 describe ApplicationHelper do
-
   describe "#active_class_if" do
     context "when the navigation path 'contains' the current controller" do 
       it "generates an active link" do
@@ -76,8 +84,9 @@ describe ApplicationHelper do
     end
   end
 
-
-  it "#comment_link"
+  describe "#comment_link" do
+    pending
+  end
 
   describe "#display_for(role)" do
     let(:user) { FactoryGirl.create(:user, admin: false) }
@@ -131,8 +140,7 @@ describe ApplicationHelper do
     end
   end
 
-  it "#format_date"
-
-  it "#2x #google_link"
-
+  describe "#format_date" do
+    pending
+  end
 end
