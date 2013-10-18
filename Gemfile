@@ -1,9 +1,18 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
 
-gem 'rails', '3.2.14'
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.14'         # Bundle edge? gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel 'has_secure_password'
+gem 'friendly_id'             # To get nice Urls
+gem 'will_paginate'           # To use WillPaginate
+gem 'bootstrap-will_paginate' # To use WillPaginate with bootstrap
+gem 'redcarpet'               # To use markdown in text fields
+gem 'jquery-rails'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor' # to avoid heroku's gem injection!
+end
 
 group :development, :test do
   gem 'sqlite3'
@@ -23,15 +32,9 @@ group :test do
   gem 'launchy'            # a useful debugging aid for user stories, launches browser at breakpoint
 
   gem 'spork-rails'
-
   gem 'guard-rspec' # run automatic rspec tests
   gem 'guard-spork'
   gem 'rb-inotify', '~> 0.9' # guard dependency
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor' # to avoid heroku's gem injection!
 end
 
 # Gems used only for assets and not required
@@ -45,21 +48,6 @@ group :assets do
 #gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
 end
-
-gem 'jquery-rails'
-
-# To use ActiveModel 'has_secure_password'
-gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use WillPaginate
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-
-# To use markdown in text fields
-gem 'redcarpet'
-
-# To get nice Urls
-gem 'friendly_id'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
