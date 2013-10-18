@@ -31,6 +31,9 @@ Teamorga::Application.routes.draw do
     resources :groups
   end
 
+  # Routes for static pages:
+  get '/:action' => 'pages' #specific would be: get '/imprint' => 'pages#imprint'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
