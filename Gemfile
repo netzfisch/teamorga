@@ -6,6 +6,7 @@ gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel 'has_secure_password'
 gem 'friendly_id'             # To get nice Urls
 gem 'will_paginate'           # To use WillPaginate
 gem 'bootstrap-will_paginate' # To use WillPaginate with bootstrap
+gem 'haml'                    # To use Haml template engine
 gem 'redcarpet'               # To use markdown in text fields
 gem 'jquery-rails'
 
