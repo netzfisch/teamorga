@@ -39,9 +39,9 @@
   </dl>
 
   <p class="text-warning" align="middle">
-    Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden! 
-    [<%= link_to 'Edit', edit_event_path(@recurrence.event) %>]
-    [<%= link_to 'New', new_event_path %>]
+    Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden! |  
+    <%= link_to 'Edit', edit_event_path(@recurrence.event) %> | 
+    <%= link_to 'New', new_event_path %> |
   </p>  
 </div>
 
