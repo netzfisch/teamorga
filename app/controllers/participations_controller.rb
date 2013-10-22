@@ -21,7 +21,7 @@ class ParticipationsController < ApplicationController
     redirect_to :back
   end
 
-  # POST /participations#create_status
+  # POST /participations/1/#create_status
   # custom create action for participations
   def create_status
     recurrence = Recurrence.find(params[:id])
@@ -42,7 +42,7 @@ class ParticipationsController < ApplicationController
     end
   end
 
-  # PUT /participations/1#toggle_status
+  # PUT /participations/1/#toggle_status
   # custom update action for participation
   def toggle_status
     participation = Participation.find(params[:id])
@@ -60,6 +60,5 @@ class ParticipationsController < ApplicationController
 
     redirect_to :back
   end
-
 end
 

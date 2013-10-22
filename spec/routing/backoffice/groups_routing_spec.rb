@@ -2,7 +2,6 @@ require "spec_helper"
 
 describe Backoffice::GroupsController do
   describe "routing" do
-
     it "routes to #index" do
       get("/backoffice/groups").should route_to("backoffice/groups#index")
     end
@@ -30,6 +29,5 @@ describe Backoffice::GroupsController do
     it "routes to #destroy" do
       delete("/backoffice/groups/1").should route_to("backoffice/groups#destroy", :id => "1")
     end
-
   end
 end
