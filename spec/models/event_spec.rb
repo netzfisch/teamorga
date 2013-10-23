@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Event do
-
   let(:event) { FactoryGirl.create(:event) }
 
   it { should respond_to(:category) }
@@ -60,7 +59,6 @@ describe Event do
       end
   
     context 'when the end_date ist after the start_date' do
-
       it 'should return multiple dates as recurrences of the event' do
         event.dates_between(start_date, end_date).should eq(output_dates)
       end
@@ -72,6 +70,4 @@ describe Event do
       end      
     end
   end
-
 end
-

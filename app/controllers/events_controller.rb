@@ -29,7 +29,7 @@ layout 'sidebar_backoffice'
     # create and save associated data to recurrences table
     # first create an array of single reoccurence dates
     # than save reoccurence dates as scheduled_to in recurrences table
-# better move creation to recurrence controller!?
+#TODO better move creation to recurrence controller!
     @event.dates_between(@event.base_date, @event.end_date).each do |date|
       #Recurrence.create(:event_id => @event.id, :scheduled_to => date)
       r = Recurrence.new       # before called with (params[:recurrence]), häh?

@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 describe EventsController do
-
   # This should return the minimal set of attributes required to create a valid
   # Event. As you add validations to the Event model, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     { category: "Spieltag", base_date: "2013-05-08", end_date: "2013-05-13", place: "Hamburg" }
-# TODO EventsController needs 'end_date', obviously not nil-safe! 
-# TODO Move 'EventRecurrence' create action to RecurrenceModel!
   end
 
   # This should return the minimal set of values that should be in the session
