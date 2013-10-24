@@ -27,9 +27,20 @@ describe Event do
     event.should_not be_valid
   end
 
+  it "is not valid without a end_date" do
+    event.end_date = nil
+    event.should_not be_valid
+  end
+
   it "is not valid without a place" do
     event.place = nil
     event.should_not be_valid
+  end
+
+  it "is not valid with a readonly recurrences association" do
+    FactoryGirl.create(:recurrence, event: event)
+
+    expect(event.recurrences.first.readonly?).to eq(false)
   end
 
   describe "#default_scope" do
