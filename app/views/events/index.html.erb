@@ -1,7 +1,6 @@
-<%- model_class = Event -%>
 <div class="page-header">
   <h3>
-    <%=t '.title', :default => model_class.model_name.human.pluralize %>, 
+    <%=t :event %>, 
     <%= link_to t('.new', :default => t("helpers.links.new")), new_event_path, 
         :class => 'btn btn-primary btn-mini' %>
   </h3>
@@ -10,26 +9,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:base_date) %></th>
-      <th>Time</th>
-      <th><%= model_class.human_attribute_name(:recurrences) %></th>
-      <th><%= model_class.human_attribute_name(:place) %></th>
-      <th><%= model_class.human_attribute_name(:remark) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Kategorie</th>
+      <th>Datum</th>
+      <th>Zeit</th>
+      <th>Ort</th>
+      <th>Bemerkung</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.category, event_path(event) %></td>
-        <td><%= event.base_date.strftime("%a. %d.%b.%Y") %></td>
-        <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
         <td>
           <% event.recurrences.each do |recurrence| %>
-            Destroy: <%= link_to_unless event.recurrences.count < 2, recurrence.scheduled_to, recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
+            Löschen: <%= link_to_unless event.recurrences.count < 2, recurrence.scheduled_to, recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
           <% end %>
         </td>
+        <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
         <td><%= event.place %></td>
         <td><%= event.remark %></td>
         <td>

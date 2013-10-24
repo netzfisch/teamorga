@@ -1,16 +1,11 @@
-<%- model_class = Event -%>
 <div class="page-header">
-  <h3><%=t '.title', :default => model_class.model_name.human %></h3>
+  <h3><%=t :event %></h3>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
+  <dt><strong>Kategorie:</strong></dt>
   <dd><%= @event.category %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:base_date) %>:</strong></dt>
-  <dd><%= @event.base_date.strftime("%a. %d.%b.%Y") %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:base_time) %>:</strong></dt>
-  <dd><%= @event.base_time.strftime("%H:%M Uhr") %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:recurrences) %>:</strong></dt>
+  <dt><strong>Datum:</strong></dt>
   <dd>
     <ul>
       <% @event.recurrences.each do |recurrence| %>
@@ -18,11 +13,11 @@
       <% end %>
     </ul>
   </dd>
-  <dt><strong><%= model_class.human_attribute_name(:end_date) %>:</strong></dt>
-  <dd><%= @event.end_date.strftime("%a. %d.%b.%Y") %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:place) %>:</strong></dt>
+  <dt><strong>Zeit:</strong></dt>
+  <dd><%= @event.base_time.strftime("%H:%M Uhr") %></dd>
+  <dt><strong>Ort:</strong></dt>
   <dd><%= @event.place %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:remark) %>:</strong></dt>
+  <dt><strong>Bemerkung:</strong></dt>
   <dd><%= @event.remark %></dd>
 </dl>
 
