@@ -6,11 +6,11 @@ feature "event data management" do
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password 
     click_button "Log in"
-  end  
+  end
 
-  before(:each) { login! FactoryGirl.create(:user) }
+  before(:each) { login! FactoryGirl.create(:user) } 
 
-  given!(:event) { FactoryGirl.create(:event, category: "Training", remark: "be there") }
+  given!(:event) { FactoryGirl.create(:event, category: "Training") }
   given(:recurrence) { FactoryGirl.create(:recurrence, event: event) }
 
   scenario "edits a event with nested recurrence date" do

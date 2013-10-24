@@ -16,7 +16,7 @@ module ApplicationHelper
       hard_wrap: true
     }
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
-    mention_link(markdown.render(text)).html_safe
+    mention_link(markdown.render(text)).html_safe unless text.nil?
   end
   
   def mention_link(text)
@@ -44,6 +44,4 @@ module ApplicationHelper
         })
      end
   end
-
 end
-

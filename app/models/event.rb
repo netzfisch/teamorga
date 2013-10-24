@@ -1,6 +1,5 @@
 class Event < ActiveRecord::Base
   attr_accessible :category, :base_date, :base_time, :end_date, :place, :remark, :recurrences_attributes
-
   validates :category, :base_date, :end_date, :place, :presence => true
 
   has_many :recurrences, :readonly => false, :dependent => :destroy
