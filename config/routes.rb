@@ -27,7 +27,7 @@ Teamorga::Application.routes.draw do
   resources :comments
 
   # Routes for static pages:
-  get '/:action' => 'pages' # specific would be: get '/imprint' => 'pages#imprint'
+  get '/pages/:action' => 'pages' # specific would be: get '/pages/imprint' => 'pages#imprint'
 
   # Routes within the backoffice namespace:
   namespace :backoffice do
