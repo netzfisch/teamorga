@@ -2,20 +2,16 @@
   <h3><%= @group.name %></h3>
 </div>
 
-<p>
-  <b>Logo Url:</b>
-  <%= @group.logo_url %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong>Logo Url:</strong></dt>
+  <dd><%= @group.logo_url %></dd>
 
-<p>
-  <b>Public Information:</b>
-  <%= markdown_parser @group.public_information %>
-</p>
+  <dt><strong>Public Information:</strong></dt>
+  <dd><%= markdown_parser @group.public_information %></dd>
 
-<p>
-  <b>Private Information:</b>
-  <%= markdown_parser @group.private_information %>
-</p>
+  <dt><strong>Private Information:</strong></dt>
+  <dd><%= markdown_parser @group.private_information %></dd>
+</dl>
 
 <div class="form-actions">
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
