@@ -8,10 +8,11 @@ feature "recurrence data management" do
     click_button "Log in"
   end  
 
-  before(:each) { login! FactoryGirl.create(:user) }
-
+  given!(:group) { FactoryGirl.create(:group) }
   given(:event) { FactoryGirl.create(:event, category: "Training", remark: "be there") }
   given!(:recurrence) { FactoryGirl.create(:recurrence, event: event) }
+
+  before(:each) { login! FactoryGirl.create(:user) }
 
   scenario "deletes a recurrence" do
     recurrence = FactoryGirl.create(:recurrence, event: event, scheduled_to: "2013-10-15")

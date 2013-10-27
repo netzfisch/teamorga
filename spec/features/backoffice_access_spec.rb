@@ -3,6 +3,7 @@ require "spec_helper"
 feature "backoffice access management" do
   given(:user) { FactoryGirl.create(:user) }
   given(:admin) { FactoryGirl.create(:user, :admin) }
+  given!(:group) { FactoryGirl.create(:group) }
 
   def login!(user)
     visit "/login"
@@ -36,6 +37,8 @@ feature "backoffice access management" do
       expect(page).to have_content "Backoffice"
     end
     expect(page).to have_content "Groupdata"
-    expect(page).to have_content "Members"
+    expect(page).to have_content "Users"
+    expect(page).to have_content "Events"
+    expect(page).to have_content "Comments"
   end
 end

@@ -8,10 +8,11 @@ feature "event data management" do
     click_button "Log in"
   end
 
-  before(:each) { login! FactoryGirl.create(:user) } 
-
+  given!(:group) { FactoryGirl.create(:group) }
   given!(:event) { FactoryGirl.create(:event, category: "Training") }
   given(:recurrence) { FactoryGirl.create(:recurrence, event: event) }
+
+  before(:each) { login! FactoryGirl.create(:user) }
 
   scenario "edits a event with nested recurrence date" do
     visit recurrence_path(recurrence)

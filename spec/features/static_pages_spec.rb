@@ -2,6 +2,7 @@ require "spec_helper"
 
 feature "static pages" do
   given(:user) { FactoryGirl.create(:user) }
+  given!(:group) { FactoryGirl.create(:group) }
 
   def login!(user)
     visit "/login"

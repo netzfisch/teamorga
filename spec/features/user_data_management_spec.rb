@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe "Management of user data" do
-  let(:user)        { FactoryGirl.create(:user, admin: false) }
-  let(:other_user)  { FactoryGirl.create(:user, admin: false) }
-  let(:admin)       { FactoryGirl.create(:user, :admin) }
+feature "management of user data" do
+  given(:user)       { FactoryGirl.create(:user, admin: false) }
+  given(:other_user) { FactoryGirl.create(:user, admin: false) }
+  given(:admin)      { FactoryGirl.create(:user, :admin) }
+  given!(:group)     { FactoryGirl.create(:group) }
 
   def login!(user)
     visit "/login"

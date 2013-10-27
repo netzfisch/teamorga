@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature "User session management" do
   given(:user) { FactoryGirl.create(:user, name: "jdoe") }
+  given!(:group) { FactoryGirl.create(:group) }
 
   def login!(user)
     visit "/login"
