@@ -1,9 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @group.name %>
-</p>
+<div class="page-header">
+  <h3><%= @group.name %></h3>
+</div>
 
 <p>
   <b>Logo Url:</b>
@@ -20,5 +17,7 @@
   <%= markdown_parser @group.private_information %>
 </p>
 
-
-<%= link_to 'Edit', edit_group_path(@group) %> |
+<div class="form-actions">
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_group_path(@group), :class => 'btn' %>
+</div>
