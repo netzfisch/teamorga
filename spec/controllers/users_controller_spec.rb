@@ -9,18 +9,14 @@ describe UsersController do
     { :name => "Jim", :email => "jim@doe.com", :password => "secret", :birthday => "1999-10-08", :phone => "+49 40 123 4567" }
   end
 
-  let(:user) { User.create! valid_attributes }
-
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
   def valid_session
-    #controller.stub(
-#    { :current_user => FactoryGirl.create(:user) }
-   # alternatively 
-#    { session[:user_id] => user.id }# or 
-    { :user_id => user.id } 
+    controller.stub(current_user: user)
   end
+
+  let(:user) { User.create! valid_attributes }
 
   describe "GET index" do
     it "returns http success" do
@@ -31,6 +27,11 @@ describe UsersController do
     it "renders the 'index' template" do
       get :index, {}, valid_session
       expect(response).to render_template("index")
+    end
+
+    it "renders the 'backoffice' layout" do
+      get :index, {}, valid_session
+      expect(response).to render_template("layouts/sidebar_backoffice")
     end
 
     it "assigns all users as @users" do
