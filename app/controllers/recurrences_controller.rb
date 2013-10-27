@@ -1,10 +1,10 @@
 class RecurrencesController < ApplicationController
-  layout 'sidebar_default', :only => [:index, :index_old, :show]
+  layout 'sidebar_default', :only => [:index, :show]
 
   # GET /recurrences
   def index
     @recurrences = Recurrence.current.paginate(page: params[:page], per_page: 8)
-    @groups = Group.find(:all)
+    @group = Group.first
 
     @birthdays = User.upcoming_birthdays
     @comments = Comment.limit(20)

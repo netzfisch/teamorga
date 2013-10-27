@@ -28,12 +28,10 @@
   <%= will_paginate @recurrences %>
 </div>
 
-<% @groups.each do |group| %>
-  <div class="well">
-    <p id="private_information"><%= markdown_parser group.private_information %></p>
-    <span class="timestamp">
-      Infos for <%= group.name %>. 
-    </span>
-    <%= link_to 'Edit', edit_backoffice_group_path(group) %>?
-  </div>
-<% end %>
+<div class="well">
+  <p id="private_information"><%= markdown_parser @group.private_information %></p>
+  <span class="timestamp">
+    Infos for <%= @group.name %>. 
+  </span>
+  <%= link_to 'Edit', edit_group_path(@group) %>?
+</div>

@@ -22,7 +22,7 @@ describe "recurrences/index" do
 
   before :each do
     assign(:recurrences, recurrences.paginate(page: 1, per_page: 2))
-    assign(:groups, [group])
+    assign(:group, group)
     render
   end
 
@@ -59,7 +59,7 @@ describe "recurrences/index" do
     end
 
     it "renders a EDIT link" do
-      expect(rendered).to have_link("Edit", href: edit_backoffice_group_path(group))
+      expect(rendered).to have_link("Edit", href: edit_group_path(group))
     end
   end
 end

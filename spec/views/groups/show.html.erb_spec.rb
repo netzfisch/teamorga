@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "backoffice/groups/show" do
+describe "groups/show" do
   before(:each) do
     @group = assign(:group, stub_model(Group,
       :name => "Name",

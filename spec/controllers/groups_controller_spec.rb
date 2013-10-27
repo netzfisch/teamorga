@@ -18,8 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe Backoffice::GroupsController do
-
+describe GroupsController do
   # This should return the minimal set of attributes required to create a valid
   # Group. As you add validations to Backoffice::Group, be sure to
   # update the return value of this method accordingly.
@@ -34,14 +33,6 @@ describe Backoffice::GroupsController do
     controller.stub(current_user: FactoryGirl.create(:user))
   end
 
-  describe "GET index" do
-    it "assigns all groups as @groups" do
-      group = Group.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:groups).should eq([group])
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested group as @group" do
       group = Group.create! valid_attributes
@@ -50,55 +41,11 @@ describe Backoffice::GroupsController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new group as @group" do
-      get :new, {}, valid_session
-      assigns(:group).should be_a_new(Group)
-    end
-  end
-
   describe "GET edit" do
     it "assigns the requested group as @group" do
       group = Group.create! valid_attributes
       get :edit, {:id => group.to_param}, valid_session
       assigns(:group).should eq(group)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Group" do
-        expect {
-          post :create, {:group => valid_attributes}, valid_session
-        }.to change(Group, :count).by(1)
-      end
-
-      it "assigns a newly created group as @group" do
-        post :create, {:group => valid_attributes}, valid_session
-        assigns(:group).should be_a(Group)
-        assigns(:group).should be_persisted
-      end
-
-      it "redirects to the created group" do
-        post :create, {:group => valid_attributes}, valid_session
-        response.should redirect_to(backoffice_group_path(Group.last))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved group as @group" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        post :create, {:group => {  }}, valid_session
-        assigns(:group).should be_a_new(Group)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Group.any_instance.stub(:save).and_return(false)
-        post :create, {:group => {  }}, valid_session
-        response.should render_template("new")
-      end
     end
   end
 
@@ -123,7 +70,7 @@ describe Backoffice::GroupsController do
       it "redirects to the group" do
         group = Group.create! valid_attributes
         put :update, {:id => group.to_param, :group => valid_attributes}, valid_session
-        response.should redirect_to(backoffice_group_path(Group.last))
+        response.should redirect_to(group_path(Group.last))
       end
     end
 
@@ -145,20 +92,4 @@ describe Backoffice::GroupsController do
       end
     end
   end
-
-  describe "DELETE destroy" do
-    it "destroys the requested group" do
-      group = Group.create! valid_attributes
-      expect {
-        delete :destroy, {:id => group.to_param}, valid_session
-      }.to change(Group, :count).by(-1)
-    end
-
-    it "redirects to the groups list" do
-      group = Group.create! valid_attributes
-      delete :destroy, {:id => group.to_param}, valid_session
-      response.should redirect_to(backoffice_groups_url)
-    end
-  end
-
 end

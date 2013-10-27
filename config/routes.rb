@@ -1,11 +1,13 @@
 Teamorga::Application.routes.draw do
 
-  resources :users
   get "signup" => "users#new", :as => "signup"
+  resources :users
 
-  resources :sessions
   get "login" => "sessions#new", :as => "login"
   delete "logout" => "sessions#destroy", :as => "logout"
+  resources :sessions
+
+  resources :groups, :only => [:show, :edit, :update]
 
   resources :events do
    resources :recurrences
@@ -32,7 +34,6 @@ Teamorga::Application.routes.draw do
   # Routes within the backoffice namespace:
   namespace :backoffice do
     get '', to: 'dashboard#index', as: '/'
-    resources :groups
   end
 
   # You can have the root of your site routed with "root"
