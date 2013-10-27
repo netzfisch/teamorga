@@ -31,6 +31,13 @@ describe RecurrencesController do
       expect(response).to render_template("index")
     end
 
+    it "assigns the group as @group" do
+      Group.create(name: "ATSV")
+
+      get :index, {}, valid_session
+      expect(assigns :group).to eq(Group.first)
+    end
+
     it "assigns all birthdays as @birthdays" do
       user.update_attributes(birthday: "2013-06-15")
       Date.stub(:current).and_return(Date.new 2013,06,15)
