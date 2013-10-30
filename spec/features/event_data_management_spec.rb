@@ -1,13 +1,6 @@
 require 'spec_helper'
    
 feature "event data management" do
-  def login!(user)
-    visit "/login"
-    fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password 
-    click_button "Log in"
-  end
-
   given!(:group) { FactoryGirl.create(:group) }
   given!(:event) { FactoryGirl.create(:event, category: "Training") }
   given(:recurrence) { FactoryGirl.create(:recurrence, event: event) }

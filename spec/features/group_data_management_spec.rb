@@ -4,13 +4,6 @@ feature "group data management" do
   given(:admin) { FactoryGirl.create(:user, :admin) }
   given!(:group) { FactoryGirl.create(:group, name: "ATSV", public_information: "Training 2. Herren") }
 
-  def login!(user)
-    visit "/login"
-    fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password 
-    click_button "Log in"
-  end  
-
   before(:each) { login!(FactoryGirl.create(:user)) }
 
   it "shows a group" do

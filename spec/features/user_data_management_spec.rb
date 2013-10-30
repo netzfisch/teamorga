@@ -6,13 +6,6 @@ feature "management of user data" do
   given(:admin)      { FactoryGirl.create(:user, :admin) }
   given!(:group)     { FactoryGirl.create(:group) }
 
-  def login!(user)
-    visit "/login"
-    fill_in "Email", :with => user.email
-    fill_in "Password", :with => user.password 
-    click_button "Log in"
-  end  
-
   context "with ordinary user rights" do
     it "does NOT see a backoffice link" do
       login!(user)
