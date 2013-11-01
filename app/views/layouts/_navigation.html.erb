@@ -1,42 +1,42 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a>
-      <%= link_to "TEAM ORGA", root_path, class: "brand", style: "color: #ffffff;" %>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="divider-vertical"></li>
-          <%= active_link_if "recurrences", "Übersicht", recurrences_path %>
-          <li class="divider-vertical"></li>
-          <%= active_link_if "users", "Team", users_path %>
-          <li class="divider-vertical"></li>
-          <%= active_link_if "events", "Orga", events_path %>
-        </ul>
-        <ul class="nav pull-right">
+      </button>
+      <%= link_to "TEAM ORGA", root_path, class: "navbar-brand", style: "color: #ffffff;" %>
+    </div>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <%= active_link_if "recurrences", "Übersicht", recurrences_path %>
+        <%= active_link_if "users", "Team", users_path %>
+        <%= active_link_if "events", "Orga", events_path %>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="icon-user icon-white"></i> <%= current_user.name %> <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <% display_for(:admin) do %>
-                <li><%= link_to "Backoffice", backoffice_path %></li>
-                <li class="divider"></li>
-              <% end %>
-              <li><%= link_to "Profil", current_user %></li>
-              <li><%= link_to "Logout", logout_path, method: :delete %></li>
-            </ul>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-user icon-white"></i> <%= current_user.name %> <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <% display_for(:admin) do %>
+              <li><%= link_to "Backoffice", backoffice_path %></li>
+              <li class="divider"></li>
+            <% end %>
+            <li><%= link_to "Profil", current_user %></li>
+            <li><%= link_to "Logout", logout_path, method: :delete %></li>
+          </ul>
           </li>
         <% else %>
           <li><%= link_to "Login", login_path %></li>
         <% end %>
-        </ul>
-      </div>
+      </ul>
     </div>
+
   </div>
 </div>
-
