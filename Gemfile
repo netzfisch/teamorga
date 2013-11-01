@@ -46,8 +46,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 # See https://github.com/seyhunak/twitter-bootstrap-rails, just using STATIC version: 
 # $ rails generate bootstrap:install static
-#gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-  gem 'twitter-bootstrap-rails'
+# gem 'twitter-bootstrap-rails'
+# 
+# Switch to bootstrap 3.x and SASS
+  gem 'bootstrap-sass', '~> 3.0.1.0.rc'
 end
 
 # To use Jbuilder templates for JSON
