@@ -50,7 +50,7 @@ describe "recurrences/index" do
   end
 
   it "renders a pagination bar" do
-    expect(rendered).to have_selector("div.pagination")
+    expect(rendered).to have_selector("ul.pagination")
   end
 
   context "shows group content" do

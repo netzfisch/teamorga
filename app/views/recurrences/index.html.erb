@@ -25,7 +25,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= will_paginate @recurrences %>
+  <%= will_paginate @recurrences, renderer: BootstrapPagination::Rails %>
 </div>
 
 <div class="well">
