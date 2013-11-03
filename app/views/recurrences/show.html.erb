@@ -2,7 +2,7 @@
   <h3>
     <%= @recurrence.event.category %>
     <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
-      <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "icon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
+      <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "glyphicon glyphicon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
     <% end %>
   </h3>
 
@@ -11,21 +11,21 @@
   <p>
     <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
     <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr: 
-    <%= link_to name = "", '#place', html_options = { class: "icon-road", title: "Ort und Anfahrt" } %> - 
-    <%= link_to name = "", '#comments', html_options = { class: "icon-comment", title: "Kommentare" } %> - 
-    <%= link_to name = "", '#birthdays', html_options = { class: "icon-gift", title: "Geburtstage" } %>
+    <%= link_to name = "", '#place', html_options = { class: "glyphicon glyphicon-road", title: "Ort und Anfahrt" } %> - 
+    <%= link_to name = "", '#comments', html_options = { class: "glyphicon glyphicon-comment", title: "Kommentare" } %> - 
+    <%= link_to name = "", '#birthdays', html_options = { class: "glyphicon glyphicon-gift", title: "Geburtstage" } %>
   </p>
 
   <hr />
 
   <dl class="dl-horizontal" >
-    <dt><i class="icon-user"></i> Zusage(n): <%= @accepter.size %></dt>
+    <dt><i class="glyphicon glyphicon-user"></i> Zusage(n): <%= @accepter.size %></dt>
     <dd>
       <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
       ... <%= email_link(@accepter, @recurrence) %> !
     </dd>
 
-    <dt><i class="icon-user"></i> Absage(n): <%= @refuser.size %></dt>
+    <dt><i class="glyphicon glyphicon-user"></i> Absage(n): <%= @refuser.size %></dt>
     <dd>
       <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
       ... <%= email_link(@refuser, @recurrence) %> !
@@ -49,7 +49,7 @@
   <p><strong>Ort: </strong><%= @recurrence.event.place %></p>
 
   <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
-                        class: "img-polaroid"),
+                        class: "img-thumbnail img-responsive"),
                         "http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place,
                         target: "_blank" %>
 
