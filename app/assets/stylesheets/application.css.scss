@@ -12,33 +12,16 @@
  *= require_tree .
  */
 
-/* Custom page CSS
--------------------------------------------------- */
-
-#wrap > .container {
-  padding: 60px 15px 0;
-}
-
-#footer > .container {
-  padding-top: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.well a:hover {
-  text-decoration: none;
-}
-
-
 /* Sticky footer styles
 -------------------------------------------------- */
 
-html, body {
+html,
+body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
 }
 
-/* Wrapper for page content to push down footer */
+/* Wrapper for page content to push footer down */
 #wrap {
   min-height: 100%;
   height: auto;
@@ -55,15 +38,34 @@ html, body {
   border-top: 1px solid #E5E5E5;
 
   text-align: center;
+
+  .footer-links {
+    margin: 10px 0;
+
+    li {
+      display: inline;
+      padding: 0 2px;
+    }
+
+    li:first-child {
+      padding-left: 0;
+    }
+  }
 }
 
-.footer-links {
-  margin: 10px 0;
+/* Custom page CSS
+-------------------------------------------------- */
+
+#wrap > .container {
+  padding: 60px 15px 0;
 }
-.footer-links li {
-  display: inline;
-  padding: 0 2px;
+
+#footer > .container {
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.footer-links li:first-child {
-  padding-left: 0;
+
+.well a:hover {
+  text-decoration: none;
 }
