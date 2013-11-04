@@ -3,7 +3,7 @@
   =requir e bootstrap
  * therefore better use import statement below!
  */
-
-$navbar-inverse-bg: darkBlue;
+$bg-header-footer: darkBlue; //whiteSmoke;
+$navbar-inverse-bg: $bg-header-footer;
 
 @import "bootstrap";

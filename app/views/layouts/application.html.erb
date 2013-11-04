@@ -4,24 +4,12 @@
     <%= render "layouts/head" %>
   </head>
   <body>
-
     <!-- Wrap all page content here, to push footer down! -->
     <div id="wrap">
       <%= render "layouts/navigation" %>
-      <div class="container">
-        <% flash.each do |name, msg| %>
-          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-            <a class="close" data-dismiss="alert" href="#">x</a>
-            <%= msg %>
-          </div>
-        <% end %>
-
-        <%= content_for?(:right_column) ? yield(:right_column) : yield %>
-      </div>
+      <%= render "shared/flash_message" %>
     </div>
-
     <%= render "layouts/footer" %>
-
     <!-- Javascripts -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>

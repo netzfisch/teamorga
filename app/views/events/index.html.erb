@@ -1,44 +1,41 @@
-<div class="page-header">
-  <h3>
-    Events |  
-    <%= link_to t('.new', :default => t("helpers.links.new")), new_event_path, 
-        :class => 'btn btn-primary btn-mini' %>
-  </h3>
+<%- model_class = Event -%>
+<div class="panel panel-default">
+  <%= render "shared/page_header", model_class: model_class %>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Kategorie</th>
+          <th>Datum</th>
+          <th>Zeit</th>
+          <th>Ort</th>
+          <th>Bemerkung</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.each do |event| %>
+          <tr>
+            <td><%= link_to event.category, event_path(event) %></td>
+            <td>
+              <% event.recurrences.each do |recurrence| %>
+                Löschen: <%= link_to_unless event.recurrences.count < 2, recurrence.scheduled_to, recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
+              <% end %>
+            </td>
+            <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
+            <td><%= event.place %></td>
+            <td><%= event.remark %></td>
+            <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_event_path(event), :class => 'btn btn-xs btn-primary' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")), event_path(event),
+                :method => :delete,
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-xs btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Kategorie</th>
-      <th>Datum</th>
-      <th>Zeit</th>
-      <th>Ort</th>
-      <th>Bemerkung</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.category, event_path(event) %></td>
-        <td>
-          <% event.recurrences.each do |recurrence| %>
-            Löschen: <%= link_to_unless event.recurrences.count < 2, recurrence.scheduled_to, recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
-          <% end %>
-        </td>
-        <td><%= event.base_time.strftime("%H:%M Uhr") %></td>
-        <td><%= event.place %></td>
-        <td><%= event.remark %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_event_path(event), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      event_path(event),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>

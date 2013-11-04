@@ -1,6 +1,8 @@
-<div class="page-header">
-  <h3><%=t :event %></h3>
-</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3><%=t :event %></h3>
+  </div>
+  <div class="panel-body">
 
 <dl class="dl-horizontal">
   <dt><strong>Kategorie:</strong></dt>
@@ -19,9 +21,8 @@
   <dd><%= @event.place %></dd>
   <dt><strong>Bemerkung:</strong></dt>
   <dd><%= @event.remark %></dd>
-</dl>
 
-<div class="form-actions">
+  <dd class="col-sm-offset-2 col-sm-6 ">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               events_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -30,6 +31,9 @@
               event_path(@event),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+              :class => 'btn btn-danger' %></dd>
+</dl>
+</div>
+</div>
 </div>
 

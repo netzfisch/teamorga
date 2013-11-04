@@ -32,21 +32,20 @@
     </dd>
 
     <dt></dt>
-    <dd><%= render "participations/button" %></dd>
+    <dd><p><%= render "participations/button" %></p></dd>
 
     <dt>Hinzufügen:</dt>
     <dd><%= render "comments/form" %></dd>
   </dl>
 
-  <p class="text-warning" align="middle">
-    Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden! |  
-    <%= link_to 'Edit', edit_event_path(@recurrence.event) %> | 
-    <%= link_to 'New', new_event_path %> |
+  <p class="text-warning">
+    Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden!
+    <%= link_to 'Edit', edit_event_path(@recurrence.event), class: "btn btn-xs btn-primary pull-right" %>
   </p>  
 </div>
 
 <div class="well" id="place">
-  <p><strong>Ort: </strong><%= @recurrence.event.place %></p>
+  <h3>Ort: <%= @recurrence.event.place %></h3>
 
   <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
                         class: "img-thumbnail img-responsive"),

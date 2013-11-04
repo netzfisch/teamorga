@@ -30,8 +30,8 @@
 
 <div class="panel panel-default">
   <div class="panel-heading timestamp">
-    Aktuelle Infos für <%= @group.name %>. 
-    <%= link_to 'Edit', edit_group_path(@group) %>?
+    Infos für <strong><%= @group.name %></strong>
+    <%= link_to 'Edit', edit_group_path(@group), class: "pull-right btn btn-xs btn-primary" %>
   </div>
   <div class="panel-body"><%= markdown_parser @group.private_information %></div>
 </div>
