@@ -12,6 +12,42 @@
  *= require_tree .
  */
 
+
+/* Custom bootstrap styles
+-------------------------------------------------- */
+
+// $body-bg: white;
+$header-footer-bg: darkBlue; //darkGreen; //whiteSmoke;
+
+$navbar-inverse-bg: $header-footer-bg;
+
+/* Attributes for typographic base */
+// $font-family-base: sans-serif;
+// $font-size-base: 14px;
+// $line-height-base: 1.4285;
+// $link-color: black;
+
+@import "bootstrap";
+
+
+/* Custom page styles
+-------------------------------------------------- */
+
+body a:hover {
+    text-decoration: none;
+}
+
+#wrap > .container {
+  padding: 80px 15px 0;
+}
+
+#footer > .container {
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -34,7 +70,7 @@ body {
 /* Set the fixed height of the footer here */
 #footer {
   height: 90px;
-  background-color: darkBlue;
+  background-color: darken($header-footer-bg, 15%);
   border-top: 1px solid #E5E5E5;
 
   text-align: center;
@@ -51,22 +87,4 @@ body {
       padding-left: 0;
     }
   }
-}
-
-
-/* Custom page CSS
--------------------------------------------------- */
-
-#wrap > .container {
-  padding: 60px 15px 0;
-}
-
-#footer > .container {
-  padding-top: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.well a:hover {
-  text-decoration: none;
 }

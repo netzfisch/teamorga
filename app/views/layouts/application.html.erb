@@ -7,12 +7,13 @@
     <!-- Wrap all page content here, to push footer down! -->
     <div id="wrap">
       <%= render "layouts/navigation" %>
-      <%= render "shared/flash_message" %>
+      <div class="container">
+        <%= content_for?(:columns) ? yield(:columns) : yield %>
+      </div>
     </div>
     <%= render "layouts/footer" %>
-    <!-- Javascripts -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Javascripts tag placed at the end of document to load page faster -->
     <%= javascript_include_tag "application" %>
-    <!-- Google-Analytics Tag could be placed here -->
+    <!-- Google-Analytics tag could be placed here ... -->
   </body>
 </html>

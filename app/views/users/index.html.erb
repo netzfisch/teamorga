@@ -1,29 +1,28 @@
-<div  class="page-header">
-  <h3>Spieler</h3>
+<%- model_class = User -%>
+<div class="panel panel-default">
+  <%= render "shared/page_header", model_class: model_class %>
+  <div class="panel-body">
+    <table class="table table-striped" >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Telefon</th>
+          <th>Email <%= email_link(@users) %></th>
+          <th>Geburtstag</th>
+          <th>Trikot</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.name, user_path(user) %></td>
+            <td><%= user.phone %></td>
+            <td><%= user.email %></td>
+            <td><%= user.birthday %></td>
+            <td><%= user.shirt_number %></td>
+          </tr>
+        <% end %>
+      <tbody>
+    </table>
+  </div>
 </div>
-
-<table class="table table-striped" >
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Telefon</th>
-      <th>Email <%= email_link(@users) %></th>
-      <th>Geburtstag</th>
-      <th>Trikot</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= user.phone %></td>
-        <td><%= user.email %></td>
-        <td><%= user.birthday %></td>
-        <td><%= user.shirt_number %></td>
-      </tr>
-    <% end %>
-  <tbody>
-
-</table>
-

@@ -1,19 +1,20 @@
-<div class="page-header">
-  <h3><%= @group.name %></h3>
-</div>
-
-<dl class="dl-horizontal">
-  <dt><strong>Logo Url:</strong></dt>
-  <dd><%= @group.logo_url %></dd>
-
-  <dt><strong>Public Information:</strong></dt>
-  <dd><%= markdown_parser @group.public_information %></dd>
-
-  <dt><strong>Private Information:</strong></dt>
-  <dd><%= markdown_parser @group.private_information %></dd>
-</dl>
-
-<div class="form-actions">
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_group_path(@group), :class => 'btn' %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3><%= @group.name %></h3>
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt><strong>Logo Url:</strong></dt>
+      <dd><%= @group.logo_url %></dd>
+      <dt><strong>Public Information:</strong></dt>
+      <dd><%= markdown_parser @group.public_information %></dd>
+      <dt><strong>Private Information:</strong></dt>
+      <dd><%= markdown_parser @group.private_information %></dd>
+      <dt></dt>
+      <dd>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+            edit_group_path(@group), :class => 'btn btn-primary btn-sm' %>
+      </dd>
+    </dl>
+  </div>
 </div>

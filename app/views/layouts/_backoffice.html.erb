@@ -3,7 +3,7 @@
     <h3 class="title">Backoffice</h3>
   </div>
   <div class="panel-body">
-    <strong class="panel-title">Manage</strong>
+    <div class="panel-title">Manage:</div>
   </div>
   <ul class="list-group">
     <li class="list-group-item">
@@ -11,13 +11,11 @@
       <i class="glyphicon glyphicon-list"></i> Groupdata
     <% end %>
     </li>
-
     <li class="list-group-item">
     <%= link_to (users_path) do %>
       <i class="glyphicon glyphicon-user"></i> Users
     <% end %>
     </li>
-
     <li class="list-group-item">
     <%= link_to (events_path) do %>
       <i class="glyphicon glyphicon-check"></i> Events
@@ -25,7 +23,6 @@
     <%= link_to t('.new', :default => t("helpers.links.new")), new_event_path, 
       :class => 'btn btn-xs btn-success pull-right' %>
     </li>
-
     <li class="list-group-item">
     <%= link_to(comments_path) do %>
       <i class="glyphicon glyphicon-comment"></i> Comments

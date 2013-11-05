@@ -1,0 +1,6 @@
+- content_for :columns do
+  .row
+    .col-md-offset-4.col-md-4
+      = render "shared/flash_message"
+      = yield
+= render template: 'layouts/application'

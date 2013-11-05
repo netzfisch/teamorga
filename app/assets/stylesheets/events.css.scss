@@ -2,13 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 /* form_for stylings */
 
-.text_field, .text_area { width: 240px; }
-
 .date_select {
-//float: left
-  width: 74px
+  float: left;
+  width: 33%;
 }
 
-.time_select { width: 121px; }
+.time_select {
+  float: left;
+  width: 50%; 
+}

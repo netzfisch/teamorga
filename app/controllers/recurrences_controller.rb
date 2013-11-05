@@ -64,6 +64,6 @@ class RecurrencesController < ApplicationController
     @recurrence = Recurrence.find(params[:id])
     @recurrence.destroy
 
-    redirect_to events_path, notice: 'recurrence was successfully destroyed.'
+    redirect_to event_path(@recurrence.event), notice: 'recurrence was successfully destroyed.'
   end
 end

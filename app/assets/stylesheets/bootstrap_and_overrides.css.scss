@@ -1,9 +1,0 @@
-/*
- * This would NOT allow over riding of boostrap variables, 
-  =requir e bootstrap
- * therefore better use import statement below!
- */
-$bg-header-footer: darkBlue; //whiteSmoke;
-$navbar-inverse-bg: $bg-header-footer;
-
-@import "bootstrap";

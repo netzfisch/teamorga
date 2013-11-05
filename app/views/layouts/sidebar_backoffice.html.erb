@@ -1,6 +1,7 @@
-<% content_for :right_column do %>
+<% content_for :columns do %>
   <div class="row">
-    <div class="col-md-8 col-md-offset-1">
+    <div class="col-md-offset-1 col-md-8">
+      <%= render "shared/flash_message" %>
       <%= yield %>
     </div>
     <div class="col-md-2">
@@ -8,6 +9,4 @@
     </div>
   </div>
 <% end %>
-
 <%= render template: 'layouts/application' %>
-

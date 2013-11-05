@@ -1,22 +1,23 @@
-<div class="row">
-  <div class="span3">
-    <div class="well">
-      <h3>Log in</h3>
-      <%= form_tag sessions_path, :html => { :class => 'form-horizontal' } do %>
-        <div class="field">
-          <%= label_tag :email %>
-          <%= text_field_tag :email, params[:email], :placeholder => ("email") %>
-        </div>
-        <div class="field">
-          <%= label_tag :password %>
-          <%= password_field_tag :password, params[:password], :placeholder => ("password") %>
-        </div>
-        <div class="actions">
-          <%= submit_tag "Log in", :class => 'btn btn-primary' %>
-          <small>oder hier neu <%= link_to("Anmelden", signup_path) %>!</small>
-        </div>
-      <% end %>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Log in</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_tag sessions_path do %>
+      <div class="form-group">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email], class: "form-control", :placeholder => "Email" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :password %>
+        <%= password_field_tag :password, params[:password], class: "form-control", :placeholder => "Password" %>
+      </div>
+      <div class="form-group">
+        <%= submit_tag "Log in", :class => 'btn btn-success btn-block' %>
+      </div>
+      <div class="help-block">
+        oder noch keinen Account, dann neu <%= link_to("Anmelden", signup_path) %>!
+      </div>
+    <% end %>
   </div>
 </div>
-
