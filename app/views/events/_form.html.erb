@@ -1,48 +1,49 @@
-<%= form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @event, :html => { :class => 'form-horizontal', role: "form" } do |f| %>
   <%= render "shared/error_message", object: f.object %>
   <div class="form-group">
-    <%= f.label "Kategorie", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label "Kategorie", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
       <%= f.text_field :category, :class => 'form-control' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label "Start Datum", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <%= f.date_select :base_date, {}, :class => 'form-control date_select' %>
+    <%= f.label "Start Datum", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.date_select :base_date, {}, :class => 'form-control date-select' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label "End Datum", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <%= f.date_select :end_date, {}, :class => 'form-control date_select' %>
+    <%= f.label "End Datum", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.date_select :end_date, {}, :class => 'form-control date-select' %>
+      <div class="clearfix"></div>
       <span class="help-block">Wird ein End-Datum größer als das Start-Datum angegeben, so werden in dem Zeitraum alle 7 Tage "Wiederholungen" erzeugt (z.B. für Beachen, Training, etc.)!</span>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label "Zeit", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <%= f.time_select :base_time, {}, :class => 'form-control time_select' %>
+    <%= f.label "Zeit", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.time_select :base_time, {}, :class => 'form-control time-select' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label "Ort", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label "Ort", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
       <%= f.text_field :place, :class => 'form-control' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label "Bemerkung *", :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <%= f.text_area :remark, :class => 'form-control', :rows => "3" %>
+    <%= f.label "Bemerkung *", :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_area :remark, :class => 'form-control', :rows => "4" %>
       <%= render :partial => 'shared/markdown_tip' %>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-6">
+    <div class="col-sm-offset-3 col-sm-9">
       <%= f.submit nil, class: "btn btn-success btn-sm" %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-          events_path, :class => 'btn btn-default btn-sm' %>
+        events_path, class: "btn btn-default btn-sm" %>
     </div>
   </div>
 <% end %>

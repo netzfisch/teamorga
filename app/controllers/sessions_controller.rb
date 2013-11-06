@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
-  layout 'small_template' 
+  layout 'single_panel' 
 
   def create
     user = User.find_by_email(params[:email])

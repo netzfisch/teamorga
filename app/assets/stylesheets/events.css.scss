@@ -5,12 +5,12 @@
 
 /* form_for stylings */
 
-.date_select {
+.date-select,
+.time-select {
   float: left;
-  width: 33%;
+  width: auto;
 }
 
-.time_select {
-  float: left;
-  width: 50%; 
+.number-select {
+  width: auto;
 }

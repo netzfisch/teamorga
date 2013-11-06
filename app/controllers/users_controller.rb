@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   before_filter :correct_user, :only => [:edit, :update, :destroy]
-  layout 'sidebar_backoffice', :only => [:index]
+  layout 'single_panel', :only => [:new]
+  # layout 'sidebar_backoffice', :only => [:index]
+  # layout 'sidebar_default'
 
-  # GET /users
+  # GET /
   def index
     @users = User.find(:all)
   end

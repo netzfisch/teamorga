@@ -6,39 +6,39 @@
     <%= form_for @event, :html => { class: "form-horizontal", role: "form" } do |f| %>
       <%= render "shared/error_message", object: f.object %>
       <div class="form-group">
-        <%= f.label :category, :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
+        <%= f.label :category, :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
           <%= f.text_field :category, :class => 'form-control' %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.label "Dates", :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
+        <%= f.label "Dates", :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
           <%= f.fields_for(:recurrences) do |recurrences_form| %>
-            <%= recurrences_form.date_select :scheduled_to, {}, :class => "form-control date_select" %>
+            <%= recurrences_form.date_select :scheduled_to, {}, :class => "form-control date-select" %>
           <% end %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.label "Time", :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
-          <%= f.time_select :base_time, {}, :class => 'form-control time_select' %>
+        <%= f.label "Time", :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+          <%= f.time_select :base_time, {}, :class => 'form-control time-select' %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :place, :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
+        <%= f.label :place, :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
           <%= f.text_field :place, :class => 'form-control' %>
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :remark, :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
-          <%= f.text_area :remark, :class => 'form-control', :rows => "3" %>
+        <%= f.label :remark, :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+          <%= f.text_area :remark, :class => 'form-control', :rows => "4" %>
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-6">
+        <div class="col-sm-offset-3 col-sm-9">
           <%= f.submit nil, class: "btn btn-success btn-sm" %>
           <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             events_path, :class => 'btn btn-default btn-sm' %>

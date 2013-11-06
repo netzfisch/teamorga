@@ -10,13 +10,13 @@
       </div>
       <div class="form-group">
         <%= label_tag :password %>
-        <%= password_field_tag :password, params[:password], class: "form-control", :placeholder => "Password" %>
+        <%= password_field_tag :password, params[:password], class: "form-control", :placeholder => "Passwort" %>
       </div>
       <div class="form-group">
         <%= submit_tag "Log in", :class => 'btn btn-success btn-block' %>
       </div>
       <div class="help-block">
-        oder noch keinen Account, dann neu <%= link_to("Anmelden", signup_path) %>!
+        Noch keinen Account, dann neu <strong><%= link_to("Anmelden", signup_path) %></strong> !
       </div>
     <% end %>
   </div>

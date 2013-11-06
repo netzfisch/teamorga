@@ -1,60 +1,49 @@
-<%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
-
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
+<%= form_for @user, html: { class: "form-horizontal", role: "form" } do |f| %>
+  <%= render "shared/error_message", object: f.object %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, class: "form-control" %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'text_field' %>
+  <div class="form-group">
+    <%= f.label :email, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :email, class: "form-control" %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :phone, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.phone_field :phone, :class => 'text_field' %>
+  <div class="form-group">
+    <%= f.label :phone, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.phone_field :phone, class: "form-control" %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :birthday, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.date_select :birthday, :class => 'date_select', :start_year => 1949 , :end_year => Time.now.year - 5 %>
+  <div class="form-group">
+    <%= f.label :birthday, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.date_select :birthday, {start_year: 1949 , end_year: Time.now.year - 5}, class: "form-control date-select", type: "date" %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :shirt_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :shirt_number, :class => 'number_field' %>
+  <div class="form-group">
+    <%= f.label :shirt_number, class: "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+      <%= f.number_field :shirt_number, class: "form-control number-select" %>
       <span class="help-block">Die Trikot-Nummer NUR eingeben, wenn auch am Spielbetrieb teilgenommen wird, denn das Feld wird als Indikator für "offene" Termin-Rückmeldungen an Spieltagen genutzt!</span>
     </div>
   </div>
-
   <% display_for(:admin) do %>
-    <div class="control-group">
-      <%= f.label :admin, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.check_box :admin, :class => 'checkbox' %>
+    <div class="form-group">
+      <%= f.label :admin, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <%= f.check_box :admin, class: "checkbox" %>
       </div>
     </div>
   <% end %>
-
-  <div class="form-actions">
-    <%= f.submit :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', users_path, :class => 'btn' %>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit nil, class: "btn btn-success btn-sm" %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+          users_path, class: "btn btn-default btn-sm" %>
+    </div>
   </div>
 <% end %>
-
