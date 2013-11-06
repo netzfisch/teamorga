@@ -1,7 +1,8 @@
-<div class="well" id="comments">
-  <h3>Kommentare</h3>
-  <ol class="microposts">
+<div id="comments" class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Kommentare</h3>
+  </div>
+  <ul class="list-group">
     <%= render(partial: "comments/comment", collection: @comments) || "Keine Kommentare zu dem Termin vorhanden!" %>
-  </ol>
+  </ul>
 </div>
-

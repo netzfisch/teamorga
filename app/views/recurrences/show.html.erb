@@ -32,7 +32,7 @@
     </dd>
 
     <dt></dt>
-    <dd><p><%= render "participations/button" %></p></dd>
+    <dd><%= render "participations/button" %></dd>
 
     <dt>Hinzufügen:</dt>
     <dd><%= render "comments/form" %></dd>
@@ -44,9 +44,12 @@
   </p>  
 </div>
 
-<div class="well" id="place">
+<div id="place" class="panel panel-default">
+<div id="place" class="panel-heading">
   <h3>Ort: <%= @recurrence.event.place %></h3>
 
+</div>
+<div id="place" class="panel-body">
   <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
                         class: "img-thumbnail img-responsive"),
                         "http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place,
@@ -59,4 +62,5 @@
     oder <%= link_to 'Open Street Map',
     ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
   </p>
+</div>
 </div>

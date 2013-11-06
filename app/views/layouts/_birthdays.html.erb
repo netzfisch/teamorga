@@ -1,7 +1,8 @@
-<div class="well" id="birthdays">
-  <h3>Geburtstage</h3>
+<div id="birthdays" class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Geburtstage</h3>
+  </div>
   <table class="table table-striped table-hover">
     <%= render(partial: "users/birthday", collection: @birthdays, :as => :user) || "Keine Geburtstage in den nächsten drei Wochen vorhanden!" %>
   </table>
 </div>
-

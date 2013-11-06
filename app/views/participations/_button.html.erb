@@ -1,7 +1,8 @@
-<% if current_user.responded?(@recurrence) %>
-  <%= participation_link(@recurrence) %>
-<% else %>
-  <%= participation_link(@recurrence, 'accept') %>
-  <%= participation_link(@recurrence, 'refuse') %>
-<% end %>
-
+<div class="form-group">
+  <% if current_user.responded?(@recurrence) %>
+    <p><%= participation_link(@recurrence) %></p>
+  <% else %>
+    <p><%= participation_link(@recurrence, 'accept') %></p>
+    <p><%= participation_link(@recurrence, 'refuse') %></p>
+  <% end %>
+</div>
