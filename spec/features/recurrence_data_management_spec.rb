@@ -9,10 +9,10 @@ feature "recurrence data management" do
 
   scenario "deletes a recurrence" do
     recurrence = FactoryGirl.create(:recurrence, event: event, scheduled_to: "2013-10-15")
-    visit events_path
+    visit event_path(recurrence.event)
 
     expect{
-      click_link "2013-10-15"
+      click_link "Delete"
     }.to change(Recurrence, :count).by(-1)
 
     expect(current_path).to eq events_path

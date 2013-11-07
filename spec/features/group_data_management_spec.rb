@@ -20,7 +20,7 @@ feature "group data management" do
     click_link "Groupdata"
     click_link "Edit"
     fill_in "Name", with: "Altonaer TSV"
-    fill_in "Public information", with: "1. Herren"
+    fill_in "group_public_information", with: "1. Herren"
     click_button "Update Group"
 
     current_path.should eq group_path(group)

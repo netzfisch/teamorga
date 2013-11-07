@@ -19,7 +19,7 @@ feature "User session management" do
       find(:xpath, '//*[@id="user_password"]').set("foobar")
       find(:xpath, '//*[@id="user_password_confirmation"]').set("foobar")
 
-      expect{ click_button "Create User" }.to change(User, :count).by(1)
+      expect{ click_button "Sign up" }.to change(User, :count).by(1)
 
       expect(current_path).to eq edit_user_path("john") 
       expect(page).to have_content "User was successfully created / Signed up!"
@@ -32,7 +32,7 @@ feature "User session management" do
       find(:xpath, '//*[@id="user_password"]').set("foobar")
       find(:xpath, '//*[@id="user_password_confirmation"]').set("foobar")
 
-      expect{ click_button "Create User" }.to change(User, :count).by(0)
+      expect{ click_button "Sign up" }.to change(User, :count).by(0)
 
       expect(current_path).to eq users_path 
       expect(page).to have_content "Name can't be blank"
@@ -45,7 +45,7 @@ feature "User session management" do
       find(:xpath, '//*[@id="user_password"]').set("foobar")
       find(:xpath, '//*[@id="user_password_confirmation"]').set("barfoo") #wrong password confirmation!
 
-      expect{ click_button "Create User" }.to change(User, :count).by(0)
+      expect{ click_button "Sign up" }.to change(User, :count).by(0)
 
       expect(current_path).to eq users_path 
       expect(page).to have_content "Password doesn't match confirmation"

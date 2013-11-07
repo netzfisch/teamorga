@@ -14,9 +14,13 @@
       <div class="form-group">
         <%= f.label "Dates", :class => "col-sm-3 control-label" %>
         <div class="col-sm-9">
-          <%= f.fields_for(:recurrences) do |recurrences_form| %>
-            <%= recurrences_form.date_select :scheduled_to, {}, :class => "form-control date-select" %>
-          <% end %>
+          <ul class="list-unstyled">
+            <%= f.fields_for(:recurrences) do |recurrences_form| %>
+              <li class="clearfix">
+                <%= recurrences_form.date_select :scheduled_to, {}, :class => "form-control date-select" %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
       <div class="form-group">

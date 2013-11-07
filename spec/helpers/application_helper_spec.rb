@@ -136,7 +136,7 @@ describe ApplicationHelper do
     let(:recurrence) { FactoryGirl.create(:recurrence) }
 
     it "should generate the link" do
-      helper.email_link([user], recurrence).should match(/\<a class="icon-envelope" href="mailto:john@doe.com?(.*)body=(.*)subject=(.*)" title="(.*)"\>\<\/a\>/)
+      helper.email_link([user], recurrence).should match(/\<a class="glyphicon glyphicon-envelope" href="mailto:john@doe.com?(.*)body=(.*)subject=(.*)" title="(.*)"\>\<\/a\>/)
     end
   end
 

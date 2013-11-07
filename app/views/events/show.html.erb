@@ -13,7 +13,7 @@
             <li>
               <%= recurrence.scheduled_to.strftime("%a. %d. %b. %Y") %>  
               <% if @event.recurrences.count > 1 %>
-                <%= link_to "Löschen", recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
+                <%= link_to "Delete", recurrence_path(recurrence), :confirm => "Are you sure?", :method => :delete %>?
               <% end %>
             </li>
           <% end %>

@@ -20,7 +20,7 @@ describe SessionsController do
 
   it "renders the 'application' layout" do
     get :new, {}
-    expect(response).to render_template("layouts/application")
+    expect(response).to render_template("layouts/single_panel")
   end
 
   describe "GET new" do

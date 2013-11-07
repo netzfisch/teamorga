@@ -38,8 +38,7 @@
       <%= link_to 'Edit', edit_group_path(@group), class: "pull-right btn btn-xs btn-primary" %>
     </h3>
   </div>
-  <div class="panel-body">
+  <div id="group_private_information" class="panel-body">
     <%= markdown_parser @group.private_information %>
-    
   </div>
 </div>

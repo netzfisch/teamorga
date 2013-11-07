@@ -1,66 +1,63 @@
-<div class="well">
-  <h3>
-    <%= @recurrence.event.category %>
-    <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
-      <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "glyphicon glyphicon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
-    <% end %>
-  </h3>
-
-  <p><%= markdown_parser @recurrence.event.remark %></p>
-
-  <p>
-    <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
-    <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr: 
+<div id="dates" class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      <%= @recurrence.event.category %>
+      <% if @recurrence.event.category =~ /(.*)Spieltag(.*)/i %>
+        <%= link_to name = "", 'http://hvbv.de/index.php?id=296', html_options = { class: "glyphicon glyphicon-bullhorn", title: "Eingabe des Spiel-Ergebnisses!", target: "_blank" } %>
+      <% end %>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <%= markdown_parser @recurrence.event.remark %>
+    <strong>
+      <%= @recurrence.scheduled_to.strftime("%e. %B %Y") %>, 
+      <%= @recurrence.event.base_time.strftime("%H:%M") %> Uhr, 
+    </strong> 
     <%= link_to name = "", '#place', html_options = { class: "glyphicon glyphicon-road", title: "Ort und Anfahrt" } %> - 
     <%= link_to name = "", '#comments', html_options = { class: "glyphicon glyphicon-comment", title: "Kommentare" } %> - 
     <%= link_to name = "", '#birthdays', html_options = { class: "glyphicon glyphicon-gift", title: "Geburtstage" } %>
-  </p>
-
-  <hr />
-
-  <dl class="dl-horizontal" >
-    <dt><i class="glyphicon glyphicon-user"></i> Zusage(n): <%= @accepter.size %></dt>
-    <dd>
-      <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
-      ... <%= email_link(@accepter, @recurrence) %> !
-    </dd>
-
-    <dt><i class="glyphicon glyphicon-user"></i> Absage(n): <%= @refuser.size %></dt>
-    <dd>
-      <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
-      ... <%= email_link(@refuser, @recurrence) %> !
-    </dd>
-
-    <dt></dt>
-    <dd><%= render "participations/button" %></dd>
-
-    <dt>Hinzufügen:</dt>
-    <dd><%= render "comments/form" %></dd>
-  </dl>
-
-  <p class="text-warning">
-    Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden!
-    <%= link_to 'Edit', edit_event_path(@recurrence.event), class: "btn btn-xs btn-primary pull-right" %>
-  </p>  
+    <%= link_to 'Edit', edit_event_path(@recurrence.event), class: "btn btn-primary btn-xs pull-right" %>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <dl class="dl-horizontal" >
+        <dt><i class="glyphicon glyphicon-user"></i> Zusage(n): <%= @accepter.size %></dt>
+        <dd>
+        <%= render partial: "participations/participation", collection: @accepter, spacer_template: "participations/divider" %>
+        ... <%= email_link(@accepter, @recurrence) %> !
+        </dd>
+        <dt><i class="glyphicon glyphicon-user"></i> Absage(n): <%= @refuser.size %></dt>
+        <dd>
+        <%= render partial: "participations/participation", collection: @refuser, spacer_template: "participations/divider" %>
+        ... <%= email_link(@refuser, @recurrence) %> !
+        </dd>
+        <dt></dt>
+        <dd><%= render "participations/button" %></dd>
+        <dt>Hinzufügen:</dt>
+        <dd><%= render "comments/form" %></dd>
+      </dl>
+    </li>
+    <li class="list-group-item text-warning">
+      Reminder <%= email_link(@no_replyer, @recurrence) %> an die <%= @no_replyer.size %> "Schweiger" senden!
+    </li>
+  </ul>
 </div>
 
 <div id="place" class="panel panel-default">
-<div id="place" class="panel-heading">
-  <h3>Ort: <%= @recurrence.event.place %></h3>
-
-</div>
-<div id="place" class="panel-body">
-  <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
-                        class: "img-thumbnail img-responsive"),
-                        "http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place,
-                        target: "_blank" %>
-
-  <p>
-    Anfahrt via 
-    <%= link_to 'Google Maps',
-    ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), :target => "_blank" %>
-    oder <%= link_to 'Open Street Map',
-    ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), :target => "_blank" %>
-  </p>
-</div>
+  <div id="place" class="panel-heading">
+    <h3>Ort: <%= @recurrence.event.place %></h3>
+  </div>
+  <div id="place" class="panel-body">
+    <%= link_to image_tag("https://maps.google.com/maps/api/staticmap?center="+@recurrence.event.place+"&zoom=15&size=460x300&markers=color:green%7Clabel:S%7C"+@recurrence.event.place+"&maptype=roadmap&sensor=true",
+        class: "img-thumbnail img-responsive"),
+        "http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place,
+        target: "_blank" %>
+    <p>
+      Anfahrt via 
+      <%= link_to 'Google Maps',
+      ("http://maps.google.de/maps?f=q&hl=de&q="+@recurrence.event.place), target: "_blank" %>
+      oder <%= link_to 'Open Street Map',
+      ("http://nominatim.openstreetmap.org/search?q="+@recurrence.event.place), target: "_blank" %>
+    </p>
+  </div>
 </div>

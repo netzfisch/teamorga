@@ -55,7 +55,7 @@ describe "recurrences/index" do
 
   context "shows group content" do
     it "renders private information" do
-      expect(rendered).to have_selector("p#private_information")
+      expect(rendered).to have_selector("div#group_private_information")
     end
 
     it "renders a EDIT link" do

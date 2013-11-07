@@ -4,6 +4,6 @@
   </div> 
   <div class="form-group">
     <%= f.submit :class => 'btn btn-success btn-xs' %>
-    <%= link_to name = "", 'http://de.wikipedia.org/wiki/Markdown#Auszeichnungsbeispiele', html_options = { class: "glyphicon glyphicon-pencil", title: "Markdown::Syntax", target: "new" } %> Syntax 
+    <%= render "shared/markdown_link" %> 
   </div> 
 <% end %>
