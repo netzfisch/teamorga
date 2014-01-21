@@ -8,16 +8,15 @@ groups, secured with a basic authentication. Following features are available:
 * list group members,
 * make repeating events,
 * accept or deny participation of a event,
-* use event specicific mail lists for accepter, refuser, sleeper,
+* use event specific mail lists for accepter, refuser, sleeper,
 * create comments based on a single event,
 * show birthday widget,
 * backoffice interface.
 
 Originally I started this project for my private sports group as a standalone
-version. But meanwhile there is also a multitenant "Software as a Service"
-version, which currently is in private beta.
+version.
 
-If you want to participate feel free to ping me for an invitation.
+But meanwhile there is also a multitenant version (Software as a Service), which currently is in private beta. If you want to participate ping me for an invitation.
 
 ## General Information
 This project uses [Ruby](http://ruby-lang.org) on
@@ -33,7 +32,7 @@ through the entire application, which requires
 [Capybara](https://github.com/jnicklas/capybara) to drive the application via
 its external interface the web pages.
 
-Bugs and feature request can be filed via GitHub's [Issue
+Bugs and feature requests can be filed via GitHub's [Issue
 Tracker](https://github.com/netzfisch/teamorga/issues).
 
 Pull-request are welcome.
@@ -55,28 +54,26 @@ Check the specs in the console by
 
 ### Development
 You don't need to setup a new group with fake users, to see what it feels like.
-Just seed some data
+Just seed the exisiting data
 
     rake data:seed
     rails server
     
 Than access the application via http://localhost:4000.
 
-### Staging/Production: deploy at heroku
+### Staging / Production
+For example deploy at heroku
+
 ```sh
-$ git init
-$ git add .
-$ git commit -m "init new team organisation"
-$ heroku create
-$ git push heroku master
-$ heroku run rake db:migrate
+git init
+git add .
+git commit -m "init new team organisation"
+heroku create
+git push heroku master
+heroku run rake db:migrate
 ```
-
 If erverything runs fine, heroku launches your application and "informs" you
-about the live url. 
-
-An initial amount of events could also be feed with some seed data as above
-described.
+about the live url.
 
 ## Backoffice
 The application comes with a basic admin interface to manage model data (CRUD):
@@ -88,26 +85,26 @@ The application comes with a basic admin interface to manage model data (CRUD):
 * Comments
 
 In order to access the administration stuff, you need to be a registered user
-with the "admin role". The first admin needs to be created manual in the console
+with the "admin role". The first admin needs to be created manual within the console
 
     $ heroku run rails console
     u = User.where(name: 'Fritz').first
     u.update_attributes(admin: true)
     u.save
 
-or via seed data as described above! 
+or via seeding data as described above!
 
 ## Screenshot
 
-_in production, takes time :-)_
+_in production, seed data needs to be reworked ;-)_
 
 ## Contribution
 
 1. Fork it
-2. Create your feature branch: `$ git checkout -b my-new-feature`
-3. Commit your changes `$ git commit -am 'Added some feature'`
-4. Push to the branch `$ git push origin my-new-feature`
-5. Create new pull request
+2. Create your feature branch: `$ git checkout -b my-new-feature-branch`
+3. Commit your changes `$ git commit -a -m 'add some awesome feature'`
+4. Push to the branch `$ git push origin my-new-feature-branch`
+5. Create a new pull request
 
 ## License
 
