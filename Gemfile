@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
 
+gem 'unicorn'                 # robust production server
+
 gem 'rails', '3.2.14'         # Bundle edge? gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel 'has_secure_password'
 gem 'friendly_id'             # To get nice Urls
@@ -17,6 +19,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'foreman'      # start all associated processes via 'Procfile'
   gem 'ruby-debug19'
 #TODO try following gems
 #  gem 'railroady'   # creates an UML diagramm
