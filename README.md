@@ -16,7 +16,8 @@ groups, secured with a basic authentication. Following features are available:
 Originally I started this project for my private sports group as a standalone
 version.
 
-But meanwhile there is also a multitenant version (Software as a Service), which currently is in private beta. If you want to participate ping me for an invitation.
+But meanwhile there is also a multitenant version (Software as a Service),
+which currently is in private beta. If you want to participate ping me for an invitation.
 
 ## General Information
 This project uses [Ruby](http://ruby-lang.org) on
@@ -42,35 +43,38 @@ Pull-request are welcome.
 There are just a couple of steps to get your private team organisation alive.
 Fork this repo at GitHub and than
 
-    git clone git@github.com:YOUR-USERNAME/teamorga.git
-    bundle install
-    rake db:migrate
+    $ git clone git@github.com:YOUR-USERNAME/teamorga.git
+    $ bundle install --without production
+    $ rake db:migrate
 
 ### Testing
 Check the specs in the console by
 
-    rake db:test:prepare
-    guard
+    $ rake db:test:prepare
+    $ guard
 
 ### Development
 You don't need to setup a new group with fake users, to see what it feels like.
 Just seed the exisiting data
 
-    rake data:seed
-    rails server
-    
-Than access the application via http://localhost:4000.
+    $ rake db:seed
+    $ foreman start
+
+We use foreman to start all processes via a 'Procfile' instead doing `$ rails server`.
+Than access the application via http://localhost:5000.
+
+Reach the console via `$ foreman run rails console` or `$ rails console`.
 
 ### Staging / Production
 For example deploy at heroku
 
 ```sh
-git init
-git add .
-git commit -m "init new team organisation"
-heroku create
-git push heroku master
-heroku run rake db:migrate
+$ git init
+$ git add .
+$ git commit -m "init new team organisation"
+$ heroku create
+$ git push heroku master
+$ heroku run rake db:migrate
 ```
 If erverything runs fine, heroku launches your application and "informs" you
 about the live url.
@@ -96,7 +100,7 @@ or via seeding data as described above!
 
 ## Screenshot
 
-_in production, seed data needs to be reworked ;-)_
+*in production, seed data needs to be reworked ;-)*
 
 ## Contribution
 
