@@ -25,25 +25,11 @@ layout 'sidebar_backoffice'
   def create
     @event = Event.new(params[:event])
 
+    # probably it might be sensefull to integrate the
+    # creation of event and recurrences in one method?
     if @event.save
-    # create and save associated data to recurrences table
-    # first create an array of single reoccurence dates
-    # than save reoccurence dates as scheduled_to in recurrences table
-#TODO better move creation to recurrence controller!
-    @event.dates_between(@event.base_date, @event.end_date).each do |date|
-      #Recurrence.create(:event_id => @event.id, :scheduled_to => date)
-      r = Recurrence.new       # before called with (params[:recurrence]), häh?
-      r.event_id = @event.id   # specific, not unspecific like: r.event = @event
-      r.scheduled_to = date
-      r.save
-    end
-# shorter, but needs to set in recurrence-model:
-#   attr_accessible :event_id
-#
-#   interval.each {|i| Recurrence.create(:event_id => @event.id, :scheduled_to => i) }
-#   puts "*****************DBUGGING*****************", r.inspect
-
-      # redirect and notice about sucessfull creation
+      # create associated recurrences
+      @event.create_recurrences
       redirect_to @event, notice: 'Event was successfully created.'
     else
       render action: "new"

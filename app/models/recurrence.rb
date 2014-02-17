@@ -1,5 +1,5 @@
 class Recurrence < ActiveRecord::Base
-  attr_accessible :scheduled_to, :user_id, :user_ids
+  attr_accessible :event_id, :scheduled_to, :user_id, :user_ids
 
   validates_presence_of :scheduled_to
 

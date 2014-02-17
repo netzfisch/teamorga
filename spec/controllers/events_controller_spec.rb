@@ -101,15 +101,20 @@ describe EventsController do
         }.to change(Event, :count).by(1)
       end
 
-      it "calls 'dates_between' method with two date arguments" do
-        Event.any_instance.should_receive(:dates_between).with(Date.new(2013,5,8), Date.new(2013,5,13)).and_return(["2013-05-08"])
-        post :create, {event: valid_attributes}, valid_session
-      end
-
       it "assigns a newly created event as @event" do
         post :create, {:event => valid_attributes}, valid_session
         assigns(:event).should be_a(Event)
         assigns(:event).should be_persisted
+      end
+
+      it "calls '#create_recurrences'" do
+        Event.any_instance.should_receive(:create_recurrences)
+        post :create, {event: valid_attributes}, valid_session
+      end
+
+      it "calls '#dates_between' with two date arguments" do
+        Event.any_instance.should_receive(:dates_between).with(Date.new(2013,5,8), Date.new(2013,5,13)).and_return(["2013-05-08"])
+        post :create, {event: valid_attributes}, valid_session
       end
 
       it "sets a flash notice about the successful created event" do
