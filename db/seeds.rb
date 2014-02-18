@@ -1,51 +1,122 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# encoding: utf-8
 #
-# Examples:
+# This file contains records needed to seed the PRODUCTION database with default
+# values, as well as demo data for the DEVELOPMENT environment.
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# To clear and seed the database do something like this
+#
+# $ rake db:drop
+# $ rake db:migrate
+# $ rake db:seed
+#
+# or as one-liner '$ rake db:drop db:migrate db:seed', which is much faster!
+#
+# Alternatively get some data for the development environment from your running live
+# database, e.g. require the 'taps' gem to retrieve and dump test data from heroku:
+#
+# $ heroku db:pull
 
-User.create(name: "admin", email: "admin", password: "admin", password_confirmation: "admin", phone: "+49 150 123 45 67", admin: true)
-
-10.times { |i| User.create(name: "John_#{i}",
-                           email: "john_#{i}@doe.com",
-                           password: "foobar",
-                           password_confirmation: "foobar",
-                           phone: "+49 150 123 45 67") }
-
-@training = Event.create(category: 'Training', remark: '15 Min frueher wg. Aufwaermen', base_date: Date.today, base_time: '20:00', end_date: Date.today.advance(months: 3), place: 'Thedenstr., Hamburg')
-#  if @training.save
-    interval = (@training.base_date..@training.end_date).step(7).to_a
-    interval.each { |i| Recurrence.create(:event_id => @training.id, :scheduled_to => i) }
-#  end
-
-playday_list = [
-  [ '3.Spieltag','SCN/AlTSV/GWE','27.10.2012','14:30','27.10.2012','20:00','Pellwormstrasse 35, Norderstedt' ],
-  [ '4.Spieltag','AlTSV/NTSV/Halst','04.11.2012','14:30','04.11.2012','20:00','Thadenstrasse 147' ],
-  [ '5.Spieltag','Halst/NTSV/AlTSV','17.11.2012','14:30','17.11.2012','20:00','Feldstrasse 26, Halstenbek' ],
-  [ '6.Spieltag','Blank/AlTSV/NTSV','25.11.2012','14:30','25.11.2012','20:00','Karstenstr. 22, Hamburg' ],
-  [ '7.Spieltag','AlTSV/AFC/SCN','08.12.2012','14:30','08.12.2012','20:00','Thadenstrasse 147, Hamburg' ],
-  [ '8.Spieltag','FSVH/NTSV/AlTSV','12.01.2013','14:30','12.01.2013','20:00','Baererstrasse 45, Harburg' ],
-  [ '9.Spieltag','AlTSV/Blank/GWE','26.01.2013','14:30','26.01.2013','20:00','Thadenstrasse 147 Hamburg' ],
-  [ '10.Spieltag','AlTSV/VGE/FSVH','02.02.2013','14:30','02.02.2013','20:00','Thadenstrasse 147, Hamburg' ],
-  [ '11.Spieltag','VGE/AlTSV/Halst','10.02.2013','14:30','10.02.2013','20:00','Astrid-Lindgren-Schule, Koellner Chaussee 10b, Elmshorn' ],
-  [ '12.Spieltag','NTSV/AlTSV/AFC','24.02.2013','14:30','24.02.2013','20:00','Moorflagen 35, Hamburg' ],
+matchdata = [
+  [ 'SCN/AlTSV/GWE','Pellwormstrasse 35, Norderstedt' ],
+  [ 'AlTSV/NTSV/Halst','Thadenstrasse 147' ],
+  [ 'Halst/NTSV/AlTSV','Feldstrasse 26, Halstenbek' ],
+  [ 'Blank/AlTSV/NTSV','Karstenstr. 22, Hamburg' ],
+  [ 'AlTSV/AFC/SCN','Thadenstrasse 147, Hamburg' ],
+  [ 'FSVH/NTSV/AlTSV','Baererstrasse 45, Harburg' ],
+  [ 'AlTSV/Blank/GWE','Thadenstrasse 147 Hamburg' ],
+  [ 'AlTSV/VGE/FSVH','Thadenstrasse 147, Hamburg' ],
+  [ 'VGE/AlTSV/Halst','Astrid-Lindgren-Schule, Koellner Chaussee 10b, Elmshorn' ],
+  [ 'NTSV/AlTSV/AFC','Moorflagen 35, Hamburg' ]
 ]
 
-playday_list.each do |playday|
-  @event = Event.create( category: playday[0], remark: playday[1], base_date: playday[2], base_time: playday[3], end_date: playday[4], place: playday[6] )
-  if @event.save
-    Recurrence.create(:event_id => @event.id, :scheduled_to => @event.base_date)
+case Rails.env
+when "development"
+  # create necessary basic group data
+  if Group.all.empty?
+    Group.create do |group|
+      group.name = "ATSV 1. Herren"
+      group.private_information = "Hier können terminübergreifende Informationen stehen, wie **Tabellen Links** und ähnliches!"
+    end
   end
+
+  if User.all.empty?
+    # create an admin user
+    User.create do |user|
+      user.name = "admin"
+      user.email = "admin@teamorga.com"
+      user.password = "admin"
+      user.password_confirmation = "admin"
+      user.phone = "+49 150 123 45 67"
+      user.admin = true
+    end
+
+    # create ordinary users
+    %w(Fritz Hans Peter George Julien Tim Klaus).each_with_index do |name, index|
+      i = index + 1
+      User.create do |user|
+        user.name = name
+        user.email = "#{name}@teamorga.com"
+        user.password = "foobar"
+        user.password_confirmation = "foobar"
+        user.birthday = Date.today + i.weeks - (30 + i).years
+        user.phone = "+49 150 123 45 67"
+      end
+    end
+  end
+
+  if Event.all.empty?
+    # create a recurring event series of workouts
+    workout = Event.create do |event|
+      event.category = "Training"
+      event.remark = "15 Min frueher wg. Aufwaermen"
+      event.base_date = Date.today
+      event.base_time = "20:00"
+      event.end_date = Date.today.advance(months: 3)
+      event.place = "Thedenstr., Hamburg"
+    end
+    workout.create_recurrences
+
+    # create single events with different matchdata
+    matchdata.each_with_index do |data, index|
+      counter = index + 2
+      matchday = Event.create do |event|
+        event.category = "#{counter}. Spieltag"
+        event.remark = data[0]
+        event.base_date = Date.today.advance(weeks: counter)
+        event.base_time = '14:30'
+        event.end_date = Date.today.advance(weeks: counter)
+        event.place = data[1]
+      end
+      matchday.create_recurrences
+    end
+  end
+
+  # create some participations
+  if Participation.all.empty?
+    Participation.create(recurrence: Recurrence.first, user: User.find(2), status: true)
+    Participation.create(recurrence: Recurrence.first, user: User.find(3), status: true)
+    Participation.create(recurrence: Recurrence.first, user: User.find(4), status: false)
+    Participation.create(recurrence: Recurrence.first, user: User.find(5), status: true)
+    Participation.create(recurrence: Recurrence.first, user: User.find(6), status: true)
+  end
+
+  # create some comments
+  if Comment.all.empty?
+    Comment.create(recurrence_id: Recurrence.first.id, user_id: User.first.id, body: "Ich werde etwas später kommen.")
+    Comment.create(recurrence_id: Recurrence.first.id, user_id: User.find(3).id, body: "Wer bringt die **Spielerpässe** mit?")
+    Comment.create(recurrence_id: Recurrence.find(2).id, user_id: User.find(4).id, body: "Heute geht es gegen den Tabellenführer, yeah!")
+  end
+when "production"
+  # create necessary basic group data
+  if Group.all.empty?
+    Group.create(name: "DEMO-Group",
+      private_information: "Change group name according to your needs,
+                           and place here information, which are relevant
+                           accross multiple appointments!")
+  end
+  # make sure to set manually the admin flag to the 'wished' user
+  # $ heroku run rails console
+  # u = User.where(name: 'Fritz').first
+  # u.update_attributes(admin: true)
+  # u.save
 end
-
-# 2012-12-29, hb-!
-# manual migration for new column 'participation.status':
-# - every existing entry in the participation table, represents acceptance
-# - so every existing participation.status need to be set to 'true'
-#
-# $ heroku run rails console
-# participations = Participation.find(:all)
-# participations.each { |i| i.update_attributes(status: true); i.save }
-
