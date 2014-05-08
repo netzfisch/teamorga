@@ -1,4 +1,4 @@
-require "spec_helper" 
+require "spec_helper"
 
 # Specs in this file have access to a helper object that includes
 # the ApplicationHelper. For example:
@@ -12,7 +12,7 @@ require "spec_helper"
 # end
 describe ApplicationHelper do
   describe "#active_class_if" do
-    context "when the navigation path 'contains' the current controller" do 
+    context "when the navigation path 'contains' the current controller" do
       it "generates an active link" do
         helper.stub(:params).and_return({:controller => "controller_name"})
 
@@ -20,7 +20,7 @@ describe ApplicationHelper do
       end
     end
 
-    context "when the navigation path 'contains' not the current controller" do 
+    context "when the navigation path 'contains' not the current controller" do
       it "generates a passive link" do
         helper.stub(:params).and_return({:controller => "other_controller_name"})
 
@@ -50,7 +50,7 @@ describe ApplicationHelper do
         helper.markdown_parser("generates http://automatic-links.com").should match("generates <a href=\"http://automatic-links.com\">http://automatic-links.com</a>")
       end
     end
-    
+
     context "when the text field contains a 'mention link'" do
       it "generates valid html" do
 
@@ -90,7 +90,7 @@ describe ApplicationHelper do
 
   describe "#display_for(role)" do
     let(:user) { FactoryGirl.create(:user, admin: false) }
-    
+
     context "when the current user has the role 'admin'" do
       it "displays the content" do
         helper.stub(:current_user).and_return(double('User', :admin? => true))
@@ -133,10 +133,13 @@ describe ApplicationHelper do
 
   describe "#email_link" do
     let(:user) { FactoryGirl.create(:user, email: "john@doe.com") }
+    let(:other_user) { FactoryGirl.create(:user, email: "frank@doe.com") }
     let(:recurrence) { FactoryGirl.create(:recurrence) }
 
-    it "should generate the link" do
-      helper.email_link([user], recurrence).should match(/\<a class="glyphicon glyphicon-envelope" href="mailto:john@doe.com?(.*)body=(.*)subject=(.*)" title="(.*)"\>\<\/a\>/)
+    it "generates a well formed link" do
+      regex =
+        /<a class="glyphicon glyphicon-envelope" href="mailto:john@doe.com; frank@doe.com\?body=(.*);subject=(.*)" title="(.*)"><\/a>/
+      expect(helper.email_link [user, other_user], recurrence).to match(regex)
     end
   end
 

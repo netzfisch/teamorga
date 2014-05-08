@@ -1,15 +1,15 @@
 module ApplicationHelper
 
   def active_link_if(*controller, link_text, link_path)
-    class_name = controller.include?(params[:controller]) ? "active" : nil 
-   
+    class_name = controller.include?(params[:controller]) ? "active" : nil
+
     content_tag(:li, class: class_name) do
       link_to link_text, link_path
     end
   end
 
   def markdown_parser(text)
-    options = { 
+    options = {
       filter_html: true,
       safe_links_only: true,
       autolink: true,
@@ -18,7 +18,7 @@ module ApplicationHelper
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
     mention_link(markdown.render(text)).html_safe unless text.nil?
   end
-  
+
   def mention_link(text)
     # before '@' matches: Start of string, White space, Not Word
     # after '@' matches: [a-z0-9_-], alternatively write \w for Word
@@ -35,13 +35,12 @@ module ApplicationHelper
   end
 
   def email_link(users, recurrence = nil)
-    unless users == []
-      mail_to(users.map(&:email).join(", "), name = "", html_options = {
-        class: "glyphicon glyphicon-envelope",
-        title: "eMail an Spieler dieser Gruppe versenden!",
-        subject: "#{ recurrence ? recurrence.event.category+' am '+recurrence.scheduled_to.strftime("%e. %B %Y") : "Rundmail 2all" }",
-        body: "Hey,\nwir brauchen mehr ..."
-        })
-     end
+    mail_to(users.map(&:email).join("; "), "", {
+      class: "glyphicon glyphicon-envelope",
+      title: "eMail an Spieler dieser Gruppe versenden!",
+      body: "Hey,\nwir brauchen mehr ...",
+      subject: "#{recurrence ? recurrence.event.category+' am '+recurrence.scheduled_to.strftime("%e. %B %Y") : 'Rundmail 2all'}"
+      }
+    ) unless users == []
   end
 end
