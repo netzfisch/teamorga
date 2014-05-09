@@ -3,7 +3,7 @@ ruby '1.9.3'
 
 gem 'unicorn'                 # robust production server
 
-gem 'rails', '3.2.14'         # Bundle edge? gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.18'         # Bundle edge? gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel 'has_secure_password'
 gem 'friendly_id'             # To get nice Urls
 gem 'will_paginate'           # To use WillPaginate
