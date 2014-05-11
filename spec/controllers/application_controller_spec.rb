@@ -10,12 +10,13 @@ describe ApplicationController do
   describe "handling of current_user" do
     controller do
       def index
+        @current_user = current_user
         render :nothing => true
       end
     end
 
     context "if NOT logged in" do
-      it "assigns nothing to @current_user" do
+      it "assigns nil as @current_user" do
         get :index
         expect(assigns :current_user).to be_nil
       end
@@ -25,7 +26,6 @@ describe ApplicationController do
       it "assigns the current_user as @current_user" do
         get :index, valid_session
         expect(assigns :current_user).to eq user
-        #expect(session[:user_id]).to eq user.id
       end
     end
   end
