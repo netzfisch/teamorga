@@ -7,7 +7,7 @@ describe ApplicationController do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  describe "handling of current_user" do
+  describe "#current_user" do
     controller do
       def index
         @current_user = current_user
@@ -15,29 +15,36 @@ describe ApplicationController do
       end
     end
 
-    context "if NOT logged in" do
-      it "assigns nil as @current_user" do
+    it "fetches the user object" do
+      session[:user_id] = user.id
+
+      expect(User).to receive(:find).with(session[:user_id])
+      get :index
+    end
+
+    context "if logged out" do
+      it "assigns nothing to @current_user" do
         get :index
         expect(assigns :current_user).to be_nil
       end
     end
 
     context "if logged in" do
-      it "assigns the current_user as @current_user" do
+      it "assigns current_user as @current_user" do
         get :index, valid_session
         expect(assigns :current_user).to eq user
       end
     end
   end
 
-  describe "handling of authentication" do
+  describe "authentication behaviour" do
     controller do
       def index
         render :nothing => true
       end
     end
 
-    context "if NOT logged in" do
+    context "if logged out" do
       it "redirects to the new_session_path" do
         get :index
         expect(response).to redirect_to(new_session_path)
