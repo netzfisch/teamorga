@@ -28,7 +28,7 @@ describe SessionsController do
       get :new, {}
       expect(response).to be_success
     end
-    
+
     it "renders the 'new' template" do
       get :new, {}
       expect(response).to render_template("new")
@@ -61,7 +61,7 @@ describe SessionsController do
         post :create, invalid_attributes
         expect(response).to render_template("new")
       end
-      
+
       it "sets a flash alert about the invalid email or password" do
        post :create, invalid_attributes
        expect(flash[:alert]).not_to be(nil)
@@ -72,7 +72,7 @@ describe SessionsController do
   describe "DELETE destroy" do
     it "destroys the requested session (signs the user out)" do
       delete :destroy, valid_session
-      expect(flash[:user_id]).to eq(nil)
+      expect(session[:user_id]).to eq(nil)
     end
 
     it "sets a flash notice about the successful destroyed session" do
