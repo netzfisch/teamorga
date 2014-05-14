@@ -37,6 +37,12 @@ module Teamorga
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Berlin'
 
+    # 2014-05-12 needed to introduce:
+    # I18n.enforce_available_locales will default to true in the future. If you really want to skip
+    # validation of your locale you can set config.I18n.enforce_available_locales = false to avoid
+    # 'deprecated' message or or if one of your gem compete for pre-loading, use
+    I18n.enforce_available_locales = true
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
