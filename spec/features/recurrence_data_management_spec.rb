@@ -1,5 +1,5 @@
 require 'spec_helper'
-   
+
 feature "recurrence data management" do
   given!(:group) { FactoryGirl.create(:group) }
   given(:event) { FactoryGirl.create(:event, category: "Training", remark: "be there") }
@@ -12,10 +12,10 @@ feature "recurrence data management" do
     visit event_path(recurrence.event)
 
     expect{
-      click_link "Delete"
+      click_link("Delete", match: :first)
     }.to change(Recurrence, :count).by(-1)
 
-    expect(current_path).to eq events_path
+    expect(current_path).to eq event_path(event)
     expect(page).not_to have_content "2013-10-15"
   end
-end  
+end
