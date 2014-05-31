@@ -9,7 +9,7 @@ feature "User session management" do
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     click_button "Log in"
-  end  
+  end
 
   context "has NO account" do
     scenario "registers with complete data" do
@@ -21,7 +21,7 @@ feature "User session management" do
 
       expect{ click_button "Sign up" }.to change(User, :count).by(1)
 
-      expect(current_path).to eq edit_user_path("john") 
+      expect(current_path).to eq edit_user_path("john")
       expect(page).to have_content "User was successfully created / Signed up!"
     end
 
@@ -34,7 +34,7 @@ feature "User session management" do
 
       expect{ click_button "Sign up" }.to change(User, :count).by(0)
 
-      expect(current_path).to eq users_path 
+      expect(current_path).to eq users_path
       expect(page).to have_content "Name can't be blank"
     end
 
@@ -47,7 +47,7 @@ feature "User session management" do
 
       expect{ click_button "Sign up" }.to change(User, :count).by(0)
 
-      expect(current_path).to eq users_path 
+      expect(current_path).to eq users_path
       expect(page).to have_content "Password doesn't match confirmation"
     end
   end
@@ -58,7 +58,7 @@ feature "User session management" do
       fill_in "Email", :with => user.email
       fill_in "Password", :with => "wrong-password"
       click_button "Log in"
-      
+
       expect(page).to have_text("Invalid email or password!")
     end
 
@@ -76,6 +76,6 @@ feature "User session management" do
       click_link "Logout"
 
       expect(page).to have_text("You must be logged in to access this section!")
-    end  
+    end
   end
-end  
+end
