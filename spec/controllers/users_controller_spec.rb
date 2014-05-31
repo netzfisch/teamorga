@@ -29,9 +29,9 @@ describe UsersController do
       expect(response).to render_template("index")
     end
 
-    it "renders the 'backoffice' layout" do
+    it "renders the 'application' layout" do
       get :index, {}, valid_session
-      expect(response).to render_template("layouts/sidebar_backoffice")
+      expect(response).to render_template("layouts/application")
     end
 
     it "assigns all users as @users" do

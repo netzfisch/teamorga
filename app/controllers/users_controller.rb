@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
   before_filter :correct_user, :only => [:edit, :update, :destroy]
   layout 'single_panel', :only => [:new]
-  layout 'sidebar_backoffice', :only => [:index]
+  # layout 'sidebar_backoffice', :only => [:index]
   # layout 'sidebar_default'
 
   # GET /
@@ -61,5 +61,4 @@ class UsersController < ApplicationController
       redirect_to root_url, notice: 'User was successfully deleted and signed out!'
     end
   end
-
 end
