@@ -200,7 +200,7 @@ describe UsersController do
         requested_user = User.create! valid_attributes
         admin = FactoryGirl.create(:user, :admin)
         delete :destroy, {:id => requested_user}, {:user_id => admin.id} #valid_session
-        expect(flash[:notice]).to match /successfully deleted!/
+        expect(flash[:notice]).to match(/successfully deleted!/)
       end
 
       it "redirects to the root url" do
@@ -213,7 +213,7 @@ describe UsersController do
 
     context "as ordinary user" do
       it "destroys himself as user" do
-        user = User.create! valid_attributes 
+        user = User.create! valid_attributes
         expect {
           delete :destroy, {:id => user}, {:user_id => user.id} #valid_session
         }.to change(User, :count).by(-1)
@@ -222,7 +222,7 @@ describe UsersController do
       it "sets a flash notice about the successful destroyed user" do
         user = User.create! valid_attributes
         delete :destroy, {:id =>  user}, {:user_id => user.id} #valid_session
-        expect(flash[:notice]).to match /deleted and signed out!/
+        expect(flash[:notice]).to match(/deleted and signed out!/)
       end
 
       it "redirects to the root url" do
