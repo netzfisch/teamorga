@@ -8,7 +8,12 @@
     <div id="wrap">
       <%= render "layouts/navigation" %>
       <div class="container">
-        <%= content_for?(:columns) ? yield(:columns) : yield %>
+      <% if content_for?(:columns) %>
+        <%= yield(:columns) %>
+      <% else %>
+        <%= render "shared/flash_message" %>
+        <%= yield %>
+      <% end %>
       </div>
     </div>
     <%= render "layouts/footer" %>
