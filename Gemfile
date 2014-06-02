@@ -19,7 +19,11 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'foreman'      # start all associated processes via 'Procfile'
+  gem 'foreman'     # start all associated processes via 'Procfile'
+  gem 'rspec-rails', '2.99' # specification driven framework
+  gem 'spring-commands-rspec' # prefork rails app for faster test
+  gem 'guard-rspec', '~> 4.0' # run automatic rspec tests
+  gem 'rb-inotify', '~> 0.9' # guard dependency
   gem 'ruby-debug19'
 #TODO try following gems
 #  gem 'railroady'   # creates an UML diagramm
@@ -29,16 +33,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails'        # specification driven framework
-  gem 'database_cleaner'   # to clear between test-runs Rspec/Cucumber's database  
+  gem 'database_cleaner'   # to clear between test-runs Rspec/Cucumber's database
   gem 'factory_girl_rails' # create factorys instead of fixures
   gem 'capybara'           # lets RSpec/Cucumber pretend to be a web browser
   gem 'launchy'            # a useful debugging aid for user stories, launches browser at breakpoint
-
-  gem 'spork-rails'
-  gem 'guard-rspec' # run automatic rspec tests
-  gem 'guard-spork'
-  gem 'rb-inotify', '~> 0.9' # guard dependency
+# gem 'spork-rails'
+# gem 'guard-spork'
 end
 
 # Gems used only for assets and not required
@@ -47,10 +47,10 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-# See https://github.com/seyhunak/twitter-bootstrap-rails, just using STATIC version: 
+# See https://github.com/seyhunak/twitter-bootstrap-rails, just using STATIC version:
 # $ rails generate bootstrap:install static
 # gem 'twitter-bootstrap-rails'
-# 
+#
 # Switch to bootstrap 3.x and SASS
   gem 'bootstrap-sass', '~> 3.0.1.0.rc'
 end
